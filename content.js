@@ -66,7 +66,7 @@ if (location.href.match(/Search/i)) {
             })
 
             x.href = "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1];
-            x.setAttribute('href',"https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
+            x.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
             x.target = "_blank";
             x.onclick = function() {
                 window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + st[1]);
@@ -121,15 +121,16 @@ if (location.href.match(/Search/i)) {
                 if (b.indexOf('>') < b.indexOf('<')) {
                     a += b.slice(0, b.indexOf('>') + 1)
                 }
-                a += `<div id='removed_content_${i}' style='background-color: black;color: white;margin: 20px;font-size: 20px;padding: 20px;border-radius: 5px;'>Removed very long pretentious textual crap. <button onclick='restoreContent(${i})'>Show Full Text</button></div>`
+                let randId = 'rest' + Math.round(String((new Date()) / 1 + Math.random() * 1e15, 16)).toString(24)
+                a += `<div id='removed_content_${i}' style='background-color: black;color: white;margin: 20px;font-size: 20px;padding: 20px;border-radius: 5px;'>Removed very long pretentious textual crap. <button id='${randId}'>Show Full Text</button></div>`
                 document.getElementById(eleId).innerHTML = a;
                 document.getElementById(eleId).setAttribute('data-content-html', html);
+                document.getElementById(randId).addEventListener('click', function() {
+                    document.getElementById('content' + i).innerHTML = document.getElementById('content' + i).getAttribute('data-content-html');
+                    return false;
+                })
 
             }
-        }
-        top.restoreContent = function(i) {
-            document.getElementById('content' + i).innerHTML = document.getElementById('content' + i).getAttribute('data-content-html');
-            return false;
         }
     }
 
