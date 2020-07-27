@@ -93,12 +93,17 @@ if (location.href.match(/Search/i)) {
 (function() {
     var parent = document.getElementById("stripMenuLevel2Container");
     var child = document.createElement("div");
-    child.innerHTML = location.href + "  " + String(new Date()).split(' ').slice(0, 4).join(' ');
+    let loc = location.href;
+    if(loc.match(/UserID=([0-9]+)/) && loc.match(/UserID=([0-9]+)/)[1]){
+        loc = `https://www.adultwork.com/UserID=` + loc.match(/UserID=([0-9]+)/)[1];
+    }
+    child.innerHTML = loc + "  " + String(new Date()).split(' ').slice(0, 4).join(' ');
     child.style.border = "1px solid grey";
     child.style.backgroundColor = "grey";
     child.style.color = "white";
     parent.after(child);
     child.innerHTML += '<div style="float: right;background-color: orange;font-size: 7pt;padding: 2px">KUCK Vision</div>'
+    
 })();
 
 (function() {
@@ -114,14 +119,14 @@ if (location.href.match(/Search/i)) {
         for (let i = 1; i < 24; i++) {
             let eleId = 'content' + i;
             let ele = document.getElementById(eleId);
-            if (ele && ele.innerHTML.length > maxLen) {
+            if (ele && ele.innerHTML.length > maxLen * 2) {
                 let html = ele.innerHTML;
                 let a = html.slice(0, maxLen)
                 let b = html.slice(maxLen)
                 if (b.indexOf('>') < b.indexOf('<')) {
                     a += b.slice(0, b.indexOf('>') + 1)
                 }
-                let randId = 'rest' + Math.round(String((new Date()) / 1 + Math.random() * 1e15, 16)).toString(24)
+                let randId = `restore_button_${i}`;
                 a += `<div id='removed_content_${i}' style='background-color: black;color: white;margin: 20px;font-size: 20px;padding: 20px;border-radius: 5px;'>Removed very long pretentious textual crap. <button id='${randId}'>Show Full Text</button></div>`
                 document.getElementById(eleId).innerHTML = a;
                 document.getElementById(eleId).setAttribute('data-content-html', html);
@@ -129,7 +134,6 @@ if (location.href.match(/Search/i)) {
                     document.getElementById('content' + i).innerHTML = document.getElementById('content' + i).getAttribute('data-content-html');
                     return false;
                 })
-
             }
         }
     }
@@ -172,7 +176,7 @@ if (location.href.match(/Search/i)) {
             if (xhr.status === 200) {
                 var a = xhr.responseText.match(/src=".+UserVeriPhotos[^"]+/g);
                 var b = false;
-                if (a[0]) {
+                if (a && a[0]) {
                     b = a[0].split('"');
                 }
                 if (b && b[1]) {
