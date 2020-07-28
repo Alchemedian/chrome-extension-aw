@@ -6,6 +6,15 @@ if (location.href.match(/Search/i)) {
         return div;
     }
 
+    function biggerHoverImages() {
+        document.querySelectorAll('.Padded a[onMouseover]').forEach(ele =>{ 
+            let om = ele.getAttribute('onmouseover')
+            ele.setAttribute('onmouseover', om.replace('/ci/i/','/ci/f/')
+            .replace('<img src=','<img style="max-width:600px;max-height:500px" src='))
+        })
+    }
+    biggerHoverImages()
+
     document.querySelectorAll("a.label[href='#']").forEach(function(x) {
         var st = String(x.getAttribute('onclick')).match(/sU\(([0-9]+)/);
         if (st && st[1]) {
