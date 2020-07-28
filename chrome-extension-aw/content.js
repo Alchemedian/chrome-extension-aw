@@ -10,7 +10,7 @@ if (location.href.match(/Search/i)) {
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele =>{ 
             let om = ele.getAttribute('onmouseover')
             ele.setAttribute('onmouseover', om.replace('/ci/i/','/ci/f/')
-            .replace('<img src=','<img style="max-width:600px;max-height:500px" src='))
+            .replace('<img src=','<img style="max-width:600px;max-height:600px" src='))
         })
     }
     biggerHoverImages()
