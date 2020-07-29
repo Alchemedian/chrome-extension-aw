@@ -144,7 +144,7 @@ if (location.href.match(/Search/i)) {
         `
         <span style="margin-left:20px;height:18px" id='ku_hide'>
         <input id="ku_check_phone" type="checkbox" ${window.localStorage.hideNoPhone ? 'checked' : ''}/>
-        <label for="ku_check_phone">Hide results without a phone</label></span>
+        <label style="font-size:10px;" for="ku_check_phone">Only show results whith a phone</label></span>
         ` : '';
 
     child.innerHTML += `${hidePhoneButton}
