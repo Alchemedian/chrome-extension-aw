@@ -1,21 +1,24 @@
 if (location.href.match(/Search/i)) {
-    function makeDiv(style, html) {
+    function makeDiv(style, html, className) {
         let div = document.createElement('div');
+        if (className) {
+            div.className = className
+        }
         div.style = style;
         div.innerHTML = html;
         return div;
     }
 
     function biggerHoverImages() {
-        document.querySelectorAll('.Padded a[onMouseover]').forEach(ele =>{ 
+        document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
             let om = ele.getAttribute('onmouseover')
-            ele.setAttribute('onmouseover', om.replace('/ci/i/','/ci/f/')
-            .replace('<img src=','<img style="max-width:600px;max-height:600px" src='))
+            ele.setAttribute('onmouseover', om.replace('/ci/i/', '/ci/f/')
+                .replace('<img src=', '<img style="max-width:600px;max-height:600px" src='))
         })
     }
     biggerHoverImages()
 
-    document.querySelectorAll("a.label[href='#']").forEach(function(x) {
+    document.querySelectorAll("a.label[href='#']").forEach(function (x) {
         var st = String(x.getAttribute('onclick')).match(/sU\(([0-9]+)/);
         if (st && st[1]) {
             fetch('https://www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(y => {
@@ -29,6 +32,10 @@ if (location.href.match(/Search/i)) {
                     tel = tel.replace(/\+44/g, '0')
                     x.after(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         `<div class='telexists'>☎️ ${tel}</div>`
+                    ))
+                } else {
+                    x.after(makeDiv(`visibility:hidden`,
+                        `<div class='nophone'></div>`
                     ))
                 }
                 let hour = y.match(/tdRI1[^<]+/)
@@ -68,7 +75,7 @@ if (location.href.match(/Search/i)) {
                     if (lastLogin[1]) {
                         lastLogin = lastLogin[1].match(/>(.+)</)[1]
                         x.after(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
-                            'Online: ' + lastLogin));
+                            'Online: ' + lastLogin, 'c_online'));
                     }
                 }
 
@@ -77,7 +84,7 @@ if (location.href.match(/Search/i)) {
             x.href = "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1];
             x.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
             x.target = "_blank";
-            x.onclick = function() {
+            x.onclick = function () {
                 window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + st[1]);
                 // window.open("https://drive.google.com/drive/search?q=" + st[1]);
                 window.open("https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1]);
@@ -85,13 +92,30 @@ if (location.href.match(/Search/i)) {
             };
         }
     })
-    document.querySelectorAll('img.Border').forEach(function(x) {
+    document.querySelectorAll('img.Border').forEach(function (x) {
         x.src = String(x.src).replace('/t/', '/i/')
     })
+
+    function hideNoPhone(hide) {
+        console.log('bea')
+        let show = hide ? 'none' : '';
+        window.document.querySelectorAll('.nophone').forEach(ele => {
+            let tdOne = ele.parentElement
+                .parentElement
+                .parentElement
+                .parentElement
+                .parentElement
+                .parentElement
+                .parentElement;
+            tdOne.style.display = show;
+            tdOne.nextElementSibling.nextElementSibling.style.display = show;
+            tdOne.nextElementSibling.style.display = show;
+        })
+    }
 }
 
-(function() {
-    var temp = function() {
+(function () {
+    var temp = function () {
         document.querySelectorAll("*").forEach((x) => x.removeAttribute('onselectstart'))
         document.querySelectorAll(".unSelectable").forEach((x) => x.className = '')
         document.querySelectorAll("*").forEach((x) => x.style.wordBreak = 'break-word')
@@ -99,11 +123,11 @@ if (location.href.match(/Search/i)) {
     setTimeout(temp, 250)
 })();
 
-(function() {
+(function () {
     var parent = document.getElementById("stripMenuLevel2Container");
     var child = document.createElement("div");
     let loc = location.href;
-    if(loc.match(/UserID=([0-9]+)/) && loc.match(/UserID=([0-9]+)/)[1]){
+    if (loc.match(/UserID=([0-9]+)/) && loc.match(/UserID=([0-9]+)/)[1]) {
         loc = `https://www.adultwork.com/UserID=` + loc.match(/UserID=([0-9]+)/)[1];
     }
     child.innerHTML = loc + "  " + String(new Date()).split(' ').slice(0, 4).join(' ');
@@ -111,17 +135,23 @@ if (location.href.match(/Search/i)) {
     child.style.backgroundColor = "grey";
     child.style.color = "white";
     parent.after(child);
-    child.innerHTML += '<div style="float: right;background-color: orange;font-size: 7pt;padding: 2px">KUCK Vision</div>'
-    
+    let hidePhoneButton = location.href.match(/Search/i) ?
+        `<button style="margin-left:20px;height:18px" id='ku_hide'>Hide results without a phone</button>` : '';
+
+    child.innerHTML += `${hidePhoneButton}
+    <div style="float: right;background-color: orange;font-size: 7pt;padding: 2px">    
+    KUCK Vision</div>`
+    if (location.href.match(/Search/i))
+        document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
 })();
 
-(function() {
+(function () {
     if (!/ViewProfile/.test(location.href)) {
         return;
     }
     try {
         document.getElementById("dPref").style.height = document.getElementById("dPref").children[0].offsetHeight + "px";
-    } catch (e) {}
+    } catch (e) { }
 
     function removeLongTextualCrap() {
         let maxLen = 2000;
@@ -139,7 +169,7 @@ if (location.href.match(/Search/i)) {
                 a += `<div id='removed_content_${i}' style='background-color: black;color: white;margin: 20px;font-size: 20px;padding: 20px;border-radius: 5px;'>Removed very long pretentious textual crap. <button id='${randId}'>Show Full Text</button></div>`
                 document.getElementById(eleId).innerHTML = a;
                 document.getElementById(eleId).setAttribute('data-content-html', html);
-                document.getElementById(randId).addEventListener('click', function() {
+                document.getElementById(randId).addEventListener('click', function () {
                     document.getElementById('content' + i).innerHTML = document.getElementById('content' + i).getAttribute('data-content-html');
                     return false;
                 })
@@ -150,7 +180,7 @@ if (location.href.match(/Search/i)) {
     function imgify() {
         var html = "";
         var c = 0;
-        document.querySelectorAll("img.border").forEach(function(x) {
+        document.querySelectorAll("img.border").forEach(function (x) {
             if (x.parentElement && x.parentElement.href && /(sIWishlist|:sI|:vSI)/.test(x.parentElement.href)) {
 
             } else {
@@ -160,7 +190,7 @@ if (location.href.match(/Search/i)) {
             }
         })
         c = 0;
-        document.querySelectorAll(".ImageBorder").forEach(function(x) {
+        document.querySelectorAll(".ImageBorder").forEach(function (x) {
             if (c++ < 55) {
                 html += "<img class='tomato' style='max-width:" + (window.innerWidth - 200) + "px' src='" + thumbToFull(x.src) + "'/>";
             }
@@ -178,10 +208,10 @@ if (location.href.match(/Search/i)) {
     }
 
     //verification pic
-    (function() {
+    (function () {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/dlgVerificationPhoto.asp?SelUserID=' + location.href.match(/UserID=([0-9]+)/)[1]);
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (xhr.status === 200) {
                 var a = xhr.responseText.match(/src=".+UserVeriPhotos[^"]+/g);
                 var b = false;
