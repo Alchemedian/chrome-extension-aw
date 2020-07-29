@@ -33,7 +33,7 @@ if (location.href.match(/Search/i)) {
                     let src = `https://content.adultwork.com/ci/l/${profileImages[uid][0][profileImages[uid][1]]}`
                     let om = ele.getAttribute('onmouseover')
                     ele.setAttribute('onmouseover',
-                        om.replace(/src=[^>]+/, `src=${src}`))
+                        om.replace(/src=[^>]+/, `src=${src}`)) 
                 }
             })
             ele.setAttribute('onmouseover', om.replace('/ci/i/', '/ci/f/')
