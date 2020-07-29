@@ -1,4 +1,7 @@
 if (location.href.match(/Search/i)) {
+    //disable picture hover tooltip
+    document.getElementById('ToolTip').style.display = "none";
+
     let profileImages = {}
     function parseProfileImages(body) {
         let imgs = []
@@ -7,9 +10,9 @@ if (location.href.match(/Search/i)) {
             if (img)
                 imgs.push(`https://content.adultwork.com/ci/l/${img}`)
         })
-        body.match(/[^"]+\/thumbnails\/[^"]+/g) && body.match(/[^"]+\/thumbnails\/[^"]+/g).slice(0, 6).forEach(item => {
+        body.match(/[^"]+\/thumbnails\/[^"]+/g) && body.match(/[^"]+\/thumbnails\/[^"]+/g).slice(0, 50).forEach(item => {
             let img = item;
-            if(!/\/m\//.test(img))
+            if (!/\/m\//.test(img))
                 img = img.replace('thumbnails', 'images')
             imgs.push(img)
         })
@@ -27,23 +30,48 @@ if (location.href.match(/Search/i)) {
     }
 
     function biggerHoverImages() {
+        document.body.appendChild(
+            makeDiv(`overflow:hidden;display:none;text-align: center; vertical-align:middle; position:absolute;top:0;right:0;z-index:1000;border:1px solid violet;padding:2px;background-color:white`,
+                '', 'pictureOverlay'))
+
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
             let uid = ele.href.match(/[0-9]+/)[0];
             let om = ele.getAttribute('onmouseover')
-            ele.addEventListener('mouseover', () => {
-                if (profileImages[uid]) {
-                    profileImages[uid][1]++;
-                    if (profileImages[uid][1] >= profileImages[uid][0].length)
-                        profileImages[uid][1] = 0
 
-                    let src = `${profileImages[uid][0][profileImages[uid][1]]}`
-                    let om = ele.getAttribute('onmouseover')
-                    ele.setAttribute('onmouseover',
-                        om.replace(/src=[^>]+/, `src=${src}`))
+            ele.firstElementChild.addEventListener('mousemove', () => {
+
+                let eleOverlay = document.getElementsByClassName('pictureOverlay')[0]
+
+                if (event.pageX < window.innerWidth / 2) {
+                    eleOverlay.style.left = (window.innerWidth / 2) + "px"
+                } else {
+                    eleOverlay.style.left = 0
                 }
+                eleOverlay.style.top = window.scrollY + "px"
+                eleOverlay.style.display = "block"
+                if (!profileImages[uid])
+                    return;
+
+                let ord = Math.floor(event.offsetX / ele.firstElementChild.width * (profileImages[uid][0].length - 1))
+                let src = `${profileImages[uid][0][ord]}`
+
+
+                eleOverlay.style.backgroundSize = "contain"
+                eleOverlay.style.backgroundRepeat = "no-repeat"
+                eleOverlay.style.backgroundPosition = "center center"
+                eleOverlay.style.backgroundImage = `url("${src}")`
+
+
+                let mw = Math.floor(window.innerWidth / 2)
+                let mh = Math.floor(window.innerHeight)
+     
+                eleOverlay.style.width = mw;
+                eleOverlay.style.height = mh - 6;
+
             })
-            ele.setAttribute('onmouseover', om.replace('/ci/i/', '/ci/f/')
-                .replace('<img src=', '<img style="max-width:600px;max-height:600px" src='))
+            ele.addEventListener('mouseout', () => {
+                document.getElementsByClassName('pictureOverlay')[0].style.display = "none"
+            })
 
         })
     }
