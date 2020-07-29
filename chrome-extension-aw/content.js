@@ -1,4 +1,15 @@
 if (location.href.match(/Search/i)) {
+    let profileImages = {}
+    function parseProfileImages(body) {
+        let imgs = []
+        body.match(/switchImage\([^)]+\)/g) && body.match(/switchImage\([^)]+\)/g).forEach(item => {
+            let img = unescape(item.split(',')[1].replace(/ /g, '').replace(/'/g, ''))
+            if (img)
+                imgs.push(img)
+        })
+        return imgs
+    }
+
     function makeDiv(style, html, className) {
         let div = document.createElement('div');
         if (className) {
@@ -11,9 +22,24 @@ if (location.href.match(/Search/i)) {
 
     function biggerHoverImages() {
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
+            let uid = ele.href.match(/[0-9]+/)[0];
             let om = ele.getAttribute('onmouseover')
+            ele.addEventListener('mouseover', () => {
+                if (profileImages[uid]) {
+                    profileImages[uid][1]++;
+                    if (profileImages[uid][1] >= profileImages[uid][0].length)
+                        profileImages[uid][1] = 0
+
+                    let src = `https://content.adultwork.com/ci/l/${profileImages[uid][0][profileImages[uid][1]]}`
+                    console.log(src, profileImages[uid])
+                    let om = ele.getAttribute('onmouseover')
+                    ele.setAttribute('onmouseover',
+                        om.replace(/src=[^>]+/, `src=${src}`))
+                }
+            })
             ele.setAttribute('onmouseover', om.replace('/ci/i/', '/ci/f/')
                 .replace('<img src=', '<img style="max-width:600px;max-height:600px" src='))
+
         })
     }
     biggerHoverImages()
@@ -22,6 +48,7 @@ if (location.href.match(/Search/i)) {
         var st = String(x.getAttribute('onclick')).match(/sU\(([0-9]+)/);
         if (st && st[1]) {
             fetch('https://www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(y => {
+                profileImages[st[1]] = [parseProfileImages(y), 0]
                 let tel = y.match(/"telephone".+/g)
                 if (tel && tel[0]) {
                     let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
