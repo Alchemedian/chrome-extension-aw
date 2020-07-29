@@ -52,7 +52,7 @@ if (location.href.match(/Search/i)) {
                 if (!profileImages[uid])
                     return;
 
-                let ord = Math.floor(event.offsetX / ele.firstElementChild.width * (profileImages[uid][0].length - 1))
+                let ord = Math.floor(event.offsetX / ele.firstElementChild.width * (profileImages[uid][0].length))
                 let src = `${profileImages[uid][0][ord]}`
 
 
