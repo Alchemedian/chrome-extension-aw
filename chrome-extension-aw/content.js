@@ -8,7 +8,10 @@ if (location.href.match(/Search/i)) {
                 imgs.push(`https://content.adultwork.com/ci/l/${img}`)
         })
         body.match(/[^"]+\/thumbnails\/[^"]+/g) && body.match(/[^"]+\/thumbnails\/[^"]+/g).slice(0, 6).forEach(item => {
-            imgs.push(item.replace('thumbnails', 'images'))
+            let img = item;
+            if(!/\/m\//.test(img))
+                img = img.replace('thumbnails', 'images')
+            imgs.push(img)
         })
         return imgs
     }
