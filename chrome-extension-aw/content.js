@@ -5,7 +5,10 @@ if (location.href.match(/Search/i)) {
         body.match(/switchImage\([^)]+\)/g) && body.match(/switchImage\([^)]+\)/g).forEach(item => {
             let img = unescape(item.split(',')[1].replace(/ /g, '').replace(/'/g, ''))
             if (img)
-                imgs.push(img)
+                imgs.push(`https://content.adultwork.com/ci/l/${img}`)
+        })
+        body.match(/[^"]+\/thumbnails\/[^"]+/g) && body.match(/[^"]+\/thumbnails\/[^"]+/g).slice(0, 6).forEach(item => {
+            imgs.push(item.replace('thumbnails', 'images'))
         })
         return imgs
     }
@@ -30,10 +33,10 @@ if (location.href.match(/Search/i)) {
                     if (profileImages[uid][1] >= profileImages[uid][0].length)
                         profileImages[uid][1] = 0
 
-                    let src = `https://content.adultwork.com/ci/l/${profileImages[uid][0][profileImages[uid][1]]}`
+                    let src = `${profileImages[uid][0][profileImages[uid][1]]}`
                     let om = ele.getAttribute('onmouseover')
                     ele.setAttribute('onmouseover',
-                        om.replace(/src=[^>]+/, `src=${src}`)) 
+                        om.replace(/src=[^>]+/, `src=${src}`))
                 }
             })
             ele.setAttribute('onmouseover', om.replace('/ci/i/', '/ci/f/')
