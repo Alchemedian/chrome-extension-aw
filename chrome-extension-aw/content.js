@@ -146,8 +146,8 @@ if (location.href.match(/Search/i)) {
     }
 
     // phone number info only becomes available after async calls
-    for (let i = 1; i < 20; i++) {
-        setTimeout(hideNoPhone, i * 100);
+    for (let i = 1; i < 30; i++) {
+        setTimeout(hideNoPhone, i * 200);
     }
 }
 
@@ -176,7 +176,7 @@ if (location.href.match(/Search/i)) {
         `
         <span style="margin-left:20px;height:18px" id='ku_hide'>
         <input id="ku_check_phone" type="checkbox" ${window.localStorage.hideNoPhone ? 'checked' : ''}/>
-        <label style="font-size:10px;" for="ku_check_phone">Only show results whith a phone</label></span>
+        <label style="font-size:10px;" for="ku_check_phone">Only show results with a phone</label></span>
         ` : '';
 
     child.innerHTML += `${hidePhoneButton}
