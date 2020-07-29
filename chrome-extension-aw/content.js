@@ -96,9 +96,9 @@ if (location.href.match(/Search/i)) {
         x.src = String(x.src).replace('/t/', '/i/')
     })
 
-    function hideNoPhone(hide) {
-        console.log('bea')
-        let show = hide ? 'none' : '';
+    function hideNoPhone() {
+        window.localStorage.hideNoPhone = document.getElementById('ku_check_phone').checked
+        let show = JSON.parse(window.localStorage.hideNoPhone) ? 'none' : '';
         window.document.querySelectorAll('.nophone').forEach(ele => {
             let tdOne = ele.parentElement
                 .parentElement
@@ -111,6 +111,11 @@ if (location.href.match(/Search/i)) {
             tdOne.nextElementSibling.nextElementSibling.style.display = show;
             tdOne.nextElementSibling.style.display = show;
         })
+    }
+
+    // phone number info only becomes available after async calls
+    for (let i = 1; i < 20; i++) {
+        setTimeout(hideNoPhone, i * 100);
     }
 }
 
@@ -136,7 +141,11 @@ if (location.href.match(/Search/i)) {
     child.style.color = "white";
     parent.after(child);
     let hidePhoneButton = location.href.match(/Search/i) ?
-        `<button style="margin-left:20px;height:18px" id='ku_hide'>Hide results without a phone</button>` : '';
+        `
+        <span style="margin-left:20px;height:18px" id='ku_hide'>
+        <input id="ku_check_phone" type="checkbox" ${window.localStorage.hideNoPhone ? 'checked' : ''}/>
+        <label for="ku_check_phone">Hide results without a phone</label></span>
+        ` : '';
 
     child.innerHTML += `${hidePhoneButton}
     <div style="float: right;background-color: orange;font-size: 7pt;padding: 2px">    
