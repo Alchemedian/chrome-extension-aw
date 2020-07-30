@@ -209,7 +209,7 @@ if (isSearchPage()) {
     })
 
     function hideNoPhone() {
-        window.localStorage.hideNoPhone = document.getElementById('ku_check_phone').checked
+        window.localStorage.hideNoPhone = String(document.getElementById('ku_check_phone').checked)
         let show = JSON.parse(window.localStorage.hideNoPhone) ? 'none' : '';
         window.document.querySelectorAll('.nophone').forEach(ele => {
             let tdOne = ele.parentElement
@@ -255,7 +255,7 @@ if (isSearchPage()) {
     let hidePhoneButton = isSearchPage() ?
         `
         <span style="margin-left:20px;height:18px" id='ku_hide'>
-        <input id="ku_check_phone" type="checkbox" ${window.localStorage.hideNoPhone ? 'checked' : ''}/>
+        <input id="ku_check_phone" type="checkbox" ${JSON.parse(window.localStorage.hideNoPhone) ? 'checked' : ''}/>
         <label style="font-size:10px;" for="ku_check_phone">Only show results with a phone</label></span>
         ` : '';
 
