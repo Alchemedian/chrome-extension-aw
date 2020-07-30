@@ -106,7 +106,9 @@ if (isSearchPage()) {
                 let rsearch = makeDiv('position:relative;bottom:40px', '')
                 rsearch.appendChild(bYandex)
                 rsearch.appendChild(bGoogle)
-                document.querySelectorAll(`a[href="javascript:vU(${st[1]})"]`)[0].after(rsearch)
+                let ancImg = document.querySelectorAll(`a[href="javascript:vU(${st[1]})"]`)
+                if (ancImg && ancImg[0])
+                    ancImg[0].after(rsearch)
 
                 let tel = y.match(/"telephone".+/g)
                 if (tel && tel[0]) {
