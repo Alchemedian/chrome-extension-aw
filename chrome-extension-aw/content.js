@@ -112,7 +112,7 @@ if (isSearchPage()) {
                     return false;
                 })
 
-                let rsearch = makeDiv('position:relative;bottom:40px', '')
+                let rsearch = makeDiv('position:relative;bottom:52px', '')
                 rsearch.appendChild(bYandex)
                 rsearch.appendChild(bGoogle)
                 let ancImg = document.querySelectorAll(`a[href="javascript:vU(${st[1]})"]`)
@@ -137,7 +137,7 @@ if (isSearchPage()) {
                     "></div>`
                     }
                     let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + st[1])
-                    let ruler = makeDiv(`padding-top:5px;height: 7px;display: inline-flex;pointer-events: none;`, stepDivs, 'ku_ruler')
+                    let ruler = makeDiv(`padding-top:17px;height: 7px;display: inline-flex;pointer-events: none;`, stepDivs, 'ku_ruler')
                     ruler.id = "ku_ruler_" + st[1]
                     rulerContainer.appendChild(ruler)
                     ancImg[0].after(rulerContainer)
