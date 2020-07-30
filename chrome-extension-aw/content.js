@@ -1,4 +1,4 @@
-function isSearchPage(){
+function isSearchPage() {
     return !!location.href.match(/\/Search.asp/)
 }
 
@@ -68,7 +68,7 @@ if (isSearchPage()) {
 
                 let mw = Math.floor(window.innerWidth / 2)
                 let mh = Math.floor(window.innerHeight)
-     
+
                 eleOverlay.style.width = mw;
                 eleOverlay.style.height = mh - 6;
 
@@ -119,7 +119,7 @@ if (isSearchPage()) {
                     />Rimming \(giving\)</.test(y) && services.push("<span title='Rimming'>👅</span>");
                     />Bareback</.test(y) && services.push("bb");
                     x.after(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
-                        hourly + '<div style="font-size:12px">' + services.join(' ') + '</div>'));
+                        hourly + '<div style="font-size:25px">' + services.join(' ') + '</div>'));
                 }
 
                 let nation = y.match(/Nationality:.+/s);
@@ -253,24 +253,43 @@ if (isSearchPage()) {
     function imgify() {
         var html = "";
         var c = 0;
+
+        function wrapImg(src) {
+            return `<div class='gallerywrapper' style='display:inline-flex'>
+                <div>
+                    <img style='max-width:${(window.innerWidth - 200)}px' src='${src}'/>
+                        <div style="position: relative;top: -40px;height: 40px;right: -40px;">
+                            <button style="margin:9px" onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
+                        </div>
+                </div>
+            </div>`;
+        }
+
+
         document.querySelectorAll("img.border").forEach(function (x) {
             if (x.parentElement && x.parentElement.href && /(sIWishlist|:sI|:vSI)/.test(x.parentElement.href)) {
 
             } else {
                 if (c++ < 55) {
-                    html += "<img style='max-width:" + (window.innerWidth - 200) + "px' src='" + thumbToFull(x.src) + "'/>";
+                    html += wrapImg(thumbToFull(x.src))
+
                 }
             }
         })
         c = 0;
         document.querySelectorAll(".ImageBorder").forEach(function (x) {
             if (c++ < 55) {
-                html += "<img class='tomato' style='max-width:" + (window.innerWidth - 200) + "px' src='" + thumbToFull(x.src) + "'/>";
+                html += wrapImg(thumbToFull(x.src));
             }
         })
         var child = document.createElement("div");
         child.innerHTML = html;
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
+
+        document.querySelectorAll(".gallerywrapper").forEach((el) => {
+            let div = makeDiv()
+            el.appendChild(div)
+        })
     }
     setTimeout(() => {
         imgify(), removeLongTextualCrap()
