@@ -256,7 +256,7 @@ if (isSearchPage()) {
         `
         <span style="margin-left:20px;height:18px" id='ku_hide'>
         <input id="ku_check_phone" type="checkbox" ${JSON.parse(window.localStorage.hideNoPhone) ? 'checked' : ''}/>
-        <label style="font-size:10px;" for="ku_check_phone">Only show results with a phone</label></span>
+        <label style="font-size:10px;vertical-align:top;padding-top:3px;display:inline-block" for="ku_check_phone">Only show results with a phone</label></span>
         ` : '';
 
     child.innerHTML += `${hidePhoneButton}
