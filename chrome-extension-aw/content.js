@@ -121,16 +121,26 @@ if (isSearchPage()) {
 
                     let stepDivs = ""
                     for (let i = 0; i < profileImages[st[1]][0].length; i++) {
+                        let wd = 10;
+                        if (profileImages[st[1]][0].length > 20) {
+                            wd = 5;
+                        }
+                        if (profileImages[st[1]][0].length > 30) {
+                            wd = 2;
+                        }
                         stepDivs += `<div class="ku_ordpos" style="display: flex;
-                    width: 100%;
-                    height:100%;
+                    width: ${wd}px;
+                    height:${wd}px;
                     border:1px solid #ccc;
-                    border-radius:10px;
+                    border-radius:${wd}px;
+                    margin: 0 1px
                     "></div>`
                     }
-                    let ruler = makeDiv(`padding-top:5px;height: 10px;display: flex;pointer-events: none;`, stepDivs, 'ku_ruler')
+                    let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + st[1])
+                    let ruler = makeDiv(`padding-top:5px;height: 7px;display: inline-flex;pointer-events: none;`, stepDivs, 'ku_ruler')
                     ruler.id = "ku_ruler_" + st[1]
-                    ancImg[0].after(ruler)
+                    rulerContainer.appendChild(ruler)
+                    ancImg[0].after(rulerContainer)
                 }
 
 
