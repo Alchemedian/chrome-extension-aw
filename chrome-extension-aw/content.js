@@ -59,7 +59,6 @@ if (isSearchPage()) {
                 let ord = Math.floor(event.offsetX / ele.firstElementChild.width * (profileImages[uid][0].length))
                 let src = `${profileImages[uid][0][ord]}`
 
-
                 eleOverlay.style.backgroundSize = "contain"
                 eleOverlay.style.backgroundRepeat = "no-repeat"
                 eleOverlay.style.backgroundPosition = "center center"
@@ -72,9 +71,14 @@ if (isSearchPage()) {
                 eleOverlay.style.width = mw;
                 eleOverlay.style.height = mh - 6;
 
+                document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
+                document.querySelectorAll(`#ku_ruler_${uid} .ku_ordpos:nth-child(${ord + 1})`)
+                    .forEach(ele => ele.style.backgroundColor = 'darkslategray')
+
             })
             ele.addEventListener('mouseout', () => {
-                document.getElementsByClassName('pictureOverlay')[0].style.display = "none"
+                document.getElementsByClassName('pictureOverlay')[0].style.display = "none";
+                document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
             })
 
         })
@@ -107,8 +111,23 @@ if (isSearchPage()) {
                 rsearch.appendChild(bYandex)
                 rsearch.appendChild(bGoogle)
                 let ancImg = document.querySelectorAll(`a[href="javascript:vU(${st[1]})"]`)
-                if (ancImg && ancImg[0])
+                if (ancImg && ancImg[0]) {
                     ancImg[0].after(rsearch)
+
+                    let stepDivs = ""
+                    for (let i = 0; i < profileImages[st[1]][0].length; i++) {
+                        stepDivs += `<div class="ku_ordpos" style="display: flex;
+                    width: 100%;
+                    height:100%;
+                    border:1px solid #ccc;
+                    border-radius:10px;
+                    "></div>`
+                    }
+                    let ruler = makeDiv(`padding-top:5px;height: 10px;display: flex;pointer-events: none;`, stepDivs, 'ku_ruler')
+                    ruler.id = "ku_ruler_" + st[1]
+                    ancImg[0].after(ruler)
+                }
+
 
                 let tel = y.match(/"telephone".+/g)
                 if (tel && tel[0]) {
