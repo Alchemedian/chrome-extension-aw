@@ -3,6 +3,11 @@ function isSearchPage() {
 }
 
 if (isSearchPage()) {
+    //disable picture click
+    document.querySelectorAll('.Padded a[onmousemove="overhere(event)"]').forEach(anc => {
+        anc.style.cursor = "ew-resize"
+        anc.addEventListener('click', () => event.preventDefault())
+    })
     //disable picture hover tooltip
     document.getElementById('ToolTip').style.display = "none";
 
