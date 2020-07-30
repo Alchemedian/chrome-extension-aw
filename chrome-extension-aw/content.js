@@ -153,7 +153,7 @@ if (isSearchPage()) {
                     tel = tels.join(', ')
                     tel = tel.replace(/\+?44/g, '0')
                     let telSearch = tel.split(",")[0]
-                    telSearch = telSearch + ' OR ' + telSearch.replace(/^0/,'+44')
+                    telSearch = telSearch + ' OR ' + telSearch.replace(/^0/, '+44')
                     anchorTag.after(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         `<div class='telexists'>☎️ ${tel}
                         <a style="text-align:center;color:white;display:block;padding-bottom:4px;" href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
@@ -211,11 +211,42 @@ if (isSearchPage()) {
             anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
             anchorTag.target = "_blank";
             anchorTag.onclick = function () {
-                window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + st[1]);
+                // window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + st[1]);
                 // window.open("https://drive.google.com/drive/search?q=" + st[1]);
                 window.open("https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1]);
                 return false;
             };
+            let ukp = makeDiv('', '');
+            let ukpButtonReviewSearch = document.createElement('button');
+            ukpButtonReviewSearch.innerHTML = "UKP Reviews"
+            ukpButtonReviewSearch.style.padding = "1px"
+            ukpButtonReviewSearch.addEventListener('click', () => {
+                event.preventDefault();
+                window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + st[1]);
+            })
+            ukp.appendChild(ukpButtonReviewSearch)
+
+            let dhid = document.createElement('div')
+            dhid.style.display = "none"
+            dhid.innerHTML = `
+            <form id="ku_ukp_form_${st[1]}" target="_blank" 
+            action="https://www.ukpunting.com/index.php?action=searchposts2"
+            method="post"
+            >
+            <input value="${st[1]}" name="query"/>
+            </form>
+            `
+            anchorTag.after(dhid)
+            let ukpButton = document.createElement('button');
+            ukpButton.style.padding = "1px"
+            ukpButton.innerHTML = "UKP"
+            ukpButton.addEventListener('click', () => {
+                event.preventDefault();
+                document.getElementById(`ku_ukp_form_${st[1]}`).submit()
+            })
+
+            ukp.appendChild(ukpButton)
+            anchorTag.after(ukp)
         }
     })
     document.querySelectorAll('img.Border').forEach(function (x) {
