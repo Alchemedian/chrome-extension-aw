@@ -1,4 +1,8 @@
-if (location.href.match(/Search/i)) {
+function isSearchPage(){
+    return !!location.href.match(/\/Search.asp/)
+}
+
+if (isSearchPage()) {
     //disable picture hover tooltip
     document.getElementById('ToolTip').style.display = "none";
 
@@ -31,7 +35,7 @@ if (location.href.match(/Search/i)) {
 
     function biggerHoverImages() {
         document.body.appendChild(
-            makeDiv(`overflow:hidden;display:none;text-align: center; vertical-align:middle; position:absolute;top:0;right:0;z-index:1000;border:1px solid violet;padding:2px;background-color:white`,
+            makeDiv(`display:none;position:absolute;top:0;right:0;z-index:1000;border:1px solid violet;padding:2px;background-color:#222`,
                 '', 'pictureOverlay'))
 
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
@@ -200,7 +204,7 @@ if (location.href.match(/Search/i)) {
     child.style.backgroundColor = "grey";
     child.style.color = "white";
     parent.after(child);
-    let hidePhoneButton = location.href.match(/Search/i) ?
+    let hidePhoneButton = isSearchPage() ?
         `
         <span style="margin-left:20px;height:18px" id='ku_hide'>
         <input id="ku_check_phone" type="checkbox" ${window.localStorage.hideNoPhone ? 'checked' : ''}/>
@@ -210,7 +214,7 @@ if (location.href.match(/Search/i)) {
     child.innerHTML += `${hidePhoneButton}
     <div style="float: right;background-color: orange;font-size: 7pt;padding: 2px">    
     KUCK Vision</div>`
-    if (location.href.match(/Search/i))
+    if (isSearchPage())
         document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
 })();
 
