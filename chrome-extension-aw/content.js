@@ -81,11 +81,33 @@ if (isSearchPage()) {
     }
     biggerHoverImages()
 
-    document.querySelectorAll("a.label[href='#']").forEach(function (x) {
-        var st = String(x.getAttribute('onclick')).match(/sU\(([0-9]+)/);
+    document.querySelectorAll("a.label[href='#']").forEach(function (anchorTag) {
+        var st = String(anchorTag.getAttribute('onclick')).match(/sU\(([0-9]+)/);
         if (st && st[1]) {
             fetch('https://www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(y => {
                 profileImages[st[1]] = [parseProfileImages(y), 0]
+
+                //add reverse image search
+                let bYandex = document.createElement('button');
+                bYandex.innerHTML = "Yandex"
+                bYandex.addEventListener('click', () => {
+                    window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[st[1]][0][0])}`)
+                    event.preventDefault()
+                    return false;
+                })
+                let bGoogle = document.createElement('button');
+                bGoogle.innerHTML = "Google"
+                bGoogle.addEventListener('click', () => {
+                    window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[st[1]][0][0])}`)
+                    event.preventDefault()
+                    return false;
+                })
+
+                let rsearch = makeDiv('position:relative;bottom:40px', '')
+                rsearch.appendChild(bYandex)
+                rsearch.appendChild(bGoogle)
+                document.querySelectorAll(`a[href="javascript:vU(${st[1]})"]`)[0].after(rsearch)
+
                 let tel = y.match(/"telephone".+/g)
                 if (tel && tel[0]) {
                     let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
@@ -94,11 +116,11 @@ if (isSearchPage()) {
                     }
                     tel = tels.join(', ')
                     tel = tel.replace(/\+44/g, '0')
-                    x.after(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                    anchorTag.after(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         `<div class='telexists'>☎️ ${tel}</div>`
                     ))
                 } else {
-                    x.after(makeDiv(`visibility:hidden`,
+                    anchorTag.after(makeDiv(`visibility:hidden`,
                         `<div class='nophone'></div>`
                     ))
                 }
@@ -118,7 +140,7 @@ if (isSearchPage()) {
                     />Foot Worship</.test(y) && services.push("<span title='Foot Worship'>👣</span>");
                     />Rimming \(giving\)</.test(y) && services.push("<span title='Rimming'>👅</span>");
                     />Bareback</.test(y) && services.push("bb");
-                    x.after(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                    anchorTag.after(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         hourly + '<div style="font-size:25px">' + services.join(' ') + '</div>'));
                 }
 
@@ -128,7 +150,7 @@ if (isSearchPage()) {
                     if (nation[1]) {
                         nation = nation[1].match(/>(.+)</) && nation[1].match(/>(.+)</)[1]
                         nation = nation ? nation : '???'
-                        x.after(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                        anchorTag.after(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                             nation));
                     }
                 }
@@ -138,17 +160,17 @@ if (isSearchPage()) {
                     lastLogin = lastLogin[0].split("\n")
                     if (lastLogin[1]) {
                         lastLogin = lastLogin[1].match(/>(.+)</)[1]
-                        x.after(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                        anchorTag.after(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                             'Online: ' + lastLogin, 'c_online'));
                     }
                 }
 
             })
 
-            x.href = "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1];
-            x.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
-            x.target = "_blank";
-            x.onclick = function () {
+            anchorTag.href = "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1];
+            anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
+            anchorTag.target = "_blank";
+            anchorTag.onclick = function () {
                 window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + st[1]);
                 // window.open("https://drive.google.com/drive/search?q=" + st[1]);
                 window.open("https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1]);
