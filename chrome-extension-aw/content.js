@@ -216,7 +216,7 @@ if (isSearchPage()) {
                 window.open("https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1]);
                 return false;
             };
-            let ukp = makeDiv('', '');
+            let ukp = makeDiv('width:140px', '');
             let ukpButtonReviewSearch = document.createElement('button');
             ukpButtonReviewSearch.innerHTML = "UKP Reviews"
             ukpButtonReviewSearch.style.padding = "1px"
