@@ -255,11 +255,12 @@ if (isSearchPage()) {
         var c = 0;
 
         function wrapImg(src) {
-            return `<div class='gallerywrapper' style='display:inline-flex'>
+            return `<div class='gallerywrapper' style='display:inline-flex;min-width: 375px;'>
                 <div>
                     <img style='max-width:${(window.innerWidth - 200)}px' src='${src}'/>
                         <div style="position: relative;top: -40px;height: 40px;right: -40px;">
                             <button style="margin:9px" onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
+                            <button style="margin:9px" onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
                         </div>
                 </div>
             </div>`;
@@ -286,10 +287,6 @@ if (isSearchPage()) {
         child.innerHTML = html;
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
 
-        document.querySelectorAll(".gallerywrapper").forEach((el) => {
-            let div = makeDiv()
-            el.appendChild(div)
-        })
     }
     setTimeout(() => {
         imgify(), removeLongTextualCrap()
