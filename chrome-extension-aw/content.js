@@ -139,12 +139,15 @@ if (isSearchPage()) {
 
                     let stepDivs = ""
                     for (let i = 0; i < profileImages[st[1]][0].length; i++) {
-                        let wd = 10;
+                        let wd = 15;
+                        if (profileImages[st[1]][0].length > 10) {
+                            wd = 12;
+                        }
                         if (profileImages[st[1]][0].length > 20) {
-                            wd = 5;
+                            wd = 7;
                         }
                         if (profileImages[st[1]][0].length > 30) {
-                            wd = 2;
+                            wd = 4;
                         }
                         stepDivs += `<div class="ku_ordpos" style="display: flex;
                     width: ${wd}px;
