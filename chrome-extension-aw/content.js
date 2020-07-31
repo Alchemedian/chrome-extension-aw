@@ -21,13 +21,18 @@ if (isSearchPage()) {
             wishList[0].parentElement.removeChild(wishList[0])
         }
 
-        domTemp.querySelectorAll("img.Border,td[background='images/border.gif'] img,img.ImageBorder,.cp__video__thumb img")
+        domTemp.querySelectorAll("img.Border,td[background='images/border.gif'] img,img.ImageBorder")
             .forEach(el => {
                 let img = el.src
                     .replace('/thumbnails/', '/images/')
                     .replace('/i/', '/l/')
                     .replace('/t/', '/l/')
 
+                imgUniq[img] = 1
+            })
+        domTemp.querySelectorAll(".cp__video__thumb img")
+            .forEach(el => {
+                let img = el.src
                 imgUniq[img] = 1
             })
         return Object.keys(imgUniq)
