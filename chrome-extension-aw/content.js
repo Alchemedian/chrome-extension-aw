@@ -144,10 +144,7 @@ if (isSearchPage()) {
                             wd = 12;
                         }
                         if (profileImages[st[1]][0].length > 20) {
-                            wd = 7;
-                        }
-                        if (profileImages[st[1]][0].length > 30) {
-                            wd = 4;
+                            wd = Math.round(310 / profileImages[st[1]][0].length) - 2
                         }
                         stepDivs += `<div class="ku_ordpos" style="display: flex;
                     width: ${wd}px;
