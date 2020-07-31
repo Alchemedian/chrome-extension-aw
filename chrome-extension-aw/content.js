@@ -13,8 +13,7 @@ if (isSearchPage()) {
 
     let profileImages = {}
     function parseProfileImages(body) {
-        let imgs = []
-
+        let imgUniq = {}
         let domTemp = document.createElement('div')
         domTemp.innerHTML = body
         let wishList = domTemp.querySelectorAll("form[name=frmUserWishlist]")
@@ -22,31 +21,15 @@ if (isSearchPage()) {
             wishList[0].parentElement.removeChild(wishList[0])
         }
 
-        domTemp.querySelectorAll("img.Border").forEach(el => {
-            let img = el.src;
-            img = img.replace(/\/(i|t)\//, '/l/')
-            imgs.push(img)
-        })
+        domTemp.querySelectorAll("img.Border,td[background='images/border.gif'] img,img.ImageBorder,.cp__video__thumb img")
+            .forEach(el => {
+                let img = el.src
+                    .replace('/thumbnails/', '/images/')
+                    .replace('/i/', '/l/')
+                    .replace('/t/', '/l/')
 
-        domTemp.querySelectorAll("td[background='images/border.gif'] img").forEach(el => {
-            let img = el.src;
-            if (!/\/m\//.test(img))
-                img = img.replace('thumbnails', 'images')
-            imgs.push(img)
-        })
-
-        domTemp.querySelectorAll("img.ImageBorder,.cp__video__thumb img").forEach(el => {
-            let img = el.src;
-            if (!/\/m\//.test(img))
-                img = img.replace('/thumbnails/', '/images/')
-            imgs.push(img)
-        })
-        let imgUniq = {}
-        imgs.forEach((item) => {
-            imgUniq[item] = 1
-        })
-
-
+                imgUniq[img] = 1
+            })
         return Object.keys(imgUniq)
     }
 
@@ -171,7 +154,7 @@ if (isSearchPage()) {
                     ancImg[0].after(rulerContainer)
                 }
 
-
+                let profileDetails = document.createElement('div')
                 let tel = profileHtml.match(/"telephone".+/g)
                 if (tel && tel[0]) {
                     let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
@@ -182,13 +165,13 @@ if (isSearchPage()) {
                     tel = tel.replace(/\+?44/g, '0')
                     let telSearch = tel.split(",")[0]
                     telSearch = telSearch + ' OR ' + telSearch.replace(/^0/, '+44')
-                    anchorTag.after(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                    profileDetails.append(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         `<div class='telexists'>☎️ ${tel}
                         <a style="text-align:center;color:white;display:block;padding-bottom:4px;" href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
                         </div>`
                     ))
                 } else {
-                    anchorTag.after(makeDiv(`visibility:hidden`,
+                    profileDetails.append(makeDiv(`visibility:hidden`,
                         `<div class='nophone'></div>`
                     ))
                 }
@@ -208,7 +191,7 @@ if (isSearchPage()) {
                     />Foot Worship</.test(profileHtml) && services.push("<span title='Foot Worship'>👣</span>");
                     />Rimming \(giving\)</.test(profileHtml) && services.push("<span title='Rimming'>👅</span>");
                     />Bareback</.test(profileHtml) && services.push("bb");
-                    anchorTag.after(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                    profileDetails.append(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         hourly + '<div style="font-size:25px">' + services.join(' ') + '</div>'));
                 }
 
@@ -218,21 +201,23 @@ if (isSearchPage()) {
                     if (nation[1]) {
                         nation = nation[1].match(/>(.+)</) && nation[1].match(/>(.+)</)[1]
                         nation = nation ? nation : '???'
-                        anchorTag.after(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                        profileDetails.append(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                             nation));
                     }
                 }
+
 
                 let lastLogin = profileHtml.match(/Last Login:.+/s);
                 if (lastLogin && lastLogin[0]) {
                     lastLogin = lastLogin[0].split("\n")
                     if (lastLogin[1]) {
                         lastLogin = lastLogin[1].match(/>(.+)</)[1]
-                        anchorTag.after(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                        profileDetails.append(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                             'Online: ' + lastLogin, 'c_online'));
+
                     }
                 }
-
+                anchorTag.after(profileDetails)
             })
 
             anchorTag.href = "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1];
@@ -284,6 +269,7 @@ if (isSearchPage()) {
         let show = JSON.parse(window.localStorage.hideNoPhone) ? 'none' : '';
         window.document.querySelectorAll('.nophone').forEach(ele => {
             let tdOne = ele.parentElement
+                .parentElement
                 .parentElement
                 .parentElement
                 .parentElement
