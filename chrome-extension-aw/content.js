@@ -136,22 +136,28 @@ if (isSearchPage()) {
                 let ancImg = document.querySelectorAll(`a[href="javascript:vU(${st[1]})"]`)
                 if (ancImg && ancImg[0]) {
                     ancImg[0].after(rsearch)
+                    let marginRight = 4
 
                     let stepDivs = ""
                     for (let i = 0; i < profileImages[st[1]][0].length; i++) {
                         let wd = 15;
                         if (profileImages[st[1]][0].length > 10) {
                             wd = 12;
+                            marginRight = 2
                         }
                         if (profileImages[st[1]][0].length > 20) {
                             wd = Math.round(310 / profileImages[st[1]][0].length) - 2
+                            marginRight = 1
+                        }
+                        if (profileImages[st[1]][0].length > 30) {
+                            marginRight = 0
                         }
                         stepDivs += `<div class="ku_ordpos" style="display: flex;
                     width: ${wd}px;
                     height:${wd}px;
                     border:1px solid #ccc;
                     border-radius:${wd}px;
-                    margin: 0 1px
+                    margin-right: ${marginRight}px;
                     "></div>`
                     }
                     let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + st[1])
