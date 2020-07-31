@@ -17,6 +17,10 @@ if (isSearchPage()) {
 
         let domTemp = document.createElement('div')
         domTemp.innerHTML = body
+        let wishList = domTemp.querySelectorAll("form[name=frmUserWishlist]")
+        if (wishList && wishList[0]) {
+            wishList[0].parentElement.removeChild(wishList[0])
+        }
 
         domTemp.querySelectorAll("img.Border").forEach(el => {
             let img = el.src;
@@ -31,7 +35,7 @@ if (isSearchPage()) {
             imgs.push(img)
         })
 
-        domTemp.querySelectorAll(".cp__video__thumb img").forEach(el => {
+        domTemp.querySelectorAll("img.ImageBorder,.cp__video__thumb img").forEach(el => {
             let img = el.src;
             if (!/\/m\//.test(img))
                 img = img.replace('/thumbnails/', '/images/')
