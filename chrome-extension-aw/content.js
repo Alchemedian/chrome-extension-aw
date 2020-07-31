@@ -14,18 +14,36 @@ if (isSearchPage()) {
     let profileImages = {}
     function parseProfileImages(body) {
         let imgs = []
-        body.match(/switchImage\([^)]+\)/g) && body.match(/switchImage\([^)]+\)/g).forEach(item => {
-            let img = unescape(item.split(',')[1].replace(/ /g, '').replace(/'/g, ''))
-            if (img)
-                imgs.push(`https://content.adultwork.com/ci/l/${img}`)
+
+        let domTemp = document.createElement('div')
+        domTemp.innerHTML = body
+
+        domTemp.querySelectorAll("img.Border").forEach(el => {
+            let img = el.src;
+            img = img.replace(/\/(i|t)\//, '/l/')
+            imgs.push(img)
         })
-        body.match(/[^"]+\/thumbnails\/[^"]+/g) && body.match(/[^"]+\/thumbnails\/[^"]+/g).slice(0, 50).forEach(item => {
-            let img = item;
+
+        domTemp.querySelectorAll("td[background='images/border.gif'] img").forEach(el => {
+            let img = el.src;
             if (!/\/m\//.test(img))
                 img = img.replace('thumbnails', 'images')
             imgs.push(img)
         })
-        return imgs
+
+        domTemp.querySelectorAll(".cp__video__thumb img").forEach(el => {
+            let img = el.src;
+            if (!/\/m\//.test(img))
+                img = img.replace('/thumbnails/', '/images/')
+            imgs.push(img)
+        })
+        let imgUniq = {}
+        imgs.forEach((item) => {
+            imgUniq[item] = 1
+        })
+
+
+        return Object.keys(imgUniq)
     }
 
     function makeDiv(style, html, className) {
@@ -93,8 +111,8 @@ if (isSearchPage()) {
     document.querySelectorAll("a.label[href='#']").forEach(function (anchorTag) {
         var st = String(anchorTag.getAttribute('onclick')).match(/sU\(([0-9]+)/);
         if (st && st[1]) {
-            fetch('https://www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(y => {
-                profileImages[st[1]] = [parseProfileImages(y), 0]
+            fetch('https://www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(profileHtml => {
+                profileImages[st[1]] = [parseProfileImages(profileHtml), 0]
 
                 //add reverse image search
                 let bYandex = document.createElement('button');
@@ -144,7 +162,7 @@ if (isSearchPage()) {
                 }
 
 
-                let tel = y.match(/"telephone".+/g)
+                let tel = profileHtml.match(/"telephone".+/g)
                 if (tel && tel[0]) {
                     let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
                     if (tels.length == 2 && tels[1].substr(-10) == tels[0].substr(-10)) {
@@ -164,27 +182,27 @@ if (isSearchPage()) {
                         `<div class='nophone'></div>`
                     ))
                 }
-                let hour = y.match(/tdRI1[^<]+/)
-                if (y && y[0]) {
-                    let hourly = y.match(/tdRI1[^<]+/)
+                let hour = profileHtml.match(/tdRI1[^<]+/)
+                if (profileHtml && profileHtml[0]) {
+                    let hourly = profileHtml.match(/tdRI1[^<]+/)
                     if (hourly) {
                         hourly = hourly[0].split('>')
                     }
                     hourly = hourly && hourly[1] ? hourly[1] : '???'
                     hourly = '£ ' + hourly + '/hr';
                     let services = [];
-                    />Oral without Protection</.test(y) && services.push("<span title='OWO'>😋</span>");
-                    />CIM</.test(y) && services.push("<span title='CIM'>👄</span>");
-                    /&quot;A&quot; Levels/.test(y) && services.push("<span title='Anal'>🍩</span>");
-                    />French Kissing</.test(y) && services.push("<span title='French Kissing'>😘</span>");
-                    />Foot Worship</.test(y) && services.push("<span title='Foot Worship'>👣</span>");
-                    />Rimming \(giving\)</.test(y) && services.push("<span title='Rimming'>👅</span>");
-                    />Bareback</.test(y) && services.push("bb");
+                    />Oral without Protection</.test(profileHtml) && services.push("<span title='OWO'>😋</span>");
+                    />CIM</.test(profileHtml) && services.push("<span title='CIM'>👄</span>");
+                    /&quot;A&quot; Levels/.test(profileHtml) && services.push("<span title='Anal'>🍩</span>");
+                    />French Kissing</.test(profileHtml) && services.push("<span title='French Kissing'>😘</span>");
+                    />Foot Worship</.test(profileHtml) && services.push("<span title='Foot Worship'>👣</span>");
+                    />Rimming \(giving\)</.test(profileHtml) && services.push("<span title='Rimming'>👅</span>");
+                    />Bareback</.test(profileHtml) && services.push("bb");
                     anchorTag.after(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         hourly + '<div style="font-size:25px">' + services.join(' ') + '</div>'));
                 }
 
-                let nation = y.match(/Nationality:.+/s);
+                let nation = profileHtml.match(/Nationality:.+/s);
                 if (nation && nation[0]) {
                     nation = nation[0].split("\n")
                     if (nation[1]) {
@@ -195,7 +213,7 @@ if (isSearchPage()) {
                     }
                 }
 
-                let lastLogin = y.match(/Last Login:.+/s);
+                let lastLogin = profileHtml.match(/Last Login:.+/s);
                 if (lastLogin && lastLogin[0]) {
                     lastLogin = lastLogin[0].split("\n")
                     if (lastLogin[1]) {
@@ -211,8 +229,6 @@ if (isSearchPage()) {
             anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
             anchorTag.target = "_blank";
             anchorTag.onclick = function () {
-                // window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + st[1]);
-                // window.open("https://drive.google.com/drive/search?q=" + st[1]);
                 window.open("https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1]);
                 return false;
             };
