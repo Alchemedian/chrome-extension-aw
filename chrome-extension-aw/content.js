@@ -300,6 +300,7 @@ if (isSearchPage()) {
     setTimeout(temp, 250)
 })();
 
+
 (function () {
     var parent = document.getElementById("stripMenuLevel2Container");
     var child = document.createElement("div");
