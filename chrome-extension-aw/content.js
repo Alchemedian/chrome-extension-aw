@@ -56,6 +56,8 @@ if (isSearchPage()) {
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
             let uid = ele.href.match(/[0-9]+/)[0];
             let om = ele.getAttribute('onmouseover')
+            if (!ele.firstElementChild)
+                return
 
             ele.firstElementChild.addEventListener('mousemove', () => {
                 let eleOverlay = document.getElementsByClassName('pictureOverlay')[0]
