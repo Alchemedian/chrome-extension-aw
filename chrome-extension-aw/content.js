@@ -393,7 +393,7 @@ if (isSearchPage()) {
         function wrapImg(src) {
             return `<div class='gallerywrapper' style='display:inline-flex;min-width: 375px;'>
                 <div>
-                    <img style='max-width:${(window.innerWidth - 200)}px' src='${src}'/>
+                    <img style='max-width:${(window.innerWidth - 200)}px;cursor:pointer' src='${src}' onclick="window.open('${src}')"/>
                         <div style="position: relative;top: -40px;height: 40px;right: -40px;">
                             <button style="margin:9px" onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
                             <button style="margin:9px" onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
