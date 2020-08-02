@@ -6,7 +6,14 @@ if (isSearchPage()) {
     //disable picture click
     document.querySelectorAll('.Padded a[onmousemove="overhere(event)"]').forEach(anc => {
         anc.style.cursor = "ew-resize"
-        anc.addEventListener('click', () => event.preventDefault())
+
+        anc.addEventListener('click', () => {
+            let uid = anc.getAttribute('href').match(/[0-9]+/)
+            if (uid && uid[0])
+                window.open(`${location.protocol}://www.adultwork.com/ViewProfile.asp?UserID=${uid[0]}`)
+
+            event.preventDefault()
+        })
     })
     //disable picture hover tooltip
     document.getElementById('ToolTip').style.display = "none";
