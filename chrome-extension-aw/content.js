@@ -60,7 +60,7 @@ if (isSearchPage()) {
         if (!profileImages[uid])
             return;
 
-        let src = `${profileImages[uid][0][ord]}`
+        let src = `${profileImages[uid][ord]}`
 
         eleOverlay.style.backgroundSize = "contain"
         eleOverlay.style.backgroundRepeat = "no-repeat"
@@ -103,7 +103,7 @@ if (isSearchPage()) {
                 return
 
             ele.firstElementChild.addEventListener('mousemove', () => {
-                let ord = Math.floor(event.offsetX / ele.firstElementChild.width * (profileImages[uid][0].length))
+                let ord = Math.floor(event.offsetX / ele.firstElementChild.width * (profileImages[uid].length))
                 showOverlayImage(uid, ord)
             })
             ele.addEventListener('mouseout', hideOverlayImage)
@@ -115,20 +115,20 @@ if (isSearchPage()) {
         var st = String(anchorTag.getAttribute('onclick')).match(/sU\(([0-9]+)/);
         if (st && st[1]) {
             fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(profileHtml => {
-                profileImages[st[1]] = [parseProfileImages(profileHtml), 0]
+                profileImages[st[1]] = parseProfileImages(profileHtml)
 
                 //add reverse image search
                 let bYandex = document.createElement('button');
                 bYandex.innerHTML = "Yandex"
                 bYandex.addEventListener('click', () => {
-                    window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[st[1]][0][0])}`)
+                    window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[st[1]][0])}`)
                     event.preventDefault()
                     return false;
                 })
                 let bGoogle = document.createElement('button');
                 bGoogle.innerHTML = "Google"
                 bGoogle.addEventListener('click', () => {
-                    window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[st[1]][0][0])}`)
+                    window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[st[1]][0])}`)
                     event.preventDefault()
                     return false;
                 })
@@ -142,17 +142,17 @@ if (isSearchPage()) {
                     let marginRight = 4
 
                     let dots = []
-                    for (let i = 0; i < profileImages[st[1]][0].length; i++) {
+                    for (let i = 0; i < profileImages[st[1]].length; i++) {
                         let wd = 15;
-                        if (profileImages[st[1]][0].length > 10) {
+                        if (profileImages[st[1]].length > 10) {
                             wd = 12;
                             marginRight = 2
                         }
-                        if (profileImages[st[1]][0].length > 20) {
-                            wd = Math.round(310 / profileImages[st[1]][0].length) - 2
+                        if (profileImages[st[1]].length > 20) {
+                            wd = Math.round(310 / profileImages[st[1]].length) - 2
                             marginRight = 1
                         }
-                        if (profileImages[st[1]][0].length > 30) {
+                        if (profileImages[st[1]].length > 30) {
                             marginRight = 0
                         }
                         let dot = document.createElement('div')
@@ -166,7 +166,7 @@ if (isSearchPage()) {
                         dot.addEventListener('mouseover', () => showOverlayImage(st[1], i))
                         dot.addEventListener('mouseout', hideOverlayImage)
                         dot.addEventListener('dblclick', () => {
-                            let src = profileImages[st[1]][0][i]
+                            let src = profileImages[st[1]][i]
                             window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}`)
                             window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}`)
 
