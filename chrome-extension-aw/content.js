@@ -175,6 +175,7 @@ if (isSearchPage()) {
                     }
                     let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + st[1])
                     let ruler = makeDiv(`padding-top:17px;height: 7px;display: inline-flex`, '', 'ku_ruler')
+                    ruler.title = "Double click to reverse image search"
                     ruler.id = "ku_ruler_" + st[1]
                     dots.forEach(dot => ruler.append(dot))
                     rulerContainer.appendChild(ruler)
