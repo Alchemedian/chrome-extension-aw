@@ -101,7 +101,7 @@ if (isSearchPage()) {
     document.querySelectorAll("a.label[href='#']").forEach(function (anchorTag) {
         var st = String(anchorTag.getAttribute('onclick')).match(/sU\(([0-9]+)/);
         if (st && st[1]) {
-            fetch('//www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(profileHtml => {
+            fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(profileHtml => {
                 profileImages[st[1]] = [parseProfileImages(profileHtml), 0]
 
                 //add reverse image search
@@ -223,11 +223,11 @@ if (isSearchPage()) {
                 anchorTag.after(profileDetails)
             })
 
-            anchorTag.href = "//www.adultwork.com/ViewProfile.asp?UserID=" + st[1];
+            anchorTag.href = location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + st[1];
             anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
             anchorTag.target = "_blank";
             anchorTag.onclick = function () {
-                window.open("//www.adultwork.com/ViewProfile.asp?UserID=" + st[1]);
+                window.open(location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + st[1]);
                 return false;
             };
             let ukp = makeDiv('width:140px', '');
@@ -305,7 +305,7 @@ if (isSearchPage()) {
     var child = document.createElement("div");
     let loc = location.href;
     if (loc.match(/UserID=([0-9]+)/) && loc.match(/UserID=([0-9]+)/)[1]) {
-        loc = `//www.adultwork.com/UserID=` + loc.match(/UserID=([0-9]+)/)[1];
+        loc = location.protocol + `//www.adultwork.com/UserID=` + loc.match(/UserID=([0-9]+)/)[1];
     }
     child.innerHTML = loc + "  " + String(new Date()).split(' ').slice(0, 4).join(' ');
     child.style.border = "1px solid grey";
