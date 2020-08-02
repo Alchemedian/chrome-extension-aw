@@ -306,8 +306,10 @@ if (isSearchPage()) {
     let loc = location.href;
     if (loc.match(/UserID=([0-9]+)/) && loc.match(/UserID=([0-9]+)/)[1]) {
         loc = location.protocol + `//www.adultwork.com/UserID=` + loc.match(/UserID=([0-9]+)/)[1];
+    } else if (loc.length > 80) {
+        loc = loc.split('?')[0] + "?..."
     }
-    child.innerHTML = loc + "  " + String(new Date()).split(' ').slice(0, 4).join(' ');
+    child.innerHTML = loc + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
     child.style.border = "1px solid grey";
     child.style.backgroundColor = "grey";
     child.style.color = "white";
