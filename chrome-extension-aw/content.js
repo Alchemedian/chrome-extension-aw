@@ -165,6 +165,12 @@ if (isSearchPage()) {
                         dot.style.marginRight = `${marginRight}px`
                         dot.addEventListener('mouseover', () => showOverlayImage(st[1], i))
                         dot.addEventListener('mouseout', hideOverlayImage)
+                        dot.addEventListener('dblclick', () => {
+                            let src = profileImages[st[1]][0][i]
+                            window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}`)
+                            window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}`)
+
+                        })
                         dots.push(dot)
                     }
                     let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + st[1])
