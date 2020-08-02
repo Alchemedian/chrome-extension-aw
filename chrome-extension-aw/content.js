@@ -48,9 +48,52 @@ if (isSearchPage()) {
         return div;
     }
 
+    function showOverlayImage(uid, ord) {
+        let eleOverlay = document.getElementsByClassName('pictureOverlay')[0]
+        if (event.pageX < window.innerWidth / 2) {
+            eleOverlay.style.left = (window.innerWidth / 2) + "px"
+        } else {
+            eleOverlay.style.left = 0
+        }
+        eleOverlay.style.top = window.scrollY + "px"
+        eleOverlay.style.display = "block"
+        if (!profileImages[uid])
+            return;
+
+        let src = `${profileImages[uid][0][ord]}`
+
+        eleOverlay.style.backgroundSize = "contain"
+        eleOverlay.style.backgroundRepeat = "no-repeat"
+        eleOverlay.style.backgroundPosition = "center center"
+        eleOverlay.style.backgroundImage = `url("${src}")`
+
+
+        let mw = Math.floor(window.innerWidth / 2)
+        let mh = Math.floor(window.innerHeight)
+
+        eleOverlay.style.width = mw;
+        eleOverlay.style.height = mh - 6;
+
+        document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
+        document.querySelectorAll(`#ku_ruler_${uid} .ku_ordpos:nth-child(${ord + 1})`)
+            .forEach(ele => ele.style.backgroundColor = 'darkslategray')
+    }
+
+    function hideOverlayImage() {
+        document.getElementsByClassName('pictureOverlay')[0].style.display = "none";
+        document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
+    }
+
     function biggerHoverImages() {
         document.body.appendChild(
-            makeDiv(`display:none;position:absolute;top:0;right:0;z-index:1000;border:1px solid violet;padding:2px;background-color:#222`,
+            makeDiv(`display:none;
+            position:absolute;
+            top:0;
+            right:0;
+            z-index:1000;
+            border:1px solid violet;
+            padding:2px;
+            background-color:#222`,
                 '', 'pictureOverlay'))
 
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
@@ -60,42 +103,10 @@ if (isSearchPage()) {
                 return
 
             ele.firstElementChild.addEventListener('mousemove', () => {
-                let eleOverlay = document.getElementsByClassName('pictureOverlay')[0]
-                if (event.pageX < window.innerWidth / 2) {
-                    eleOverlay.style.left = (window.innerWidth / 2) + "px"
-                } else {
-                    eleOverlay.style.left = 0
-                }
-                eleOverlay.style.top = window.scrollY + "px"
-                eleOverlay.style.display = "block"
-                if (!profileImages[uid])
-                    return;
-
                 let ord = Math.floor(event.offsetX / ele.firstElementChild.width * (profileImages[uid][0].length))
-                let src = `${profileImages[uid][0][ord]}`
-
-                eleOverlay.style.backgroundSize = "contain"
-                eleOverlay.style.backgroundRepeat = "no-repeat"
-                eleOverlay.style.backgroundPosition = "center center"
-                eleOverlay.style.backgroundImage = `url("${src}")`
-
-
-                let mw = Math.floor(window.innerWidth / 2)
-                let mh = Math.floor(window.innerHeight)
-
-                eleOverlay.style.width = mw;
-                eleOverlay.style.height = mh - 6;
-
-                document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
-                document.querySelectorAll(`#ku_ruler_${uid} .ku_ordpos:nth-child(${ord + 1})`)
-                    .forEach(ele => ele.style.backgroundColor = 'darkslategray')
-
+                showOverlayImage(uid, ord)
             })
-            ele.addEventListener('mouseout', () => {
-                document.getElementsByClassName('pictureOverlay')[0].style.display = "none";
-                document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
-            })
-
+            ele.addEventListener('mouseout', hideOverlayImage)
         })
     }
     biggerHoverImages()
@@ -130,7 +141,7 @@ if (isSearchPage()) {
                     ancImg[0].after(rsearch)
                     let marginRight = 4
 
-                    let stepDivs = ""
+                    let dots = []
                     for (let i = 0; i < profileImages[st[1]][0].length; i++) {
                         let wd = 15;
                         if (profileImages[st[1]][0].length > 10) {
@@ -144,19 +155,25 @@ if (isSearchPage()) {
                         if (profileImages[st[1]][0].length > 30) {
                             marginRight = 0
                         }
-                        stepDivs += `<div class="ku_ordpos" style="display: flex;
-                    width: ${wd}px;
-                    height:${wd}px;
-                    border:1px solid #ccc;
-                    border-radius:${wd}px;
-                    margin-right: ${marginRight}px;
-                    "></div>`
+                        let dot = document.createElement('div')
+                        dot.className = 'ku_ordpos'
+                        dot.style.display = 'inline'
+                        dot.style.width = `${wd}px`
+                        dot.style.height = `${wd}px`
+                        dot.style.borderRadius = `${wd}px`
+                        dot.style.border = `1px solid #ccc`
+                        dot.style.marginRight = `${marginRight}px`
+                        dot.addEventListener('mouseover', () => showOverlayImage(st[1], i))
+                        dot.addEventListener('mouseout', hideOverlayImage)
+                        dots.push(dot)
                     }
                     let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + st[1])
-                    let ruler = makeDiv(`padding-top:17px;height: 7px;display: inline-flex;pointer-events: none;`, stepDivs, 'ku_ruler')
+                    let ruler = makeDiv(`padding-top:17px;height: 7px;display: inline-flex`, '', 'ku_ruler')
                     ruler.id = "ku_ruler_" + st[1]
+                    dots.forEach(dot => ruler.append(dot))
                     rulerContainer.appendChild(ruler)
                     ancImg[0].after(rulerContainer)
+                    // rulerContainer.addEventListener('mouseout', hideOverlayImage)
                 }
 
                 let profileDetails = document.createElement('div')
