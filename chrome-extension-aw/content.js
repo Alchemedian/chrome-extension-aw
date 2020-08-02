@@ -10,7 +10,7 @@ if (isSearchPage()) {
         anc.addEventListener('click', () => {
             let uid = anc.getAttribute('href').match(/[0-9]+/)
             if (uid && uid[0])
-                window.open(`${location.protocol}://www.adultwork.com/ViewProfile.asp?UserID=${uid[0]}`)
+                window.open(`${location.protocol}//www.adultwork.com/ViewProfile.asp?UserID=${uid[0]}`)
 
             event.preventDefault()
         })
