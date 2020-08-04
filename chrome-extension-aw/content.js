@@ -106,7 +106,6 @@ if (isSearchPage()) {
             let uid = ele.href.match(/[0-9]+/)[0];
             if (!ele.firstElementChild)
                 return
-            ele.style.cursor = "ew-resize"
             ele.firstElementChild.addEventListener('mousemove', () => {
                 if (!profileImages[uid])
                     return
@@ -123,6 +122,9 @@ if (isSearchPage()) {
         if (st && st[1]) {
             fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(profileHtml => {
                 profileImages[st[1]] = parseProfileImages(profileHtml)
+                let aImg = document.querySelectorAll(`a[href="javascript:vU(${st[1]})"`)
+                if (aImg && aImg[0])
+                    aImg[0].style.cursor = "ew-resize"
 
                 //add reverse image search
                 let bYandex = document.createElement('button');
