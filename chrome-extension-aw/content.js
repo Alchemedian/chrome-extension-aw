@@ -183,13 +183,18 @@ if (isSearchPage()) {
                             let src = profileImages[uid][i]
                             window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}`)
                             window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}`)
-
+                        })
+                        dot.addEventListener('contextmenu', (e) => {
+                            let src = profileImages[uid][i]
+                            e.preventDefault()
+                            window.open(`${src}`)
+                            return false
                         })
                         dots.push(dot)
                     }
                     let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + uid)
                     let ruler = makeDiv(`padding-top:17px;height: 7px;display: inline-flex`, '', 'ku_ruler')
-                    ruler.title = "Double click to reverse image search"
+                    ruler.title = "\nDouble click to reverse image search\nRight click to open in a new window\n"
                     ruler.id = "ku_ruler_" + uid
                     dots.forEach(dot => ruler.append(dot))
                     rulerContainer.appendChild(ruler)
