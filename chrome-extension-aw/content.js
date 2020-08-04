@@ -119,7 +119,7 @@ if (isSearchPage()) {
 
     document.querySelectorAll("a.label[href='#']").forEach(function (anchorTag) {
         var st = String(anchorTag.getAttribute('onclick')).match(/sU\(([0-9]+)/);
-        if (!st && !st[1])
+        if (!st || !st[1])
             return;
         let uid = st[1]
 
