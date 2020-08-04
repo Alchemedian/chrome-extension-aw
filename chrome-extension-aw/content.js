@@ -5,8 +5,7 @@ function isSearchPage() {
 if (isSearchPage()) {
     //disable picture click
     document.querySelectorAll('.Padded a[onmousemove="overhere(event)"]').forEach(anc => {
-        anc.style.cursor = "ew-resize"
-
+        anc.style.cursor = "wait"
         anc.addEventListener('click', () => {
             let uid = anc.getAttribute('href').match(/[0-9]+/)
             if (uid && uid[0])
@@ -105,11 +104,12 @@ if (isSearchPage()) {
 
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
             let uid = ele.href.match(/[0-9]+/)[0];
-            let om = ele.getAttribute('onmouseover')
             if (!ele.firstElementChild)
                 return
-
+            ele.style.cursor = "ew-resize"
             ele.firstElementChild.addEventListener('mousemove', () => {
+                if (!profileImages[uid])
+                    return
                 let ord = Math.floor(event.offsetX / ele.firstElementChild.width * (profileImages[uid].length))
                 showOverlayImage(uid, ord)
             })
