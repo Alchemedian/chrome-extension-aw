@@ -119,10 +119,15 @@ if (isSearchPage()) {
 
     document.querySelectorAll("a.label[href='#']").forEach(function (anchorTag) {
         var st = String(anchorTag.getAttribute('onclick')).match(/sU\(([0-9]+)/);
-        if (st && st[1]) {
-            fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + st[1]).then(y => y.text()).then(profileHtml => {
-                profileImages[st[1]] = parseProfileImages(profileHtml)
-                let aImg = document.querySelectorAll(`a[href="javascript:vU(${st[1]})"`)
+        if (!st && !st[1])
+            return;
+        let uid = st[1]
+
+        fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + uid)
+            .then(y => y.text())
+            .then(profileHtml => {
+                profileImages[uid] = parseProfileImages(profileHtml)
+                let aImg = document.querySelectorAll(`a[href="javascript:vU(${uid})"`)
                 if (aImg && aImg[0])
                     aImg[0].style.cursor = "ew-resize"
 
@@ -130,14 +135,14 @@ if (isSearchPage()) {
                 let bYandex = document.createElement('button');
                 bYandex.innerHTML = "Yandex"
                 bYandex.addEventListener('click', () => {
-                    window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[st[1]][0])}`)
+                    window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[uid][0])}`)
                     event.preventDefault()
                     return false;
                 })
                 let bGoogle = document.createElement('button');
                 bGoogle.innerHTML = "Google"
                 bGoogle.addEventListener('click', () => {
-                    window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[st[1]][0])}`)
+                    window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[uid][0])}`)
                     event.preventDefault()
                     return false;
                 })
@@ -145,23 +150,23 @@ if (isSearchPage()) {
                 let rsearch = makeDiv('position:relative;bottom:52px', '')
                 rsearch.appendChild(bYandex)
                 rsearch.appendChild(bGoogle)
-                let ancImg = document.querySelectorAll(`a[href="javascript:vU(${st[1]})"]`)
+                let ancImg = document.querySelectorAll(`a[href="javascript:vU(${uid})"]`)
                 if (ancImg && ancImg[0]) {
                     ancImg[0].after(rsearch)
                     let marginRight = 4
 
                     let dots = []
-                    for (let i = 0; i < profileImages[st[1]].length; i++) {
+                    for (let i = 0; i < profileImages[uid].length; i++) {
                         let wd = 15;
-                        if (profileImages[st[1]].length > 10) {
+                        if (profileImages[uid].length > 10) {
                             wd = 12;
                             marginRight = 2
                         }
-                        if (profileImages[st[1]].length > 20) {
-                            wd = Math.round(310 / profileImages[st[1]].length) - 2
+                        if (profileImages[uid].length > 20) {
+                            wd = Math.round(310 / profileImages[uid].length) - 2
                             marginRight = 1
                         }
-                        if (profileImages[st[1]].length > 30) {
+                        if (profileImages[uid].length > 30) {
                             marginRight = 0
                         }
                         let dot = document.createElement('div')
@@ -172,20 +177,20 @@ if (isSearchPage()) {
                         dot.style.borderRadius = `${wd}px`
                         dot.style.border = `1px solid #ccc`
                         dot.style.marginRight = `${marginRight}px`
-                        dot.addEventListener('mouseover', () => showOverlayImage(st[1], i))
+                        dot.addEventListener('mouseover', () => showOverlayImage(uid, i))
                         dot.addEventListener('mouseout', hideOverlayImage)
                         dot.addEventListener('dblclick', () => {
-                            let src = profileImages[st[1]][i]
+                            let src = profileImages[uid][i]
                             window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}`)
                             window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}`)
 
                         })
                         dots.push(dot)
                     }
-                    let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + st[1])
+                    let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + uid)
                     let ruler = makeDiv(`padding-top:17px;height: 7px;display: inline-flex`, '', 'ku_ruler')
                     ruler.title = "Double click to reverse image search"
-                    ruler.id = "ku_ruler_" + st[1]
+                    ruler.id = "ku_ruler_" + uid
                     dots.forEach(dot => ruler.append(dot))
                     rulerContainer.appendChild(ruler)
                     ancImg[0].after(rulerContainer)
@@ -258,45 +263,45 @@ if (isSearchPage()) {
                 anchorTag.after(profileDetails)
             })
 
-            anchorTag.href = location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + st[1];
-            anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + st[1])
-            anchorTag.target = "_blank";
-            anchorTag.onclick = function () {
-                window.open(location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + st[1]);
-                return false;
-            };
-            let ukp = makeDiv('width:140px', '');
-            let ukpButtonReviewSearch = document.createElement('button');
-            ukpButtonReviewSearch.innerHTML = "UKP Reviews"
-            ukpButtonReviewSearch.style.padding = "1px"
-            ukpButtonReviewSearch.addEventListener('click', () => {
-                event.preventDefault();
-                window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + st[1]);
-            })
-            ukp.appendChild(ukpButtonReviewSearch)
+        anchorTag.href = location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + uid;
+        anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + uid)
+        anchorTag.target = "_blank";
+        anchorTag.onclick = function () {
+            window.open(location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + uid);
+            return false;
+        };
+        let ukp = makeDiv('width:140px', '');
+        let ukpButtonReviewSearch = document.createElement('button');
+        ukpButtonReviewSearch.innerHTML = "UKP Reviews"
+        ukpButtonReviewSearch.style.padding = "1px"
+        ukpButtonReviewSearch.addEventListener('click', () => {
+            event.preventDefault();
+            window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + uid);
+        })
+        ukp.appendChild(ukpButtonReviewSearch)
 
-            let dhid = document.createElement('div')
-            dhid.style.display = "none"
-            dhid.innerHTML = `
-            <form id="ku_ukp_form_${st[1]}" target="_blank" 
+        let dhid = document.createElement('div')
+        dhid.style.display = "none"
+        dhid.innerHTML = `
+            <form id="ku_ukp_form_${uid}" target="_blank" 
             action="https://www.ukpunting.com/index.php?action=searchposts2"
             method="post"
             >
-            <input value="${st[1]}" name="query"/>
+            <input value="${uid}" name="query"/>
             </form>
             `
-            anchorTag.after(dhid)
-            let ukpButton = document.createElement('button');
-            ukpButton.style.padding = "1px"
-            ukpButton.innerHTML = "UKP"
-            ukpButton.addEventListener('click', () => {
-                event.preventDefault();
-                document.getElementById(`ku_ukp_form_${st[1]}`).submit()
-            })
+        anchorTag.after(dhid)
+        let ukpButton = document.createElement('button');
+        ukpButton.style.padding = "1px"
+        ukpButton.innerHTML = "UKP"
+        ukpButton.addEventListener('click', () => {
+            event.preventDefault();
+            document.getElementById(`ku_ukp_form_${uid}`).submit()
+        })
 
-            ukp.appendChild(ukpButton)
-            anchorTag.after(ukp)
-        }
+        ukp.appendChild(ukpButton)
+        anchorTag.after(ukp)
+
     })
     document.querySelectorAll('img.Border').forEach(function (x) {
         x.src = String(x.src).replace('/t/', '/i/')
