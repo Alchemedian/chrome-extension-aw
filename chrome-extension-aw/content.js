@@ -7,6 +7,33 @@ function isProfilePage() {
 }
 
 if (isSearchPage()) {
+
+    //hide featured members crap
+    let featuredMembers = document.querySelector('.HomePageTabLink')
+    if (featuredMembers && featuredMembers.innerText === "Featured Members") {
+        let fmParent =
+            featuredMembers.parentElement.parentElement.parentElement
+                .parentElement.parentElement.parentElement.parentElement
+        fmParent.style.display = "none"
+        let div = document.createElement('div')
+        div.id = "ku_featured_members_hidden"
+        div.innerHTML = "<i>Featured Members</i> bullshit hidden. Click here to restore it."
+        div.style.background = "black"
+        div.style.color = "white"
+        div.style.padding = "2px"
+        div.style.cursor = "pointer"
+        div.addEventListener('click', () => {
+            document.getElementById('ku_featured_members_hidden').style.display = "none"
+            fmParent.style.display = ""
+        })
+        setTimeout(() => {
+            let tb = document.getElementById('ku_top_bar')
+            if (tb)
+                tb.after(div)
+        }, 1000)
+    }
+
+
     //disable picture click
     document.querySelectorAll('.Padded a[onmousemove="overhere(event)"]').forEach(anc => {
         anc.style.cursor = "wait"
@@ -304,7 +331,7 @@ if (isSearchPage()) {
         let ukpButton = document.createElement('button');
         ukpButton.style.padding = "1px"
         ukpButton.innerHTML = "UKP"
-        ukpButton.style.cursor="pointer"
+        ukpButton.style.cursor = "pointer"
         ukpButton.addEventListener('click', () => {
             event.preventDefault();
             document.getElementById(`ku_ukp_form_${uid}`).submit()
@@ -362,6 +389,7 @@ if (isSearchPage() || isProfilePage()) {
             loc = loc.split('?')[0] + "?..."
         }
         child.innerHTML = loc + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
+        child.id = "ku_top_bar"
         child.style.border = "1px solid grey";
         child.style.backgroundColor = "grey";
         child.style.color = "white";
