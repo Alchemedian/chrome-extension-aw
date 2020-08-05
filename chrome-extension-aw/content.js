@@ -508,7 +508,7 @@ if (isSearchPage() || isProfilePage()) {
         child.innerHTML = html;
 
         let downloadButton = document.createElement('button')
-        downloadButton.style.padding = "10px"
+        downloadButton.style.padding = "20px 150px"
         downloadButton.style.margin = "25px"
         downloadButton.style.fontSize = "20px"
         downloadButton.style.cursor = "pointer"
