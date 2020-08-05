@@ -283,6 +283,7 @@ if (isSearchPage()) {
         let ukpButtonReviewSearch = document.createElement('button');
         ukpButtonReviewSearch.innerHTML = "UKP Reviews"
         ukpButtonReviewSearch.style.padding = "1px"
+        ukpButtonReviewSearch.style.cursor = "pointer"
         ukpButtonReviewSearch.addEventListener('click', () => {
             event.preventDefault();
             window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + uid);
@@ -303,6 +304,7 @@ if (isSearchPage()) {
         let ukpButton = document.createElement('button');
         ukpButton.style.padding = "1px"
         ukpButton.innerHTML = "UKP"
+        ukpButton.style.cursor="pointer"
         ukpButton.addEventListener('click', () => {
             event.preventDefault();
             document.getElementById(`ku_ukp_form_${uid}`).submit()
@@ -475,7 +477,7 @@ if (isSearchPage() || isProfilePage()) {
 
         var child = document.createElement("div");
         child.innerHTML = html;
-        
+
         // let downloadButton = document.createElement('button')
         // downloadButton.innerHTML = "Download All Images"
         // downloadButton.addEventListener('click', () => images.forEach(downloadImage))
