@@ -480,8 +480,9 @@ if (isSearchPage() || isProfilePage()) {
         function downloadImage(src) {
             let image = new Image();
             image.crossOrigin = "anonymous";
-            image.src = src;
-            let fileName = image.src.split(/(\\|\/)/g).pop();
+            image.src = "https://yacdn.org/serve/" + src;
+            let uid = location.href.match(/UserID=([0-9]+)/)[1];
+            let fileName = `aw_civilizer_${uid}_` + image.src.split(/(\\|\/)/g).pop();
             image.onload = function () {
                 let canvas = document.createElement('canvas');
                 canvas.width = this.naturalWidth;
@@ -506,14 +507,17 @@ if (isSearchPage() || isProfilePage()) {
         var child = document.createElement("div");
         child.innerHTML = html;
 
-        // let downloadButton = document.createElement('button')
-        // downloadButton.innerHTML = "Download All Images"
-        // downloadButton.addEventListener('click', () => images.forEach(downloadImage))
-        // document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
-
+        let downloadButton = document.createElement('button')
+        downloadButton.style.padding = "10px"
+        downloadButton.style.margin = "25px"
+        downloadButton.style.fontSize = "20px"
+        downloadButton.style.cursor = "pointer"
+        downloadButton.innerHTML = "Download All Images"
+        downloadButton.addEventListener('click', () => images.forEach(downloadImage))
+        document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
-
     }
+
     setTimeout(() => {
         imgify(), removeLongTextualCrap()
     }, 300);
