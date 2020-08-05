@@ -480,6 +480,11 @@ if (isSearchPage() || isProfilePage()) {
         function downloadImage(src) {
             let image = new Image();
             image.crossOrigin = "anonymous";
+            if (/^\/\//.test(src))
+                src = location.protocol + src
+            if (/^\//.test(src))
+                src = location.protocol + '//www.adultwork.com' + src
+
             image.src = "https://yacdn.org/serve/" + src;
             let uid = location.href.match(/UserID=([0-9]+)/)[1];
             let fileName = `aw_civilizer_${uid}_` + image.src.split(/(\\|\/)/g).pop();
@@ -513,6 +518,7 @@ if (isSearchPage() || isProfilePage()) {
         downloadButton.style.fontSize = "20px"
         downloadButton.style.cursor = "pointer"
         downloadButton.innerHTML = "Download All Images"
+        downloadButton.id = "ku_download_all"
         downloadButton.addEventListener('click', () => images.forEach(downloadImage))
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
@@ -542,7 +548,16 @@ if (isSearchPage() || isProfilePage()) {
                     var html = "<img class='verif' style='max-width:" + (window.innerWidth - 200) + "px' src='" + src + "'/>";
                     var child = document.createElement("div");
                     child.innerHTML = html;
-                    document.querySelector("div.stripMenuLevelFooterContainer").before(child);
+
+                    function waitForDownloadAll() {
+                        if (document.querySelector("#ku_download_all")) {
+                            document.querySelector("#ku_download_all").after(child);
+                        } else {
+                            setTimeout(waitForDownloadAll, 100)
+                        }
+                    }
+                    waitForDownloadAll()
+
                     images.push(src)
                 }
             }
