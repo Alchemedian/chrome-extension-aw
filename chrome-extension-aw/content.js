@@ -2,6 +2,10 @@ function isSearchPage() {
     return !!location.href.match(/\/Search.asp/)
 }
 
+function isProfilePage() {
+    return /ViewProfile.asp/.test(location.href)
+}
+
 if (isSearchPage()) {
     //disable picture click
     document.querySelectorAll('.Padded a[onmousemove="overhere(event)"]').forEach(anc => {
@@ -336,45 +340,47 @@ if (isSearchPage()) {
     }
 }
 
-(function () {
-    var temp = function () {
-        document.querySelectorAll("*").forEach((x) => x.removeAttribute('onselectstart'))
-        document.querySelectorAll(".unSelectable").forEach((x) => x.className = '')
-        document.querySelectorAll("*").forEach((x) => x.style.wordBreak = 'break-word')
-    }
-    setTimeout(temp, 250)
-})();
+if (isSearchPage() || isProfilePage()) {
+    (function () {
+        var temp = function () {
+            document.querySelectorAll("*").forEach((x) => x.removeAttribute('onselectstart'))
+            document.querySelectorAll(".unSelectable").forEach((x) => x.className = '')
+            document.querySelectorAll("*").forEach((x) => x.style.wordBreak = 'break-word')
+        }
+        setTimeout(temp, 250)
+    })();
 
-(function () {
-    var parent = document.getElementById("stripMenuLevel2Container");
-    var child = document.createElement("div");
-    let loc = location.href;
-    if (loc.match(/UserID=([0-9]+)/) && loc.match(/UserID=([0-9]+)/)[1]) {
-        loc = location.protocol + `//www.adultwork.com/UserID=` + loc.match(/UserID=([0-9]+)/)[1];
-    } else if (loc.length > 80) {
-        loc = loc.split('?')[0] + "?..."
-    }
-    child.innerHTML = loc + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
-    child.style.border = "1px solid grey";
-    child.style.backgroundColor = "grey";
-    child.style.color = "white";
-    parent.after(child);
-    let hidePhoneButton = isSearchPage() ?
-        `
+    (function () {
+        var parent = document.getElementById("stripMenuLevel2Container");
+        var child = document.createElement("div");
+        let loc = location.href;
+        if (loc.match(/UserID=([0-9]+)/) && loc.match(/UserID=([0-9]+)/)[1]) {
+            loc = location.protocol + `//www.adultwork.com/UserID=` + loc.match(/UserID=([0-9]+)/)[1];
+        } else if (loc.length > 80) {
+            loc = loc.split('?')[0] + "?..."
+        }
+        child.innerHTML = loc + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
+        child.style.border = "1px solid grey";
+        child.style.backgroundColor = "grey";
+        child.style.color = "white";
+        parent.after(child);
+        let hidePhoneButton = isSearchPage() ?
+            `
         <span style="margin-left:20px;height:18px" id='ku_hide'>
         <input id="ku_check_phone" type="checkbox" ${JSON.parse(window.localStorage.hideNoPhone) ? 'checked' : ''}/>
         <label style="font-size:10px;vertical-align:top;padding-top:3px;display:inline-block" for="ku_check_phone">Only show results with a phone</label></span>
         ` : '';
 
-    child.innerHTML += `${hidePhoneButton}
+        child.innerHTML += `${hidePhoneButton}
     <div style="float: right;background-color: orange;font-size: 7pt;padding: 2px">    
     KUCK Vision</div>`
-    if (isSearchPage())
-        document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
-})();
+        if (isSearchPage())
+            document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
+    })();
+}
 
 (function () {
-    if (!/ViewProfile/.test(location.href)) {
+    if (!isProfilePage()) {
         return;
     }
     try {
@@ -404,6 +410,7 @@ if (isSearchPage()) {
             }
         }
     }
+    let images = []
 
     function imgify() {
         var html = "";
@@ -428,7 +435,7 @@ if (isSearchPage()) {
             } else {
                 if (c++ < 55) {
                     html += wrapImg(thumbToFull(x.src))
-
+                    images.push(thumbToFull(x.src))
                 }
             }
         })
@@ -436,10 +443,43 @@ if (isSearchPage()) {
         document.querySelectorAll(".ImageBorder").forEach(function (x) {
             if (c++ < 55) {
                 html += wrapImg(thumbToFull(x.src));
+                images.push(thumbToFull(x.src))
             }
         })
-        var child = document.createElement("div");
-        child.innerHTML = html;
+
+        function downloadImage(src) {
+            let image = new Image();
+            image.crossOrigin = "anonymous";
+            image.src = src;
+            let fileName = image.src.split(/(\\|\/)/g).pop();
+            image.onload = function () {
+                let canvas = document.createElement('canvas');
+                canvas.width = this.naturalWidth;
+                canvas.height = this.naturalHeight;
+                canvas.getContext('2d').drawImage(this, 0, 0);
+                let blob;
+                if (image.src.indexOf(".jpg") > -1) {
+                    blob = canvas.toDataURL("image/jpeg");
+                } else if (image.src.indexOf(".png") > -1) {
+                    blob = canvas.toDataURL("image/png");
+                } else if (image.src.indexOf(".gif") > -1) {
+                    blob = canvas.toDataURL("image/gif");
+                } else {
+                    blob = canvas.toDataURL("image/png");
+                }
+                let dd = document.createElement('div')
+                dd.innerHTML = "<a download='" + fileName + "' href='" + blob + "'></a>";
+                dd.querySelector('a').click()
+            };
+        }
+
+        // var child = document.createElement("div");
+        // child.innerHTML = html;
+        // let downloadButton = document.createElement('button')
+        // downloadButton.innerHTML = "Download All Images"
+        // downloadButton.addEventListener('click', () => images.forEach(downloadImage))
+
+        document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
 
     }
@@ -468,6 +508,7 @@ if (isSearchPage()) {
                     var child = document.createElement("div");
                     child.innerHTML = html;
                     document.querySelector("div.stripMenuLevelFooterContainer").before(child);
+                    images.push(src)
                 }
             }
         };
