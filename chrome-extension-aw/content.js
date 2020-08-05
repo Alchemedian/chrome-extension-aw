@@ -473,13 +473,14 @@ if (isSearchPage() || isProfilePage()) {
             };
         }
 
-        // var child = document.createElement("div");
-        // child.innerHTML = html;
+        var child = document.createElement("div");
+        child.innerHTML = html;
+        
         // let downloadButton = document.createElement('button')
         // downloadButton.innerHTML = "Download All Images"
         // downloadButton.addEventListener('click', () => images.forEach(downloadImage))
+        // document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
 
-        document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
 
     }
