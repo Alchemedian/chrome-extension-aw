@@ -492,7 +492,16 @@ if (isSearchPage() || isProfilePage()) {
                 let canvas = document.createElement('canvas');
                 canvas.width = this.naturalWidth;
                 canvas.height = this.naturalHeight;
-                canvas.getContext('2d').drawImage(this, 0, 0);
+                let context = canvas.getContext('2d')
+                context.drawImage(this, 0, 0);
+                fontSize = Math.round(Math.sqrt(canvas.width * canvas.height) / 30)
+                context.font = fontSize
+                    + "px Georgia";
+                context.shadowColor = "rgba(255,255,255,1)";
+                context.shadowBlur = fontSize;
+                context.fillText("😋 " + document.querySelector('.PageHeading').innerText,
+                    0, canvas.height - fontSize);
+
                 let blob;
                 if (image.src.indexOf(".jpg") > -1) {
                     blob = canvas.toDataURL("image/jpeg");
