@@ -540,6 +540,7 @@ if (isSearchPage() || isProfilePage()) {
                     let div = document.createElement('div')
                     div.className = 'ku_gallery_large'
                     div.style.border = '1px solid #ccc'
+                    div.style.display = 'inline-flex'
                     div.innerHTML = wrapImg(src)
                     images.push(src)
                     document.querySelector('#ku_gallery_images').append(div)
