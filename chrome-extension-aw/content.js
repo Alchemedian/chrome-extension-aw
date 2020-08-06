@@ -488,7 +488,7 @@ if (isSearchPage() || isProfilePage()) {
             }
         })
 
-        function downloadImage(src) {
+        function downloadImage(src, nameSuffix = '') {
             let image = new Image();
             image.crossOrigin = "anonymous";
             if (/^\/\//.test(src))
@@ -498,7 +498,7 @@ if (isSearchPage() || isProfilePage()) {
 
             image.src = "https://yacdn.org/serve/" + src;
             let uid = location.href.match(/UserID=([0-9]+)/)[1];
-            let fileName = `aw_civilizer_${uid}_` + image.src.split(/(\\|\/)/g).pop();
+            let fileName = `aw_civilizer_${uid}_${nameSuffix}_` + image.src.split(/(\\|\/)/g).pop();
             image.onload = function () {
                 let canvas = document.createElement('canvas');
                 canvas.width = this.naturalWidth;
@@ -551,20 +551,19 @@ if (isSearchPage() || isProfilePage()) {
                     if (maxImg.width < img.width)
                         maxImg = img
                 })
-                uniqImages[maxImg.src] = { w: maxImg.width, h: maxImg.height }
+                uniqImages[maxImg.src] = { width: maxImg.width, height: maxImg.height }
             })
-            let imagesSortedByHeight = Object.keys(uniqImages)
-            imagesSortedByHeight.sort((a, b) => {
-                a = uniqImages[a].height
-                b = uniqImages[b].height
-                if (a > b)
-                    return 1
-                if (a < b)
-                    return -1
-                return 0
-
-            })
-            Object.keys(uniqImages).forEach(downloadImage)
+            Object.keys(uniqImages)
+                .sort((a, b) => {
+                    a = uniqImages[a].height
+                    b = uniqImages[b].height
+                    if (a > b)
+                        return 1
+                    if (a < b)
+                        return -1
+                    return 0
+                })
+                .forEach((src, i) => downloadImage(src, `000${i}`.substr(-3)))
         })
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
