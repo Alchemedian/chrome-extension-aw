@@ -509,7 +509,8 @@ if (isSearchPage() || isProfilePage()) {
             };
         }
 
-        var child = document.createElement("div");
+        let child = document.createElement("div");
+        child.id = "ku_gallery_images"
         child.innerHTML = html;
 
         let downloadButton = document.createElement('button')
@@ -522,6 +523,25 @@ if (isSearchPage() || isProfilePage()) {
         downloadButton.addEventListener('click', () => images.forEach(downloadImage))
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
+
+
+        function fullSizedGalleryImages() {
+            document.querySelectorAll('td[background="images/border.gif"] a').forEach(anc => {
+                let params = anc.href.replace(/.+\(+/, '').replace(/[)' ]/g, '').split(',').map(unescape)
+                fetch(`https://www.adultwork.com/dlgViewGImage.asp?Image=${params[0]}&SN=${params[2]}`).then(y => y.text()).then(text => {
+                    let needle = "else { document.images['TheImage'].src = '"
+                    let start = text.indexOf(needle)
+                    let src = text.substr(start + needle.length)
+                    src = src.substr(0, src.indexOf("'"))
+                    let div = document.createElement('div')
+                    div.innerHTML = wrapImg(src)
+                    images.push(src)
+                    document.querySelector('#ku_gallery_images').append(div)
+                })
+            })
+        }
+        fullSizedGalleryImages()
+
     }
 
     setTimeout(() => {
@@ -531,6 +551,7 @@ if (isSearchPage() || isProfilePage()) {
     function thumbToFull(img) {
         return img.replace('/t/', '/f/').replace('/thumbnails/', '/images/');
     }
+
 
     //verification pic
     (function () {
