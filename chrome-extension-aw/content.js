@@ -157,6 +157,8 @@ if (isSearchPage()) {
         fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + uid)
             .then(y => y.text())
             .then(profileHtml => {
+                let divProfileHTML = document.createElement('div')
+                divProfileHTML.innerHTML = profileHtml
                 profileImages[uid] = parseProfileImages(profileHtml)
                 let aImg = document.querySelectorAll(`a[href="javascript:vU(${uid})"`)
                 if (aImg && aImg[0])
@@ -254,24 +256,32 @@ if (isSearchPage()) {
                         `<div class='nophone'></div>`
                     ))
                 }
-                let hour = profileHtml.match(/tdRI1[^<]+/)
                 if (profileHtml && profileHtml[0]) {
-                    let hourly = profileHtml.match(/tdRI1[^<]+/)
-                    if (hourly) {
-                        hourly = hourly[0].split('>')
+                    let hourly = divProfileHTML.querySelector('#tdRI1')
+                    hourly = hourly ? hourly.innerText : '?'
+
+                    let halfHourly = divProfileHTML.querySelector('#tdRI0\\.5')
+                    halfHourly = halfHourly ? halfHourly.innerText : '?'
+
+                    let price = `£${halfHourly}/30m £${hourly}/hr`
+                    if (hourly == '?' || halfHourly == '?') {
+                        let hourly = divProfileHTML.querySelector('#tdRO1')
+                        if (hourly && hourly.innerText) {
+                            price = `Outcall: £${hourly.innerText}/hr`
+                        }
                     }
-                    hourly = hourly && hourly[1] ? hourly[1] : '???'
-                    hourly = '£ ' + hourly + '/hr';
                     let services = [];
-                    />Oral without Protection</.test(profileHtml) && services.push("<span title='OWO'>😋</span>");
-                    />CIM</.test(profileHtml) && services.push("<span title='CIM'>👄</span>");
-                    /&quot;A&quot; Levels/.test(profileHtml) && services.push("<span title='Anal'>🍩</span>");
-                    />French Kissing</.test(profileHtml) && services.push("<span title='French Kissing'>😘</span>");
-                    />Foot Worship</.test(profileHtml) && services.push("<span title='Foot Worship'>👣</span>");
-                    />Rimming \(giving\)</.test(profileHtml) && services.push("<span title='Rimming'>👅</span>");
-                    />Bareback</.test(profileHtml) && services.push("bb");
-                    profileDetails.append(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
-                        hourly + '<div style="font-size:25px">' + services.join(' ') + '</div>'));
+
+                    let dPref = divProfileHTML.querySelectorAll('#dPref')[0].innerText;
+                    /Oral without Protection\n/.test(dPref) && services.push("<span title='OWO'>😋</span>");
+                    /CIM/.test(dPref) && services.push("<span title='CIM'>👄</span>");
+                    /"A" Levels\n/.test(dPref) && services.push("<span title='Anal'>🍩</span>");
+                    /French Kissing\n/.test(dPref) && services.push("<span title='French Kissing'>😘</span>");
+                    /Foot Worship/.test(dPref) && services.push("<span title='Foot Worship'>👣</span>");
+                    /Rimming \(giving\)/.test(dPref) && services.push("<span title='Rimming'>👅</span>");
+                    /Bareback/.test(dPref) && services.push("bb");
+                    profileDetails.append(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px;font-size:9px`,
+                        price + '<div style="font-size:25px">' + services.join(' ') + '</div>'));
                 }
 
                 let nation = profileHtml.match(/Nationality:.+/s);
