@@ -522,7 +522,7 @@ if (isSearchPage() || isProfilePage()) {
         downloadButton.id = "ku_download_all"
         downloadButton.addEventListener('click', () => {
             document.querySelector('#ku_download_all').setAttribute('disabled', true)
-            setTimeout(() => document.querySelector('#ku_download_all').removeAttribute('disabled'), 2500)
+            setTimeout(() => document.querySelector('#ku_download_all').removeAttribute('disabled'), 5000)
             images.forEach(downloadImage)
         })
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
@@ -539,6 +539,7 @@ if (isSearchPage() || isProfilePage()) {
                     src = src.substr(0, src.indexOf("'"))
                     let div = document.createElement('div')
                     div.className = 'ku_gallery_large'
+                    div.style.border = '1px solid #ccc'
                     div.innerHTML = wrapImg(src)
                     images.push(src)
                     document.querySelector('#ku_gallery_images').append(div)
