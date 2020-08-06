@@ -541,7 +541,18 @@ if (isSearchPage() || isProfilePage()) {
                     if (maxImg.width < img.width)
                         maxImg = img
                 })
-                uniqImages[maxImg.src] = 1
+                uniqImages[maxImg.src] = { w: maxImg.width, h: maxImg.height }
+            })
+            let imagesSortedByHeight = Object.keys(uniqImages)
+            imagesSortedByHeight.sort((a, b) => {
+                a = uniqImages[a].height
+                b = uniqImages[b].height
+                if (a > b)
+                    return 1
+                if (a < b)
+                    return -1
+                return 0
+
             })
             Object.keys(uniqImages).forEach(downloadImage)
         })
