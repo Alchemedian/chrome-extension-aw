@@ -447,9 +447,10 @@ if (isSearchPage() || isProfilePage()) {
         var c = 0;
 
         function wrapImg(src) {
+            let fileName = src.split(/(\\|\/)/g).pop()
             return `<div class='gallerywrapper' style='display:inline-flex;min-width: 375px;'>
                 <div>
-                    <img style='max-width:${(window.innerWidth - 200)}px;cursor:pointer' src='${src}' onclick="window.open('${src}')"/>
+                    <img style='max-width:${(window.innerWidth - 200)}px;cursor:pointer' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
                         <div style="position: relative;top: -40px;height: 40px;right: -40px;">
                             <button style="margin:9px" onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
                             <button style="margin:9px" onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
@@ -532,7 +533,17 @@ if (isSearchPage() || isProfilePage()) {
         downloadButton.addEventListener('click', () => {
             document.querySelector('#ku_download_all').setAttribute('disabled', true)
             setTimeout(() => document.querySelector('#ku_download_all').removeAttribute('disabled'), 5000)
-            images.forEach(downloadImage)
+            let uniqImages = {}
+            images.forEach(src => {
+                let fileName = src.split(/(\\|\/)/g).pop()
+                let maxImg = { width: 0 }
+                document.querySelectorAll(`img[data-file-name="${fileName}"]`).forEach(img => {
+                    if (maxImg.width < img.width)
+                        maxImg = img
+                })
+                uniqImages[maxImg.src] = 1
+            })
+            Object.keys(uniqImages).forEach(downloadImage)
         })
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
         document.querySelector("div.stripMenuLevelFooterContainer").before(child);
