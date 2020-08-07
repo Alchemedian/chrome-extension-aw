@@ -559,8 +559,8 @@ if (isSearchPage() || isProfilePage()) {
             })
             Object.keys(uniqImages)
                 .sort((a, b) => {
-                    a = uniqImages[a].height
-                    b = uniqImages[b].height
+                    a = uniqImages[a].height / uniqImages[a].width
+                    b = uniqImages[b].height / uniqImages[b].width
                     if (a > b)
                         return 1
                     if (a < b)
