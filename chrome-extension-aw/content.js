@@ -546,6 +546,7 @@ if (isSearchPage() || isProfilePage()) {
         downloadButton.style.cursor = "pointer"
         downloadButton.style.position = "sticky";
         downloadButton.style.top = "-20px";
+        downloadButton.style.float = "right";
         downloadButton.style.zIndex = "1000";
         downloadButton.innerHTML = "Download All Images"
         downloadButton.id = "ku_download_all"
