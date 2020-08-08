@@ -634,7 +634,7 @@ if (isSearchPage() || isProfilePage()) {
 
 
     //verification pic
-    (function () {
+    function getVerificationPicture() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/dlgVerificationPhoto.asp?SelUserID=' + location.href.match(/UserID=([0-9]+)/)[1]);
         xhr.onload = function () {
@@ -646,7 +646,8 @@ if (isSearchPage() || isProfilePage()) {
                 }
                 if (b && b[1]) {
                     var src = b[1].replace('/i/', '/');
-                    var html = "<img class='verif' style='max-width:" + (window.innerWidth - 200) + "px' src='" + src + "'/>";
+                    let fileName = src.split(/(\\|\/)/g).pop()
+                    var html = "<img class='verif' data-file-name='" + fileName + "' style='max-width:" + (window.innerWidth - 200) + "px' src='" + src + "'/>";
                     var child = document.createElement("div");
                     child.innerHTML = html;
 
@@ -654,7 +655,7 @@ if (isSearchPage() || isProfilePage()) {
                         if (document.querySelector("#ku_download_all")) {
                             document.querySelector("#ku_download_all").after(child);
                         } else {
-                            setTimeout(waitForDownloadAll, 100)
+                            setTimeout(waitForDownloadAll, 300)
                         }
                     }
                     waitForDownloadAll()
@@ -665,6 +666,8 @@ if (isSearchPage() || isProfilePage()) {
         };
         xhr.send();
 
-    })()
+    }
+
+    getVerificationPicture()
 
 })();
