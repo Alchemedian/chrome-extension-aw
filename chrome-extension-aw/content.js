@@ -522,7 +522,8 @@ if (isSearchPage() || isProfilePage()) {
                 src = location.protocol + '//www.adultwork.com' + src
 
             let uid = location.href.match(/UserID=([0-9]+)/)[1]
-            let fileName = `aw_civilizer_${uid}_${nameSuffix}_` + image.src.split(/(\\|\/)/g).pop();
+            let profileName = document.querySelector('.PageHeading').innerText
+            let fileName = `aw_civilizer_${uid}_${profileName.replace(/ +/g, '-')}_${nameSuffix}_` + image.src.split(/(\\|\/)/g).pop();
             // CORs proxy running off cloudflare -
             image.src = "https://cors-proxy.bwkake.workers.dev/?apiurl=" + encodeURIComponent(src);
 
@@ -539,7 +540,7 @@ if (isSearchPage() || isProfilePage()) {
                     + "px Georgia";
                 context.shadowColor = "rgba(255,255,255,1)";
                 context.shadowBlur = fontSize;
-                context.fillText("😋 " + document.querySelector('.PageHeading').innerText,
+                context.fillText("😋 " + profileName,
                     0, canvas.height - fontSize);
 
                 let blob;
