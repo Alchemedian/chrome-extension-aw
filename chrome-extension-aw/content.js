@@ -450,6 +450,32 @@ if (isSearchPage() || isProfilePage()) {
             }
         }
     }
+
+    function removeDuplicateGalleryImages() {
+        let fileNames = {}
+        document.querySelectorAll('#ku_gallery_images img').forEach(img => {
+            fileNames[img.getAttribute('data-file-name')] = 1
+        })
+        Object.keys(fileNames).forEach(fileName => {
+            let imgs = document.querySelectorAll(`#ku_gallery_images img[data-file-name="${fileName}"]`)
+            if (imgs.length > 1) {
+                let maxWidth = 0
+                imgs.forEach(img => {
+                    maxWidth = Math.max(maxWidth, img.naturalWidth)
+                })
+                imgs.forEach(img => {
+                    if (img.naturalWidth !== maxWidth) {
+                        img.parentElement.parentElement.style.display = "none"
+                    }
+                })
+            }
+        })
+    }
+
+    for (timeout = 500; timeout < 10000; timeout += 500) {
+        setTimeout(removeDuplicateGalleryImages, timeout)
+    }
+
     let images = []
 
     function imgify() {
