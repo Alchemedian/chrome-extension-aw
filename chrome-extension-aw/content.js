@@ -523,7 +523,7 @@ if (isSearchPage() || isProfilePage()) {
 
             let uid = location.href.match(/UserID=([0-9]+)/)[1]
             let profileName = document.querySelector('.PageHeading').innerText
-            let fileName = `aw_civilizer_${uid}_${profileName.replace(/ +/g, '-')}_${nameSuffix}_` + image.src.split(/(\\|\/)/g).pop();
+            let fileName = `aw_civilizer_${uid}_${profileName.replace(/\W/g, '-')}_${nameSuffix}_` + image.src.split(/(\\|\/)/g).pop();
             // CORs proxy running off cloudflare -
             image.src = "https://cors-proxy.bwkake.workers.dev/?apiurl=" + encodeURIComponent(src);
 
