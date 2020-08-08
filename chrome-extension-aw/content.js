@@ -473,24 +473,23 @@ if (isSearchPage() || isProfilePage()) {
     }
 
     let images = []
+    
+    function wrapImg(src) {
+        let fileName = src.split(/(\\|\/)/g).pop()
+        return `<div class='gallerywrapper' style='display:inline-flex;min-width: 375px;'>
+            <div>
+                <img style='max-width:${(window.innerWidth - 200)}px;cursor:pointer' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
+                    <div style="position: relative;top: -40px;height: 40px;right: -40px;">
+                        <button style="margin:9px" onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
+                        <button style="margin:9px" onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
+                    </div>
+            </div>
+        </div>`;
+    }
 
     function imgify() {
         var html = "";
         var c = 0;
-
-        function wrapImg(src) {
-            let fileName = src.split(/(\\|\/)/g).pop()
-            return `<div class='gallerywrapper' style='display:inline-flex;min-width: 375px;'>
-                <div>
-                    <img style='max-width:${(window.innerWidth - 200)}px;cursor:pointer' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
-                        <div style="position: relative;top: -40px;height: 40px;right: -40px;">
-                            <button style="margin:9px" onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
-                            <button style="margin:9px" onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
-                        </div>
-                </div>
-            </div>`;
-        }
-
 
         document.querySelectorAll("img.border").forEach(function (x) {
             if (x.parentElement && x.parentElement.href && /(sIWishlist|:sI|:vSI)/.test(x.parentElement.href)) {
@@ -647,7 +646,8 @@ if (isSearchPage() || isProfilePage()) {
                 if (b && b[1]) {
                     var src = b[1].replace('/i/', '/');
                     let fileName = src.split(/(\\|\/)/g).pop()
-                    var html = "<img class='verif' data-file-name='" + fileName + "' style='max-width:" + (window.innerWidth - 200) + "px' src='" + src + "'/>";
+                    let html = wrapImg(src)
+                    // var html = "<img class='verif' data-file-name='" + fileName + "' style='max-width:" + (window.innerWidth - 200) + "px' src='" + src + "'/>";
                     var child = document.createElement("div");
                     child.innerHTML = html;
 
