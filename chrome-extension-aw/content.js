@@ -452,24 +452,20 @@ if (isSearchPage() || isProfilePage()) {
     }
 
     function removeDuplicateGalleryImages() {
-        let fileNames = {}
-        document.querySelectorAll('#ku_gallery_images img').forEach(img => {
-            fileNames[img.getAttribute('data-file-name')] = 1
-        })
-        Object.keys(fileNames).forEach(fileName => {
-            let imgs = document.querySelectorAll(`#ku_gallery_images img[data-file-name="${fileName}"]`)
-            if (imgs.length > 1) {
-                let maxWidth = 0
-                imgs.forEach(img => {
-                    maxWidth = Math.max(maxWidth, img.naturalWidth)
-                })
-                imgs.forEach(img => {
-                    if (img.naturalWidth !== maxWidth) {
-                        img.parentElement.parentElement.style.display = "none"
-                    }
-                })
-            }
-        })
+        document.querySelectorAll('#ku_gallery_images img')
+            .forEach(gImg => {
+                let imgs = document.querySelectorAll(`#ku_gallery_images img[data-file-name="${gImg.getAttribute('data-file-name')}"]`)
+                if (imgs.length > 1) {
+                    let maxWidth = 0
+                    imgs.forEach(img => {
+                        maxWidth = Math.max(maxWidth, img.naturalWidth)
+                    })
+                    imgs.forEach(img => {
+                        let display = img.naturalWidth !== maxWidth ? 'none' : ''
+                        img.parentElement.parentElement.style.display = display
+                    })
+                }
+            })
     }
 
     for (timeout = 500; timeout < 10000; timeout += 500) {
