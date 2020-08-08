@@ -499,10 +499,12 @@ if (isSearchPage() || isProfilePage()) {
             if (/^\//.test(src))
                 src = location.protocol + '//www.adultwork.com' + src
 
+            let uid = location.href.match(/UserID=([0-9]+)/)[1]
+            let fileName = `aw_civilizer_${uid}_${nameSuffix}_` + image.src.split(/(\\|\/)/g).pop();
             // CORs proxy running off cloudflare -
             image.src = "https://cors-proxy.bwkake.workers.dev/?apiurl=" + encodeURIComponent(src);
-            let uid = location.href.match(/UserID=([0-9]+)/)[1];
-            let fileName = `aw_civilizer_${uid}_${nameSuffix}_` + image.src.split(/(\\|\/)/g).pop();
+
+
             image.onload = function () {
                 let canvas = document.createElement('canvas');
                 canvas.width = this.naturalWidth;
