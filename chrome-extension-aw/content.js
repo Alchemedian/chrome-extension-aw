@@ -541,10 +541,12 @@ if (isSearchPage() || isProfilePage()) {
         child.innerHTML = html;
 
         let downloadButton = document.createElement('button')
-        downloadButton.style.padding = "20px 150px"
-        downloadButton.style.margin = "25px"
+        downloadButton.style.padding = "20px"
         downloadButton.style.fontSize = "20px"
         downloadButton.style.cursor = "pointer"
+        downloadButton.style.position = "sticky";
+        downloadButton.style.top = "-20px";
+        downloadButton.style.zIndex = "1000";
         downloadButton.innerHTML = "Download All Images"
         downloadButton.id = "ku_download_all"
         downloadButton.addEventListener('click', () => {
