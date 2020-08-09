@@ -567,17 +567,23 @@ if (isSearchPage() || isProfilePage()) {
         divGallery.id = "ku_gallery_images"
         divGallery.innerHTML = html;
 
-        let downloadButton = document.createElement('button')
-        downloadButton.style.padding = "20px"
-        downloadButton.style.fontSize = "20px"
-        downloadButton.style.cursor = "pointer"
-        downloadButton.style.position = "sticky";
-        downloadButton.style.top = "-20px";
-        downloadButton.style.float = "right";
-        downloadButton.style.zIndex = "1000";
-        downloadButton.innerHTML = "Download All Images"
-        downloadButton.id = "ku_download_all"
-        downloadButton.addEventListener('click', () => {
+        let downloadAllButton = document.createElement('button')
+        downloadAllButton.style.padding = "20px"
+        downloadAllButton.style.fontSize = "20px"
+        downloadAllButton.style.cursor = "pointer"
+        downloadAllButton.style.position = "sticky";
+        downloadAllButton.style.top = "-20px";
+        downloadAllButton.style.float = "right";
+        downloadAllButton.style.zIndex = "1000";
+        downloadAllButton.innerHTML = "Download All Images"
+        downloadAllButton.title = "Right click to download only screenshot"
+        downloadAllButton.id = "ku_download_all"
+        downloadAllButton.addEventListener('contextmenu', (e) => {
+            downloadScreenshot()
+            e.preventDefault()
+            return false
+        })
+        downloadAllButton.addEventListener('click', () => {
             document.querySelector('#ku_download_all').setAttribute('disabled', true)
             setTimeout(() => document.querySelector('#ku_download_all').removeAttribute('disabled'), 5000)
             downloadScreenshot()
@@ -603,7 +609,7 @@ if (isSearchPage() || isProfilePage()) {
                 })
                 .forEach((src, i) => downloadImage(src, `000${i}`.substr(-3)))
         })
-        document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
+        document.querySelector("div.stripMenuLevelFooterContainer").before(downloadAllButton)
         document.querySelector("div.stripMenuLevelFooterContainer").before(divGallery);
 
 
