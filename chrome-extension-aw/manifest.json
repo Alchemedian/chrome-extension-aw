@@ -14,7 +14,8 @@
                 "https://www.adultwork.com/*"
             ],
             "js": [
-                "content.js"
+                "content.js",
+                "lib/html2canvas.min.js"
             ]
         }
     ]
