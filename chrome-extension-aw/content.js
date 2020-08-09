@@ -615,8 +615,6 @@ if (isSearchPage() || isProfilePage()) {
                 onrendered: function (canvas) {
                     let context = canvas.getContext('2d')
                     context.drawImage(imgIcon, canvas.width - imgIcon.width, canvas.height - imgIcon.height)
-                    document.body.appendChild(canvas);
-
                     let a = document.createElement('a')
                     a.download = `${fileSavePrefix()}_profile_capture.jpg`
                     a.href = canvas.toDataURL("image/jpg")
