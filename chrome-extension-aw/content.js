@@ -473,7 +473,7 @@ if (isSearchPage() || isProfilePage()) {
     }
 
     let images = []
-    
+
     function wrapImg(src) {
         let fileName = src.split(/(\\|\/)/g).pop()
         return `<div class='gallerywrapper' style='display:inline-flex;min-width: 375px;'>
@@ -558,9 +558,9 @@ if (isSearchPage() || isProfilePage()) {
             };
         }
 
-        let child = document.createElement("div");
-        child.id = "ku_gallery_images"
-        child.innerHTML = html;
+        let divGallery = document.createElement("div");
+        divGallery.id = "ku_gallery_images"
+        divGallery.innerHTML = html;
 
         let downloadButton = document.createElement('button')
         downloadButton.style.padding = "20px"
@@ -598,7 +598,7 @@ if (isSearchPage() || isProfilePage()) {
                 .forEach((src, i) => downloadImage(src, `000${i}`.substr(-3)))
         })
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadButton)
-        document.querySelector("div.stripMenuLevelFooterContainer").before(child);
+        document.querySelector("div.stripMenuLevelFooterContainer").before(divGallery);
 
 
         function fullSizedGalleryImages() {
