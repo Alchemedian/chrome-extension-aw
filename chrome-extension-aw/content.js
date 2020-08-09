@@ -575,17 +575,22 @@ if (isSearchPage() || isProfilePage()) {
         downloadAllButton.style.top = "-20px";
         downloadAllButton.style.float = "right";
         downloadAllButton.style.zIndex = "1000";
+        downloadAllButton.style.userSelect = "none";
         downloadAllButton.innerHTML = "Download All Images"
         downloadAllButton.title = "Right click to download only screenshot"
         downloadAllButton.id = "ku_download_all"
         downloadAllButton.addEventListener('contextmenu', (e) => {
+            disableDownloadAllButton(2000)
             downloadScreenshot()
             e.preventDefault()
             return false
         })
-        downloadAllButton.addEventListener('click', () => {
+        function disableDownloadAllButton(n = 5000) {
             document.querySelector('#ku_download_all').setAttribute('disabled', true)
-            setTimeout(() => document.querySelector('#ku_download_all').removeAttribute('disabled'), 5000)
+            setTimeout(() => document.querySelector('#ku_download_all').removeAttribute('disabled'), n)
+        }
+        downloadAllButton.addEventListener('click', () => {
+            disableDownloadAllButton()
             downloadScreenshot()
             let uniqImages = {}
             images.forEach(src => {
