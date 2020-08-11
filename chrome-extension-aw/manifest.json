@@ -2,16 +2,15 @@
     "manifest_version": 2,
     "name": "AW Civilizer",
     "version": "0.26",
-    "icons": { "16": "icon-16.png",
-               "48": "icon-48.png",
-              "128": "icon-128.png" },
+    "icons": {
+        "16": "icon-16.png",
+        "48": "icon-48.png",
+        "128": "icon-128.png"
+    },
     "content_scripts": [
         {
             "matches": [
-                "http://adultwork.com/*",
-                "https://adultwork.com/*",
-                "http://www.adultwork.com/*",
-                "https://www.adultwork.com/*"
+                "*://*.adultwork.com/*"
             ],
             "js": [
                 "content.js",
