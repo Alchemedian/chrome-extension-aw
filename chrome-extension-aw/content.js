@@ -417,11 +417,11 @@ if (isSearchPage() || isProfilePage()) {
             `            
         <span style="margin-left:20px;height:18px" id='ku_hide'>
         <input id="ku_check_phone" type="checkbox" ${JSON.parse(window.localStorage.hideNoPhone) ? 'checked' : ''}/>
-        <label style="font-size:10px;vertical-align:top;padding-top:3px;display:inline-block" for="ku_check_phone">Only show results with a phone</label></span>
+        <label style="font-size:10px;vertical-align:top;padding-top:3px;display:inline-block;line-height:14px" for="ku_check_phone">Only show results with a phone</label></span>
         ` : '';
 
         topBar.innerHTML += `${hidePhoneButton}
-        <span id="ku_ukp_search"></span><div style="float: right;background-color: orange;font-size: 7pt;">    
+        <span id="ku_ukp_search"></span><div style="float: right;font-size: 7pt;">
     KUCK Vision</div>`
         if (isSearchPage()) {
             document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
