@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 rm chrome-extension-aw.zip
-zip -r chrome-extension-aw.zip chrome-extension-aw -x "*/.*"
+cd chrome-extension-aw
+zip -r chrome-extension-aw.zip * -x "*/.*"
 git commit -am "updated zip"
