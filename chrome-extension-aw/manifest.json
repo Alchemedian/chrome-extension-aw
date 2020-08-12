@@ -13,7 +13,7 @@
                 "*://*.adultwork.com/*"
             ],
             "js": [
-                "content.js",
+                "common.js",
                 "icon-base64.js",
                 "profile-page.js",
                 "search-page.js",

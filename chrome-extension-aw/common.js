@@ -90,8 +90,5 @@ if (isSearchPage() || isProfilePage()) {
         topBar.innerHTML += `${hidePhoneButton}
         <span id="ku_ukp_search"></span><div style="float: right;font-size: 7pt;">
     KUCK Vision</div>`
-        if (isSearchPage()) {
-            document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
-        }
     })();
 }

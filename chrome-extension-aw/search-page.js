@@ -330,4 +330,5 @@ if (isSearchPage()) {
     for (let i = 1; i < 30; i++) {
         setTimeout(hideNoPhone, i * 200);
     }
+    document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
 }
