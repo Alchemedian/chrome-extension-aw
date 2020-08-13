@@ -228,11 +228,13 @@ if (isSearchPage()) {
                     }
                     tel = tels.join(', ')
                     tel = tel.replace(/\+?44/g, '0')
+                    let telFull = "+44"+ tel.replace(/^0/,'')
                     let telSearch = tel.split(",")[0]
                     telSearch = telSearch + ' OR ' + telSearch.replace(/^0/, '+44')
                     profileDetails.append(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         `<div class='telexists'>☎️ ${tel}
                         <a style="text-align:center;color:white;display:block;padding-bottom:4px;" href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
+                        <a style="text-align:center;color:white;display:block;padding-bottom:4px;" href="https://wa.me/${telFull}" target="_blank">Whatsapp</a>
                         </div>`
                     ))
                 } else {
