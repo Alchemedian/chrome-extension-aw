@@ -228,9 +228,9 @@ if (isSearchPage()) {
                     }
                     tel = tels.join(', ')
                     tel = tel.replace(/\+?44/g, '0')
-                    let telFull = "+44"+ tel.replace(/^0/,'')
                     let telSearch = tel.split(",")[0]
-                    telSearch = telSearch + ' OR ' + telSearch.replace(/^0/, '+44')
+                    let telFull = telSearch.replace(/^0/, '+44')
+                    telSearch = telSearch + ' OR ' + telFull
                     profileDetails.append(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
                         `<div class='telexists'>☎️ ${tel}
                         <a style="text-align:center;color:white;display:block;padding-bottom:4px;" href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
@@ -329,8 +329,8 @@ if (isSearchPage()) {
     }
 
     // phone number info only becomes available after async calls
-    for (let i = 1; i < 30; i++) {
-        setTimeout(hideNoPhone, i * 200);
+    for (let i = 1; i < 150; i++) {
+        setTimeout(hideNoPhone, i * 400);
     }
     document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
 }
