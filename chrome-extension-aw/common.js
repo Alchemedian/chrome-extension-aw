@@ -16,15 +16,17 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
     fetch(url)
         .then(y => y.json())
         .then(json => {
-            let html = `<a title="${title}" style="text-decoration:none" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
+            let html = `<a title="${title}" style="text-decoration:none;font-size:12pt" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
             if (json.review_count == 0) {
                 html += `No UKP Reviews :-(`
             } else {
-                html += `UKP <span style='color:green;padding-right:6px'>👍 ${json.positive_count}</span>`
+                html += 'UKP '
+                if (json.positive_count)
+                    html += `<span style='background-color:#ffffcc;padding:1px 10px;white-space:nowrap;color:green;border-radius:15px;background-color:#ccffcc'>👍 ${json.positive_count}</span>`
                 if (json.negative_count)
-                    html += `<span style='color:red;;padding-right:6px'>👎 ${json.negative_count}</span>`
+                    html += `<span style='background-color:coral;padding:1px 10px;white-space:nowrap;color:darkred;border-radius:15px;background-color:#ffcccc'>👎 ${json.negative_count}</span>`
                 if (json.neutral_count)
-                    html += `<span style='color:grey'>😐 ${json.neutral_count}</span>`
+                    html += `<span style='background-color:#ffffcc;padding:1px 10px;white-space:nowrap;color:black;border-radius:15px;background-color:#cccccc'>😐 ${json.neutral_count}</span>`
             }
             html += "</a>"
             destinationDiv.innerHTML = html
