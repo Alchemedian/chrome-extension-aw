@@ -16,7 +16,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
     fetch(url)
         .then(y => y.json())
         .then(json => {
-            let html = `<a title="${title}" style="text-decoration:none;font-size:12pt" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
+            let html = `<a title="${title}" style="text-decoration:none;font-size:13px" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
             if (json.review_count == 0) {
                 html += `No UKP Reviews :-(`
             } else {
