@@ -292,6 +292,13 @@ if (isSearchPage()) {
 
                     }
                 }
+
+                let ukpReviewDetails = document.createElement('div')
+                ukpReviewDetails.style = `background-color:white;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`
+                profileDetails.append(ukpReviewDetails)
+                getUKPsummary(uid, ukpReviewDetails)
+
+
                 anchorTag.after(profileDetails)
             })
 

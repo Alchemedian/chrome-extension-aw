@@ -6,17 +6,36 @@ function isProfilePage() {
     return /ViewProfile.asp/i.test(location.href)
 }
 
+function getUKPsummary(uid, destinationDiv) {
+    fetch(`https://ukp-aw2ukp-cors-proxy.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`)
+        .then(y => y.json())
+        .then(json => {
+            let html = `<a title="Counts could be out of date :-(" style="text-decoration:none" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
+            if (json.review_count == 0) {
+                html += `No UKP Reviews :-(`
+            } else {
+                html += `UKP <span style='color:green;padding-right:6px'>👍 ${json.positive_count}</span>`
+                if (json.negative_count)
+                    html += `<span style='color:red;;padding-right:6px'>👎 ${json.negative_count}</span>`
+                if (json.neutral_count)
+                    html += `<span style='color:grey'>😐 ${json.neutral_count}</span>`
+            }
+            html += "</a>"
+            destinationDiv.innerHTML = html
+        })
+}
+
 function ukpSearchButtons(uid) {
     let ukp = makeDiv('width:140px', '');
-    let ukpButtonReviewSearch = document.createElement('button');
-    ukpButtonReviewSearch.innerHTML = "UKP Reviews"
-    ukpButtonReviewSearch.style.padding = "1px"
-    ukpButtonReviewSearch.style.cursor = "pointer"
-    ukpButtonReviewSearch.addEventListener('click', () => {
-        event.preventDefault();
-        window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + uid);
-    })
-    ukp.appendChild(ukpButtonReviewSearch)
+    // let ukpButtonReviewSearch = document.createElement('button');
+    // ukpButtonReviewSearch.innerHTML = "UKP Reviews"
+    // ukpButtonReviewSearch.style.padding = "1px"
+    // ukpButtonReviewSearch.style.cursor = "pointer"
+    // ukpButtonReviewSearch.addEventListener('click', () => {
+    //     event.preventDefault();
+    //     window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + uid);
+    // })
+    // ukp.appendChild(ukpButtonReviewSearch)
 
     let dhid = document.createElement('div')
     dhid.style.display = "none"
@@ -37,8 +56,18 @@ function ukpSearchButtons(uid) {
         event.preventDefault();
         document.getElementById(`ku_ukp_form_${uid}`).submit()
     })
-
     ukp.appendChild(ukpButton)
+
+    let ukpGoogleButton = document.createElement('button');
+    ukpGoogleButton.style.padding = "1px"
+    ukpGoogleButton.innerHTML = "Google UKP"
+    ukpGoogleButton.style.cursor = "pointer"
+    ukpGoogleButton.addEventListener('click', () => {
+        event.preventDefault();
+        window.open("https://www.google.co.uk/search?q=" + encodeURIComponent('site:ukpunting.com ' + uid))
+    })
+    ukp.appendChild(ukpGoogleButton)
+
     return ukp
 }
 
@@ -72,7 +101,7 @@ if (isSearchPage() || isProfilePage()) {
         } else if (loc.length > 80) {
             loc = loc.split('?')[0] + "?..."
         }
-        topBar.innerHTML = loc + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
+        topBar.innerHTML = loc;// + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
         topBar.id = "ku_top_bar"
         topBar.style.border = "1px solid grey";
         topBar.style.backgroundColor = "grey";
@@ -88,7 +117,7 @@ if (isSearchPage() || isProfilePage()) {
         ` : '';
 
         topBar.innerHTML += `${hidePhoneButton}
-        <span id="ku_ukp_search"></span><div style="float: right;font-size: 7pt;">
-    KUCK Vision</div>`
+        <span id="ku_ukp_search"></span>
+    <div id="ku_ukp_summary" style="border-radius:5px;padding:0 15px 0 15px;background-color:white;color:black;float: right;font-size: 10pt;"></div>`
     })();
 }

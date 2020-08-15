@@ -8,7 +8,7 @@
 
     let profileId = location.href.match(/UserID=([0-9]+)/i)[1]
     let profileName = document.querySelector('.PageHeading').innerText
-
+    getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'))
     let ukpSearch = ukpSearchButtons(profileId)
     ukpSearch.style.display = "inline"
     ukpSearch.style.marginLeft = "10px"
