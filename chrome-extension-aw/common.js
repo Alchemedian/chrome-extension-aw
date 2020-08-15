@@ -22,11 +22,11 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
             } else {
                 html += 'UKP '
                 if (json.positive_count)
-                    html += `<span style='background-color:#ffffcc;padding:1px 10px;white-space:nowrap;color:green;border-radius:15px;background-color:#ccffcc'>👍 ${json.positive_count}</span>`
+                    html += `<span style='padding:1px 10px;white-space:nowrap;color:green;border-radius:15px;background-color:#ccffcc'>👍 ${json.positive_count}</span>`
                 if (json.negative_count)
-                    html += `<span style='background-color:coral;padding:1px 10px;white-space:nowrap;color:darkred;border-radius:15px;background-color:#ffcccc'>👎 ${json.negative_count}</span>`
+                    html += `<span style='padding:1px 10px;white-space:nowrap;color:white;border-radius:15px;background-color:crimson'>👎 ${json.negative_count}</span>`
                 if (json.neutral_count)
-                    html += `<span style='background-color:#ffffcc;padding:1px 10px;white-space:nowrap;color:black;border-radius:15px;background-color:#cccccc'>😐 ${json.neutral_count}</span>`
+                    html += `<span style='padding:1px 10px;white-space:nowrap;color:black;border-radius:15px;background-color:#cccccc'>😐 ${json.neutral_count}</span>`
             }
             html += "</a>"
             destinationDiv.innerHTML = html

@@ -295,6 +295,7 @@ if (isSearchPage()) {
 
                 let ukpReviewDetails = document.createElement('div')
                 ukpReviewDetails.style = `background-color:white;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`
+                ukpReviewDetails.innerHTML = `<a style="text-decoration:none;font-size:12pt" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>UKP Reviews</a>`
                 profileDetails.append(ukpReviewDetails)
                 getUKPsummary(uid, ukpReviewDetails)
 
