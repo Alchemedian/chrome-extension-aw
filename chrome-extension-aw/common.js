@@ -6,11 +6,17 @@ function isProfilePage() {
     return /ViewProfile.asp/i.test(location.href)
 }
 
-function getUKPsummary(uid, destinationDiv) {
-    fetch(`https://ukp-aw2ukp-cors-proxy.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`)
+function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
+    let url = `https://ukp-aw2ukp-cors-proxy.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
+    let title = `Counts could be out of date :-(`
+    if (apiOrScrape === 'scrape') {
+        url = `https://ukp-scrape.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
+        title = 'Accurate information :-)'
+    }
+    fetch(url)
         .then(y => y.json())
         .then(json => {
-            let html = `<a title="Counts could be out of date :-(" style="text-decoration:none" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
+            let html = `<a title="${title}" style="text-decoration:none" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
             if (json.review_count == 0) {
                 html += `No UKP Reviews :-(`
             } else {
