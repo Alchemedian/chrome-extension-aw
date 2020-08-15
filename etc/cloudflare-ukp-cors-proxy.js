@@ -1,10 +1,7 @@
 addEventListener('fetch', event => {
     event.respondWith(handleRequest(event))
 })
-/**
- * Respond with hello worker text
- * @param {Request} request
- */
+
 async function handleRequest(event) {
     const request = event.request
     const url = new URL(request.url)
