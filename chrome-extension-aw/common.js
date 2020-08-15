@@ -12,7 +12,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
     if (apiOrScrape === 'scrape') {
         url = `https://ukp-scrape.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
         title = 'Accurate information :-)'
-        destinationDiv.style.backgroundColor = 'lightgreen'
+        destinationDiv.style.background = `linear-gradient(90deg, rgba(4,254,4,1) 0%, rgba(38,182,38,1) 100%)`
     }
     fetch(url)
         .then(y => y.json())
