@@ -11,7 +11,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
     let title = `Counts could be out of date :-(`
     if (apiOrScrape === 'scrape') {
         url = `https://ukp-scrape.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
-        title = 'Accurate information :-)'
+        title = 'Up to date information :-)'
         destinationDiv.style.background = `linear-gradient(90deg, rgba(4,254,4,1) 0%, rgba(38,182,38,1) 100%)`
     }
     fetch(url)
