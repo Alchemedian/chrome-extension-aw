@@ -294,10 +294,26 @@ if (isSearchPage()) {
                 }
 
                 let ukpReviewDetails = document.createElement('div')
+                ukpReviewDetails.id = `ku_ukp_review_summary_${uid}`
                 ukpReviewDetails.style = `background-color:white;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`
                 ukpReviewDetails.innerHTML = `<a style="text-decoration:none;font-size:12pt" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>UKP Reviews</a>`
                 profileDetails.append(ukpReviewDetails)
                 getUKPsummary(uid, ukpReviewDetails)
+                let ukpReviewDetailsRefresh = document.createElement('div')
+                ukpReviewDetailsRefresh.innerHTML = "Get live data"
+                ukpReviewDetailsRefresh.style = `text-align: right;
+                cursor: pointer;
+                position: relative;
+                top: -5px;
+                right: 20px;
+                font-size: 8pt;`
+
+                ukpReviewDetailsRefresh.addEventListener('click', function () {
+                    ukpReviewDetails.innerHTML = 'Loading...'
+                    getUKPsummary(uid, ukpReviewDetails, 'scrape')
+                    this.style.display = "none"
+                })
+                ukpReviewDetails.after(ukpReviewDetailsRefresh)
 
 
                 anchorTag.after(profileDetails)
