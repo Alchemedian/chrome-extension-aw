@@ -7,9 +7,10 @@ function isProfilePage() {
 }
 
 function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
+    const scrape = apiOrScrape === 'scrape'
     let url = `https://ukp-aw2ukp-cors-proxy.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
     let title = `Counts could be out of date :-(`
-    if (apiOrScrape === 'scrape') {
+    if (scrape) {
         url = `https://ukp-scrape.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
         title = 'Up to date information :-)'
         destinationDiv.style.background = `linear-gradient(90deg, rgba(4,254,4,1) 0%, rgba(38,182,38,1) 100%)`
@@ -22,6 +23,8 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
             let html = `<a title="${title}" style="text-decoration:none;font-size:13px" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
             if (json.review_count == 0) {
                 html += `No UKP Reviews :-(`
+                if (scrape)
+                    destinationDiv.style.background = '#eee'
             } else {
                 html += 'UKP '
                 if (json.positive_count)
@@ -30,6 +33,12 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                     html += `<span style='padding:1px 10px;white-space:nowrap;color:white;border-radius:15px;background-color:crimson'>👎 ${json.negative_count}</span>`
                 if (json.neutral_count)
                     html += `<span style='padding:1px 10px;white-space:nowrap;color:black;border-radius:15px;background-color:#cccccc'>😐 ${json.neutral_count}</span>`
+
+                if (scrape) {
+                    let percent = Math.round(200 * (json.positive_count + .5 * json.neutral_count) / json.review_count)
+                    let alpha = json.review_count < 4 ? .5 : 1
+                    destinationDiv.style.background = `linear-gradient(90deg, rgba(0,254,0,${alpha}) 0%, rgba(255,0,0,${alpha}) ${percent}%)`
+                }
             }
             html += "</a>"
             destinationDiv.innerHTML = html
