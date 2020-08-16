@@ -300,7 +300,7 @@ if (isSearchPage()) {
                 profileDetails.append(ukpReviewDetails)
                 getUKPsummary(uid, ukpReviewDetails)
                 let ukpReviewDetailsRefresh = document.createElement('div')
-                ukpReviewDetailsRefresh.innerHTML = "Get live data"
+                ukpReviewDetailsRefresh.innerHTML = "🔄 Get live data"
                 ukpReviewDetailsRefresh.style = `text-align: right;
                 cursor: pointer;
                 position: relative;
