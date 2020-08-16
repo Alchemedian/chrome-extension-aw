@@ -6,6 +6,20 @@
         document.getElementById("dPref").style.height = document.getElementById("dPref").children[0].offsetHeight + "px";
     } catch (e) { }
 
+    //remove stupid banner
+    document.querySelectorAll('table p a').forEach(a => {
+        if (/refer\.adultwork\.com/.test(a.href))
+            a.remove()
+        else if (/adultwork\.com\/shop\.asp/i.test(a.href))
+            a.remove()
+        else if (/adultwork\.com\/insider/i.test(a.href))
+            a.remove()
+        else if (/adultwork\.com\/TV/i.test(a.href))
+            a.remove()
+        else if (/adultwork\.com\/Vouchers\.asp/i.test(a.href))
+            a.remove()
+    })
+
     let profileId = location.href.match(/UserID=([0-9]+)/i)[1]
     let profileName = document.querySelector('.PageHeading').innerText
     getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'scrape')
