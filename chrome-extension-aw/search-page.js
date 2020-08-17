@@ -6,14 +6,20 @@ if (isSearchPage()) {
         let padded = document.createElement('style')
         padded.innerHTML = `
             .Padded{
+                font-size: 8px;
                 padding-right: 0;
                 padding-left: 0;
             }
             `
         document.body.append(padded)
+        document.querySelector('.PageHeading').parentElement.parentElement.parentElement.setAttribute('width', window.innerWidth + 'px')
+        document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > center > table:nth-child(4) > tbody > tr > td:nth-child(3) > table').style.marginLeft = '10px'
+        document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > center > table:nth-child(4) > tbody > tr > td:nth-child(1) > table').style.marginRight = '10px'
+        document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > center > table:nth-child(1)').style.width = window.innerWidth + 'px';
+        document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > center > table:nth-child(4) > tbody > tr > td:nth-child(2)').style.display = "none";
 
         if (document.querySelector('.Container'))
-            document.querySelector('.Container').style.wordBreak = 'break-word'        
+            document.querySelector('.Container').style.wordBreak = 'break-word'
     }, 200)
 
     //hide featured members crap
