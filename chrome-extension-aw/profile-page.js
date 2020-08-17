@@ -6,6 +6,10 @@
         document.getElementById("dPref").style.height = document.getElementById("dPref").children[0].offsetHeight + "px";
     } catch (e) { }
 
+    //remove horizontal scroll
+    if (document.body.offsetWidth > 1000)
+        document.querySelector('html').style.overflowX = 'hidden'
+
     //remove stupid banner
     document.querySelectorAll('table p a').forEach(a => {
         if (/refer\.adultwork\.com/.test(a.href))

@@ -1,5 +1,21 @@
 if (isSearchPage()) {
 
+    //fix sizes as we now use larger images:
+    setTimeout(() => {
+        document.querySelectorAll('[width]').forEach(ele => ele.removeAttribute('width'))
+        let padded = document.createElement('style')
+        padded.innerHTML = `
+            .Padded{
+                padding-right: 0;
+                padding-left: 0;
+            }
+            `
+        document.body.append(padded)
+
+        if (document.querySelector('.Container'))
+            document.querySelector('.Container').style.wordBreak = 'break-word'        
+    }, 200)
+
     //hide featured members crap
     let featuredMembers = document.querySelector('.HomePageTabLink')
     if (featuredMembers && featuredMembers.innerText === "Featured Members") {

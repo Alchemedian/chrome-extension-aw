@@ -36,7 +36,7 @@ async function handleRequest(event) {
         // Cache-Control: public
         // response.headers.set('Cache-Control', 'public')
         //max-age=<seconds>
-        response.headers.set('Cache-Control', ['public', 'max-age=604800'])
+        response.headers.set('Cache-Control', ['public', 'max-age=86400'])
         // Append to/Add Vary header so browser will cache response correctly
         response.headers.append('Vary', 'Origin')
         event.waitUntil(cache.put(cacheKey, response.clone()))

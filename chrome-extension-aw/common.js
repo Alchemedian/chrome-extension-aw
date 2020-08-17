@@ -107,7 +107,6 @@ if (isSearchPage() || isProfilePage()) {
         var temp = function () {
             document.querySelectorAll("*").forEach((x) => x.removeAttribute('onselectstart'))
             document.querySelectorAll(".unSelectable").forEach((x) => x.className = '')
-            document.querySelectorAll("*").forEach((x) => x.style.wordBreak = 'break-word')
         }
         setTimeout(temp, 250)
     })();
