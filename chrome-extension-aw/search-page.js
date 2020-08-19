@@ -203,6 +203,7 @@ if (isSearchPage()) {
                 }
 
                 let profileDetails = document.createElement('div')
+                profileDetails.className = "ku_details"
                 let tel = profileHtml.match(/"telephone".+/g)
                 if (tel && tel[0]) {
                     let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
@@ -214,11 +215,13 @@ if (isSearchPage()) {
                     let telSearch = tel.split(",")[0]
                     let telFull = telSearch.replace(/^0/, '+44')
                     telSearch = telSearch + ' OR ' + telFull
+                    let qrLink = `http://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(telFull)}&size=150x150&color=4C006F`
                     profileDetails.append(makeDiv('',
-                        `<div class='telexists'>☎️ ${tel}
+                        `<div class='ku_telephone_number'><span class='ku_qr_code' 
+                        onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">☎️</span> ${tel}
                         <a href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
                         <a href="https://wa.me/${telFull}" target="_blank">Whatsapp</a>
-                        </div>`, 'ku_telephone'
+                        </div>`, 'ku_details_telephone'
                     ))
                 } else {
                     profileDetails.append(makeDiv(`visibility:hidden`,
@@ -248,9 +251,12 @@ if (isSearchPage()) {
                     /French Kissing\n/.test(dPref) && services.push("<span title='French Kissing'>😘</span>");
                     /Foot Worship/.test(dPref) && services.push("<span title='Foot Worship'>👣</span>");
                     /Rimming \(giving\)/.test(dPref) && services.push("<span title='Rimming'>👅</span>");
+                    /Massage/.test(dPref) && services.push("<span title='Massage'>💆‍♂️</span>");
+                    /Hand Relief/.test(dPref) && services.push("<span title='Hand Relief'>✊</span>");
+                    /Watersports \(Giving\)/.test(dPref) && services.push("<span title='Water Sports (Giving)'>🏄</span>");
                     /Bareback/.test(dPref) && services.push("bb");
                     profileDetails.append(makeDiv('',
-                        price + '<div class="ku_likes">' + services.join(' ') + '</div>', 'ku_like'));
+                        price + '<div class="ku_details_likes">' + services.join(' ') + '</div>', 'ku_details_price_n_likes'));
                 }
 
                 let nation = profileHtml.match(/Nationality:.+/s);
@@ -259,8 +265,13 @@ if (isSearchPage()) {
                     if (nation[1]) {
                         nation = nation[1].match(/>(.+)</) && nation[1].match(/>(.+)</)[1]
                         nation = nation ? nation : '???'
-                        profileDetails.append(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
-                            nation));
+                        let style = ''
+                        if (nation === 'Romanian')
+                            style = 'color:red;font-weight:bold'
+                        if (nation === 'Brazilian')
+                            style = 'color:red'
+                        profileDetails.append(makeDiv(style,
+                            nation, 'ku_details_nationality'));
                     }
                 }
 
@@ -270,8 +281,8 @@ if (isSearchPage()) {
                     lastLogin = lastLogin[0].split("\n")
                     if (lastLogin[1]) {
                         lastLogin = lastLogin[1].match(/>(.+)</)[1]
-                        profileDetails.append(makeDiv(`border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
-                            'Online: ' + lastLogin, 'c_online'));
+                        profileDetails.append(makeDiv(``,
+                            'Online: ' + lastLogin, 'ku_details_seen_online'));
 
                     }
                 }
@@ -284,7 +295,7 @@ if (isSearchPage()) {
                 getUKPsummary(uid, ukpReviewDetails)
                 let ukpReviewDetailsRefresh = document.createElement('div')
                 ukpReviewDetailsRefresh.className = "ku_get_live_review_counts"
-                ukpReviewDetailsRefresh.innerHTML = "🔄 Get live data"
+                ukpReviewDetailsRefresh.innerHTML = "🔄 Get live UKP data"
 
                 ukpReviewDetailsRefresh.addEventListener('click', function() {
                     ukpReviewDetails.innerHTML = 'Loading...'

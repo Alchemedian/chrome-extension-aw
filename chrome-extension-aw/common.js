@@ -22,7 +22,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
         .then(json => {
             let html = `<a title="${title}" style="text-decoration:none;font-size:13px" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
             if (json.review_count == 0) {
-                html += `No UKP Reviews :-(`
+                html += `No UKP Reviews 😢`
                 if (scrape)
                     destinationDiv.style.background = '#eee'
             } else {

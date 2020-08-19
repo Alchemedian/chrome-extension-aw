@@ -32,60 +32,74 @@
     background-position: center center;
 }
 
-.ku_telephone {
-    background-color: green;
-    color: white;
+.ku_details {
+    width: 220px;
+}
+
+.ku_details div {
+    border: 1px solid #888;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
-    width: 110px
+    cursor: default;
 }
 
-.ku_telephone a,
-.ku_telephone a:link {
+.ku_details_price_n_likes {
+    font-size: 12pt;
+}
+
+.ku_details .ku_details_likes {
+    font-size: 25px;
+    border: none;
+}
+
+.ku_details_nationality {}
+
+.ku_details div.ku_get_live_review_counts {
+    border: none;
+    text-align: right;
+    cursor: pointer;
+    position: relative;
+    top: -11px;
+    right: 0;
+    font-size: 8pt;
+}
+
+.ku_review_details {
+    background-color: white;
+}
+
+.ku_review_details a {
+    text-decoration: none;
+    font-size: 12pt
+}
+
+.ku_details .ku_details_seen_online {
+    /* border: none; */
+}
+
+.ku_details .ku_telephone_number {
+    border: none;
+    font-size: 15pt;
+}
+
+.ku_details .ku_details_telephone {
+    background-color: green;
+    color: white;
+}
+
+.ku_details_telephone a,
+.ku_details_telephone a:link {
     color: white;
     text-align: center;
     display: block;
     padding-bottom: 4px;
 }
 
-.ku_telephone a:visited {
+.ku_details_telephone a:visited {
     color: #dddddd
 }
 
-.ku_like {
-    cursor: default;
-    border: 1px solid grey;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 2px;
-    width: 110px;
-    font-size: 9px;
-}
-
-.ku_likes {
-    font-size: 25px
-}
-
-.ku_get_live_review_counts {
-    text-align: right;
+.ku_qr_code {
     cursor: pointer;
-    position: relative;
-    top: -5px;
-    right: 20px;
-    font-size: 8pt;
-}
-
-.ku_review_details {
-    background-color: white;
-    border: 1px solid grey;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 2px;
-    width: 110px
-}
-
-.ku_review_details a {
-    text-decoration: none;
-    font-size: 12pt
 }
