@@ -1,41 +1,15 @@
 if (isSearchPage()) {
 
-    //fix sizes as we now use larger images:
-    setTimeout(() => {
-        document.querySelectorAll('[width]').forEach(ele => ele.removeAttribute('width'))
-        let padded = document.createElement('style')
-        padded.innerHTML = `
-            .Padded{
-                font-size: 8px;
-                padding-right: 0;
-                padding-left: 0;
-            }
-            `
-        document.body.append(padded)
-        document.querySelector('.PageHeading').parentElement.parentElement.parentElement.setAttribute('width', window.innerWidth + 'px')
-        document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > center > table:nth-child(4) > tbody > tr > td:nth-child(3) > table').style.marginLeft = '10px'
-        document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > center > table:nth-child(4) > tbody > tr > td:nth-child(1) > table').style.marginRight = '10px'
-        document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > center > table:nth-child(1)').style.width = window.innerWidth + 'px';
-        document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > center > table:nth-child(4) > tbody > tr > td:nth-child(2)').style.display = "none";
-
-        if (document.querySelector('.Container'))
-            document.querySelector('.Container').style.wordBreak = 'break-word'
-    }, 200)
-
     //hide featured members crap
     let featuredMembers = document.querySelector('.HomePageTabLink')
     if (featuredMembers && featuredMembers.innerText === "Featured Members") {
         let fmParent =
             featuredMembers.parentElement.parentElement.parentElement
-                .parentElement.parentElement.parentElement.parentElement
+            .parentElement.parentElement.parentElement.parentElement
         fmParent.style.display = "none"
         let div = document.createElement('div')
         div.id = "ku_featured_members_hidden"
         div.innerHTML = "<i>Featured Members</i> bullshit hidden. Click here to restore it."
-        div.style.background = "black"
-        div.style.color = "white"
-        div.style.padding = "2px"
-        div.style.cursor = "pointer"
         div.addEventListener('click', () => {
             document.getElementById('ku_featured_members_hidden').style.display = "none"
             fmParent.style.display = ""
@@ -59,10 +33,9 @@ if (isSearchPage()) {
             event.preventDefault()
         })
     })
-    //disable picture hover tooltip
-    document.getElementById('ToolTip').style.display = "none";
 
     let profileImages = {}
+
     function parseProfileImages(body) {
         let imgUniq = {}
         let domTemp = document.createElement('div')
@@ -99,17 +72,13 @@ if (isSearchPage()) {
             eleOverlay.style.left = 0
         }
         eleOverlay.style.top = window.scrollY + "px"
-        eleOverlay.style.display = "block"
+
         if (!profileImages[uid])
             return;
 
+        eleOverlay.style.display = "block"
         let src = `${profileImages[uid][ord]}`
-
-        eleOverlay.style.backgroundSize = "contain"
-        eleOverlay.style.backgroundRepeat = "no-repeat"
-        eleOverlay.style.backgroundPosition = "center center"
         eleOverlay.style.backgroundImage = `url("${src}")`
-
 
         let mw = Math.floor(window.innerWidth / 2)
         let mh = Math.floor(window.innerHeight)
@@ -129,15 +98,7 @@ if (isSearchPage()) {
 
     function biggerHoverImages() {
         document.body.appendChild(
-            makeDiv(`display:none;
-            position:absolute;
-            top:0;
-            right:0;
-            z-index:1000;
-            border:1px solid violet;
-            padding:2px;
-            background-color:#222`,
-                '', 'pictureOverlay'))
+            makeDiv('', '', 'pictureOverlay'))
 
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
             let uid = ele.href.match(/[0-9]+/)[0];
@@ -154,7 +115,7 @@ if (isSearchPage()) {
     }
     biggerHoverImages()
 
-    document.querySelectorAll("a.label[href='#']").forEach(function (anchorTag) {
+    document.querySelectorAll("a.label[href='#']").forEach(function(anchorTag) {
         var st = String(anchorTag.getAttribute('onclick')).match(/sU\(([0-9]+)/);
         if (!st || !st[1])
             return;
@@ -238,7 +199,7 @@ if (isSearchPage()) {
                     dots.forEach(dot => ruler.append(dot))
                     rulerContainer.appendChild(ruler)
                     ancImg[0].after(rulerContainer)
-                    // rulerContainer.addEventListener('mouseout', hideOverlayImage)
+                        // rulerContainer.addEventListener('mouseout', hideOverlayImage)
                 }
 
                 let profileDetails = document.createElement('div')
@@ -253,11 +214,11 @@ if (isSearchPage()) {
                     let telSearch = tel.split(",")[0]
                     let telFull = telSearch.replace(/^0/, '+44')
                     telSearch = telSearch + ' OR ' + telFull
-                    profileDetails.append(makeDiv(`background-color: green;color: white;border-radius: 5px;margin: 5px;padding: 2px;width:110px`,
+                    profileDetails.append(makeDiv('',
                         `<div class='telexists'>☎️ ${tel}
-                        <a style="text-align:center;color:white;display:block;padding-bottom:4px;" href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
-                        <a style="text-align:center;color:white;display:block;padding-bottom:4px;" href="https://wa.me/${telFull}" target="_blank">Whatsapp</a>
-                        </div>`
+                        <a href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
+                        <a href="https://wa.me/${telFull}" target="_blank">Whatsapp</a>
+                        </div>`, 'ku_telephone'
                     ))
                 } else {
                     profileDetails.append(makeDiv(`visibility:hidden`,
@@ -288,8 +249,8 @@ if (isSearchPage()) {
                     /Foot Worship/.test(dPref) && services.push("<span title='Foot Worship'>👣</span>");
                     /Rimming \(giving\)/.test(dPref) && services.push("<span title='Rimming'>👅</span>");
                     /Bareback/.test(dPref) && services.push("bb");
-                    profileDetails.append(makeDiv(`cursor:default;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px;font-size:9px`,
-                        price + '<div style="font-size:25px">' + services.join(' ') + '</div>'));
+                    profileDetails.append(makeDiv('',
+                        price + '<div class="ku_likes">' + services.join(' ') + '</div>', 'ku_like'));
                 }
 
                 let nation = profileHtml.match(/Nationality:.+/s);
@@ -316,21 +277,16 @@ if (isSearchPage()) {
                 }
 
                 let ukpReviewDetails = document.createElement('div')
+                ukpReviewDetails.className = "ku_review_details"
                 ukpReviewDetails.id = `ku_ukp_review_summary_${uid}`
-                ukpReviewDetails.style = `background-color:white;border:1px solid grey;border-radius: 5px;margin: 5px;padding: 2px;width:110px`
-                ukpReviewDetails.innerHTML = `<a style="text-decoration:none;font-size:12pt" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>UKP Reviews</a>`
+                ukpReviewDetails.innerHTML = `<a href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>UKP Reviews</a>`
                 profileDetails.append(ukpReviewDetails)
                 getUKPsummary(uid, ukpReviewDetails)
                 let ukpReviewDetailsRefresh = document.createElement('div')
+                ukpReviewDetailsRefresh.className = "ku_get_live_review_counts"
                 ukpReviewDetailsRefresh.innerHTML = "🔄 Get live data"
-                ukpReviewDetailsRefresh.style = `text-align: right;
-                cursor: pointer;
-                position: relative;
-                top: -5px;
-                right: 20px;
-                font-size: 8pt;`
 
-                ukpReviewDetailsRefresh.addEventListener('click', function () {
+                ukpReviewDetailsRefresh.addEventListener('click', function() {
                     ukpReviewDetails.innerHTML = 'Loading...'
                     getUKPsummary(uid, ukpReviewDetails, 'scrape')
                     this.style.display = "none"
@@ -344,7 +300,7 @@ if (isSearchPage()) {
         anchorTag.href = location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + uid;
         anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + uid)
         anchorTag.target = "_blank";
-        anchorTag.onclick = function () {
+        anchorTag.onclick = function() {
             window.open(location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + uid);
             return false;
         };
@@ -352,7 +308,7 @@ if (isSearchPage()) {
         anchorTag.after(ukpSearchButtons(uid))
 
     })
-    document.querySelectorAll('img.Border').forEach(function (x) {
+    document.querySelectorAll('img.Border').forEach(function(x) {
         x.src = String(x.src).replace('/t/', '/i/')
     })
 

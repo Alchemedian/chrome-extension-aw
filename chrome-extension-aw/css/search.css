@@ -1,0 +1,91 @@
+.Padded {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    font-size: 8px !important;
+}
+
+#ku_featured_members_hidden {
+    background: black;
+    color: white;
+    padding: 2px;
+    cursor: pointer;
+}
+
+
+/* disable picture hover tooltip */
+
+#ToolTip {
+    display: none;
+}
+
+.pictureOverlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    border: 1px solid violet;
+    padding: 2px;
+    background-color: #222;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.ku_telephone {
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 2px;
+    width: 110px
+}
+
+.ku_telephone a,
+.ku_telephone a:link {
+    color: white;
+    text-align: center;
+    display: block;
+    padding-bottom: 4px;
+}
+
+.ku_telephone a:visited {
+    color: #dddddd
+}
+
+.ku_like {
+    cursor: default;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 2px;
+    width: 110px;
+    font-size: 9px;
+}
+
+.ku_likes {
+    font-size: 25px
+}
+
+.ku_get_live_review_counts {
+    text-align: right;
+    cursor: pointer;
+    position: relative;
+    top: -5px;
+    right: 20px;
+    font-size: 8pt;
+}
+
+.ku_review_details {
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 2px;
+    width: 110px
+}
+
+.ku_review_details a {
+    text-decoration: none;
+    font-size: 12pt
+}

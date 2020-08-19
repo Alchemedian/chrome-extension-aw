@@ -7,18 +7,21 @@
         "48": "icon-48.png",
         "128": "icon-128.png"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*.adultwork.com/*"
-            ],
-            "js": [
-                "common.js",
-                "icon-base64.js",
-                "profile-page.js",
-                "search-page.js",
-                "lib/html2canvas.min.js"
-            ]
-        }
-    ]
+    "content_scripts": [{
+        "matches": [
+            "*://*.adultwork.com/*"
+        ],
+        "css": [
+            "css/common.css",
+            "css/profile.css",
+            "css/search.css"
+        ],
+        "js": [
+            "common.js",
+            "icon-base64.js",
+            "profile-page.js",
+            "search-page.js",
+            "lib/html2canvas.min.js"
+        ]
+    }]
 }

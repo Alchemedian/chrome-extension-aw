@@ -6,18 +6,6 @@ function isProfilePage() {
     return /ViewProfile.asp/i.test(location.href)
 }
 
-function addCss(cssFile = 'main.css') {
-    fetch(chrome.extension.getURL('css/main.css'))
-        .then(y => y.text())
-        .then(text => {
-            let css = document.createElement('style')
-            css.innerHTML = text
-            document.body.append(css)
-            console.log(css)
-        })
-}
-addCss()
-
 function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
     const scrape = apiOrScrape === 'scrape'
     let url = `https://ukp-aw2ukp-cors-proxy.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
@@ -40,11 +28,11 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
             } else {
                 html += 'UKP '
                 if (json.positive_count)
-                    html += `<span style='padding:1px 10px;white-space:nowrap;color:green;border-radius:15px;background-color:#ccffcc'>👍 ${json.positive_count}</span>`
+                    html += `<span class="ku_ukp_review_item ku_ukp_review_item_positive">👍 ${json.positive_count}</span>`
                 if (json.negative_count)
-                    html += `<span style='padding:1px 10px;white-space:nowrap;color:white;border-radius:15px;background-color:crimson'>👎 ${json.negative_count}</span>`
+                    html += `<span class="ku_ukp_review_item ku_ukp_review_item_negative" >👎 ${json.negative_count}</span>`
                 if (json.neutral_count)
-                    html += `<span style='padding:1px 10px;white-space:nowrap;color:black;border-radius:15px;background-color:#cccccc'>😐 ${json.neutral_count}</span>`
+                    html += `<span class="ku_ukp_review_item ku_ukp_review_item_neutral">😐 ${json.neutral_count}</span>`
 
                 if (scrape) {
                     let percent = Math.round(200 * (json.positive_count + .5 * json.neutral_count) / json.review_count)
@@ -59,15 +47,6 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
 
 function ukpSearchButtons(uid) {
     let ukp = makeDiv('width:140px', '');
-    // let ukpButtonReviewSearch = document.createElement('button');
-    // ukpButtonReviewSearch.innerHTML = "UKP Reviews"
-    // ukpButtonReviewSearch.style.padding = "1px"
-    // ukpButtonReviewSearch.style.cursor = "pointer"
-    // ukpButtonReviewSearch.addEventListener('click', () => {
-    //     event.preventDefault();
-    //     window.open("https://www.ukpunting.com/index.php?action=adultwork;id=" + uid);
-    // })
-    // ukp.appendChild(ukpButtonReviewSearch)
 
     let dhid = document.createElement('div')
     dhid.style.display = "none"
@@ -81,9 +60,8 @@ function ukpSearchButtons(uid) {
             `
     document.querySelector('body').after(dhid)
     let ukpButton = document.createElement('button');
-    ukpButton.style.padding = "1px"
+    ukpButton.className = "ku_ukp_button"
     ukpButton.innerHTML = "UKP"
-    ukpButton.style.cursor = "pointer"
     ukpButton.addEventListener('click', () => {
         event.preventDefault();
         document.getElementById(`ku_ukp_form_${uid}`).submit()
@@ -91,9 +69,9 @@ function ukpSearchButtons(uid) {
     ukp.appendChild(ukpButton)
 
     let ukpGoogleButton = document.createElement('button');
-    ukpGoogleButton.style.padding = "1px"
+    ukpGoogleButton.className = "ku_ukp_button"
     ukpGoogleButton.innerHTML = "Google UKP"
-    ukpGoogleButton.style.cursor = "pointer"
+
     ukpGoogleButton.addEventListener('click', () => {
         event.preventDefault();
         window.open("https://www.google.co.uk/search?q=" + encodeURIComponent('site:ukpunting.com ' + uid))
@@ -142,13 +120,13 @@ if (isSearchPage() || isProfilePage()) {
         parent.after(topBar);
         let hidePhoneButton = isSearchPage() ?
             `            
-        <span style="margin-left:20px;height:18px" id='ku_hide'>
+        <span id='ku_hide'>
         <input id="ku_check_phone" type="checkbox" ${JSON.parse(window.localStorage.hideNoPhone) ? 'checked' : ''}/>
-        <label style="font-size:10px;vertical-align:top;padding-top:3px;display:inline-block;line-height:14px" for="ku_check_phone">Only show results with a phone</label></span>
+        <label for="ku_check_phone">Only show results with a phone</label></span>
         ` : '';
 
         topBar.innerHTML += `${hidePhoneButton}
         <span id="ku_ukp_search"></span>
-    <div id="ku_ukp_summary" style="border-radius:5px;padding:0 15px 0 15px;background-color:white;color:black;float: right;font-size: 10pt;"></div>`
+    <div id="ku_ukp_summary"></div>`
     })();
 }

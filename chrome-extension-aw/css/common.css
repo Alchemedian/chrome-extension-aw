@@ -1,0 +1,52 @@
+#ku_ukp_search div {
+    margin-left: 10px;
+    float: right
+}
+
+.ku_ukp_review_item {
+    padding: 1px 10px;
+    white-space: nowrap;
+    border-radius: 15px;
+}
+
+.ku_ukp_review_item_positive {
+    color: green;
+    background-color: #ccffcc
+}
+
+.ku_ukp_review_item_negative {
+    color: white;
+    background-color: crimson
+}
+
+.ku_ukp_review_item_neutral {
+    background-color: black;
+    background-color: #cccccc
+}
+
+.ku_ukp_button {
+    cursor: pointer;
+    padding: 1px;
+}
+
+#ku_hide {
+    margin-left: 20px;
+    height: 18px
+}
+
+#ku_hide label {
+    font-size: 10px;
+    vertical-align: top;
+    padding-top: 3px;
+    display: inline-block;
+    line-height: 14px
+}
+
+#ku_ukp_summary {
+    border-radius: 5px;
+    padding: 0 15px 0 15px;
+    background-color: white;
+    color: black;
+    float: right;
+    font-size: 10pt;
+}

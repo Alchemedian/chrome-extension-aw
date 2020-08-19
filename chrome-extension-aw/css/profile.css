@@ -1,0 +1,49 @@
+.gallerywrapper {
+    display: inline-flex;
+    min-width: 375px;
+}
+
+.gallerywrapper img {
+    cursor: pointer
+}
+
+.gallerywrapper .rimgsearch {
+    position: relative;
+    top: -40px;
+    height: 40px;
+    right: -40px;
+    visibility: hidden;
+}
+
+.gallerywrapper:hover .rimgsearch {
+    visibility: visible;
+}
+
+.gallerywrapper .rimgsearch button {
+    margin: 9px
+}
+
+.removed_content {
+    background-color: black;
+    color: white;
+    margin: 20px;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#ku_download_all {
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    position: sticky;
+    top: -20px;
+    float: right;
+    z-index: 1000;
+    user-select: none;
+}
+
+.ku_gallery_large {
+    border: '1px solid #ccc';
+    display: inline-flex;
+}

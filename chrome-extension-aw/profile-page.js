@@ -30,9 +30,6 @@
     let profileName = document.querySelector('.PageHeading').innerText
     getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'scrape')
     let ukpSearch = ukpSearchButtons(profileId)
-    ukpSearch.style.display = "inline"
-    ukpSearch.style.marginLeft = "10px"
-    ukpSearch.style.float = "right"
     document.querySelector('#ku_ukp_search').append(ukpSearch)
 
     function removeLongTextualCrap() {
@@ -48,7 +45,7 @@
                     a += b.slice(0, b.indexOf('>') + 1)
                 }
                 let randId = `restore_button_${i}`;
-                a += `<div id='removed_content_${i}' style='background-color: black;color: white;margin: 20px;font-size: 20px;padding: 20px;border-radius: 5px;'>Removed very long pretentious textual crap. <button id='${randId}'>Show Full Text</button></div>`
+                a += `<div id='removed_content_${i}' class='removed_content'>Removed very long pretentious textual crap. <button id='${randId}'>Show Full Text</button></div>`
                 document.getElementById(eleId).innerHTML = a;
                 document.getElementById(eleId).setAttribute('data-content-html', html);
                 document.getElementById(randId).addEventListener('click', function() {
@@ -84,12 +81,12 @@
 
     function wrapImg(src) {
         let fileName = src.split(/(\\|\/)/g).pop()
-        return `<div class='gallerywrapper' style='display:inline-flex;min-width: 375px;'>
+        return `<div class='gallerywrapper'>
             <div>
-                <img style='max-width:${(window.innerWidth - 200)}px;cursor:pointer' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
-                    <div style="position: relative;top: -40px;height: 40px;right: -40px;">
-                        <button style="margin:9px" onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
-                        <button style="margin:9px" onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
+                <img style='max-width:${(window.innerWidth - 200)}px;' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
+                    <div class='rimgsearch'>
+                        <button onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
+                        <button onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
                     </div>
             </div>
         </div>`;
@@ -173,14 +170,6 @@
         divGallery.innerHTML = html;
 
         let downloadAllButton = document.createElement('button')
-        downloadAllButton.style.padding = "20px"
-        downloadAllButton.style.fontSize = "20px"
-        downloadAllButton.style.cursor = "pointer"
-        downloadAllButton.style.position = "sticky";
-        downloadAllButton.style.top = "-20px";
-        downloadAllButton.style.float = "right";
-        downloadAllButton.style.zIndex = "1000";
-        downloadAllButton.style.userSelect = "none";
         downloadAllButton.innerHTML = "Download All Images"
         downloadAllButton.title = "Right click to download only screenshot"
         downloadAllButton.id = "ku_download_all"
@@ -250,8 +239,6 @@
                     src = src.substr(0, src.indexOf("'"))
                     let div = document.createElement('div')
                     div.className = 'ku_gallery_large'
-                    div.style.border = '1px solid #ccc'
-                    div.style.display = 'inline-flex'
                     div.innerHTML = wrapImg(src)
                     images.push(src)
                     document.querySelector('#ku_gallery_images').append(div)
@@ -286,7 +273,6 @@
                     var src = b[1].replace('/i/', '/');
                     let fileName = src.split(/(\\|\/)/g).pop()
                     let html = wrapImg(src)
-                        // var html = "<img class='verif' data-file-name='" + fileName + "' style='max-width:" + (window.innerWidth - 200) + "px' src='" + src + "'/>";
                     var child = document.createElement("div");
                     child.innerHTML = html;
 
