@@ -12,20 +12,6 @@
     if (document.body.offsetWidth > 1000)
         document.querySelector('html').style.overflowX = 'hidden'
 
-    //remove stupid banner
-    document.querySelectorAll('table p a').forEach(a => {
-        if (/refer\.adultwork\.com/.test(a.href))
-            a.remove()
-        else if (/adultwork\.com\/shop\.asp/i.test(a.href))
-            a.remove()
-        else if (/adultwork\.com\/insider/i.test(a.href))
-            a.remove()
-        else if (/adultwork\.com\/TV/i.test(a.href))
-            a.remove()
-        else if (/adultwork\.com\/Vouchers\.asp/i.test(a.href))
-            a.remove()
-    })
-
     let profileId = location.href.match(/UserID=([0-9]+)/i)[1]
     let profileName = document.querySelector('.PageHeading').innerText
     getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'scrape')
@@ -45,7 +31,7 @@
                     a += b.slice(0, b.indexOf('>') + 1)
                 }
                 let randId = `restore_button_${i}`;
-                a += `<div id='removed_content_${i}' class='removed_content'>Removed very long pretentious textual crap. <button id='${randId}'>Show Full Text</button></div>`
+                a += `<div id='ku_removed_content_${i}' class='ku_removed_content'>Removed very long pretentious textual crap. <button id='${randId}'>Show Full Text</button></div>`
                 document.getElementById(eleId).innerHTML = a;
                 document.getElementById(eleId).setAttribute('data-content-html', html);
                 document.getElementById(randId).addEventListener('click', function() {
@@ -81,10 +67,10 @@
 
     function wrapImg(src) {
         let fileName = src.split(/(\\|\/)/g).pop()
-        return `<div class='gallerywrapper'>
+        return `<div class='ku_gallerywrapper'>
             <div>
                 <img style='max-width:${(window.innerWidth - 200)}px;' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
-                    <div class='rimgsearch'>
+                    <div class='ku_reverse_img_search'>
                         <button onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
                         <button onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
                     </div>

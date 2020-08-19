@@ -1,13 +1,18 @@
-.gallerywrapper {
+form[name=frmProfile] .Padded {
+    padding-left: 4px !important;
+    font-size: 12px !important;
+}
+
+.ku_gallerywrapper {
     display: inline-flex;
     min-width: 375px;
 }
 
-.gallerywrapper img {
+.ku_gallerywrapper img {
     cursor: pointer
 }
 
-.gallerywrapper .rimgsearch {
+.ku_gallerywrapper .ku_reverse_img_search {
     position: relative;
     top: -40px;
     height: 40px;
@@ -15,15 +20,15 @@
     visibility: hidden;
 }
 
-.gallerywrapper:hover .rimgsearch {
+.ku_gallerywrapper:hover .ku_reverse_img_search {
     visibility: visible;
 }
 
-.gallerywrapper .rimgsearch button {
+.ku_gallerywrapper .ku_reverse_img_search button {
     margin: 9px
 }
 
-.removed_content {
+.ku_removed_content {
     background-color: black;
     color: white;
     margin: 20px;
@@ -46,4 +51,11 @@
 .ku_gallery_large {
     border: '1px solid #ccc';
     display: inline-flex;
+}
+
+
+/* hide stupid banner  */
+
+#main-content-container>tbody>tr>td>p {
+    display: none
 }

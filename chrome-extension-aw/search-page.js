@@ -65,7 +65,7 @@ if (isSearchPage()) {
 
 
     function showOverlayImage(uid, ord) {
-        let eleOverlay = document.getElementsByClassName('pictureOverlay')[0]
+        let eleOverlay = document.getElementsByClassName('ku_picture_overlay')[0]
         if (event.pageX < window.innerWidth / 2) {
             eleOverlay.style.left = (window.innerWidth / 2) + "px"
         } else {
@@ -92,13 +92,13 @@ if (isSearchPage()) {
     }
 
     function hideOverlayImage() {
-        document.getElementsByClassName('pictureOverlay')[0].style.display = "none";
+        document.getElementsByClassName('ku_picture_overlay')[0].style.display = "none";
         document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
     }
 
     function biggerHoverImages() {
         document.body.appendChild(
-            makeDiv('', '', 'pictureOverlay'))
+            makeDiv('', '', 'ku_picture_overlay'))
 
         document.querySelectorAll('.Padded a[onMouseover]').forEach(ele => {
             let uid = ele.href.match(/[0-9]+/)[0];
