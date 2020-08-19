@@ -6,6 +6,18 @@ function isProfilePage() {
     return /ViewProfile.asp/i.test(location.href)
 }
 
+function addCss(cssFile = 'main.css') {
+    fetch(chrome.extension.getURL('css/main.css'))
+        .then(y => y.text())
+        .then(text => {
+            let css = document.createElement('style')
+            css.innerHTML = text
+            document.body.append(css)
+            console.log(css)
+        })
+}
+addCss()
+
 function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
     const scrape = apiOrScrape === 'scrape'
     let url = `https://ukp-aw2ukp-cors-proxy.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
@@ -103,15 +115,15 @@ function makeDiv(style, html, className) {
 
 
 if (isSearchPage() || isProfilePage()) {
-    (function () {
-        var temp = function () {
+    (function() {
+        var temp = function() {
             document.querySelectorAll("*").forEach((x) => x.removeAttribute('onselectstart'))
             document.querySelectorAll(".unSelectable").forEach((x) => x.className = '')
         }
         setTimeout(temp, 250)
     })();
 
-    (function () {
+    (function() {
         var parent = document.getElementById("stripMenuLevel2Container");
         let topBar = document.createElement("div");
         let loc = location.href;
@@ -120,7 +132,7 @@ if (isSearchPage() || isProfilePage()) {
         } else if (loc.length > 80) {
             loc = loc.split('?')[0] + "?..."
         }
-        topBar.innerHTML = loc;// + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
+        topBar.innerHTML = loc; // + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
         topBar.id = "ku_top_bar"
         topBar.style.border = "1px solid grey";
         topBar.style.backgroundColor = "grey";
