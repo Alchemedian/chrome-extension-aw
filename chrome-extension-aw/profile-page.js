@@ -1,10 +1,12 @@
-(function () {
+(function() {
     if (!isProfilePage()) {
         return;
     }
+
+
     try {
         document.getElementById("dPref").style.height = document.getElementById("dPref").children[0].offsetHeight + "px";
-    } catch (e) { }
+    } catch (e) {}
 
     //remove horizontal scroll
     if (document.body.offsetWidth > 1000)
@@ -49,7 +51,7 @@
                 a += `<div id='removed_content_${i}' style='background-color: black;color: white;margin: 20px;font-size: 20px;padding: 20px;border-radius: 5px;'>Removed very long pretentious textual crap. <button id='${randId}'>Show Full Text</button></div>`
                 document.getElementById(eleId).innerHTML = a;
                 document.getElementById(eleId).setAttribute('data-content-html', html);
-                document.getElementById(randId).addEventListener('click', function () {
+                document.getElementById(randId).addEventListener('click', function() {
                     document.getElementById('content' + i).innerHTML = document.getElementById('content' + i).getAttribute('data-content-html');
                     return false;
                 })
@@ -97,7 +99,7 @@
         var html = "";
         var c = 0;
 
-        document.querySelectorAll("img.border").forEach(function (x) {
+        document.querySelectorAll("img.border").forEach(function(x) {
             if (x.parentElement && x.parentElement.href && /(sIWishlist|:sI|:vSI)/.test(x.parentElement.href)) {
 
             } else {
@@ -108,7 +110,7 @@
             }
         })
         c = 0;
-        document.querySelectorAll(".ImageBorder").forEach(function (x) {
+        document.querySelectorAll(".ImageBorder").forEach(function(x) {
             if (c++ < 55) {
                 html += wrapImg(thumbToFull(x.src));
                 images.push(thumbToFull(x.src))
@@ -135,7 +137,7 @@
             image.src = "https://cors-proxy.bwkake.workers.dev/?apiurl=" + encodeURIComponent(src);
 
 
-            image.onload = function () {
+            image.onload = function() {
                 let canvas = document.createElement('canvas');
                 canvas.width = this.naturalWidth;
                 canvas.height = this.naturalHeight;
@@ -143,8 +145,8 @@
                 context.drawImage(this, 0, 0)
                 context.drawImage(imgIcon, canvas.width - imgIcon.width, canvas.height - imgIcon.height)
                 let fontSize = Math.round(Math.sqrt(canvas.width * canvas.height) / 30)
-                context.font = fontSize
-                    + "px Georgia";
+                context.font = fontSize +
+                    "px Georgia";
                 context.shadowColor = "rgba(255,255,255,1)";
                 context.shadowBlur = fontSize;
                 context.fillText("😋 " + profileName,
@@ -188,6 +190,7 @@
             e.preventDefault()
             return false
         })
+
         function disableDownloadAllButton(n = 5000) {
             document.querySelector('#ku_download_all').setAttribute('disabled', true)
             setTimeout(() => document.querySelector('#ku_download_all').removeAttribute('disabled'), n)
@@ -226,7 +229,7 @@
             element.style.backgroundColor = "#ffffff"
             html2canvas(element, {
                 useCORS: true,
-                onrendered: function (canvas) {
+                onrendered: function(canvas) {
                     let context = canvas.getContext('2d')
                     context.drawImage(imgIcon, canvas.width - imgIcon.width, canvas.height - imgIcon.height)
                     let a = document.createElement('a')
@@ -272,7 +275,7 @@
     function getVerificationPicture() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/dlgVerificationPhoto.asp?SelUserID=' + profileId);
-        xhr.onload = function () {
+        xhr.onload = function() {
             if (xhr.status === 200) {
                 var a = xhr.responseText.match(/src=".+UserVeriPhotos[^"]+/g);
                 var b = false;
@@ -283,7 +286,7 @@
                     var src = b[1].replace('/i/', '/');
                     let fileName = src.split(/(\\|\/)/g).pop()
                     let html = wrapImg(src)
-                    // var html = "<img class='verif' data-file-name='" + fileName + "' style='max-width:" + (window.innerWidth - 200) + "px' src='" + src + "'/>";
+                        // var html = "<img class='verif' data-file-name='" + fileName + "' style='max-width:" + (window.innerWidth - 200) + "px' src='" + src + "'/>";
                     var child = document.createElement("div");
                     child.innerHTML = html;
 
