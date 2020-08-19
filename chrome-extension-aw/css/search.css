@@ -75,7 +75,9 @@
 }
 
 .ku_details .ku_details_seen_online {
-    /* border: none; */
+    font-size: 10pt;
+    text-align: center;
+    background-color: #f9f9f9;
 }
 
 .ku_details .ku_telephone_number {
@@ -102,4 +104,8 @@
 
 .ku_qr_code {
     cursor: pointer;
+}
+
+.Padded[colspan="4"] {
+    font-size: 13px !important;
 }

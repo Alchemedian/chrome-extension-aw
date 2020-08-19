@@ -284,7 +284,7 @@ if (isSearchPage()) {
                     if (memberSince[1]) {
                         memberSince = memberSince[1].match(/>(.+)</)[1]
                         let msDate = new Date(memberSince.split('/').reverse().join(' '))
-                        memberSinceAgo = `, joined ${timeAgo(msDate)}`
+                        memberSinceAgo = `, <br>joined ${timeAgo(msDate)}`
                     }
                 }
 

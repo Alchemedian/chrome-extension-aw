@@ -27,6 +27,7 @@
 .ku_ukp_button {
     cursor: pointer;
     padding: 1px;
+    margin-right: 5px;
 }
 
 #ku_hide {
