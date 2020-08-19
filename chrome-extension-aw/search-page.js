@@ -265,24 +265,37 @@ if (isSearchPage()) {
                     if (nation[1]) {
                         nation = nation[1].match(/>(.+)</) && nation[1].match(/>(.+)</)[1]
                         nation = nation ? nation : '???'
-                        let style = ''
+                        let divNation = document.createElement('div');
                         if (nation === 'Romanian')
-                            style = 'color:red;font-weight:bold'
+                            divNation.style = 'font-weight:bold'
                         if (nation === 'Brazilian')
-                            style = 'color:red'
-                        profileDetails.append(makeDiv(style,
-                            nation, 'ku_details_nationality'));
+                            divNation.style = 'font-weight:bold'
+
+                        divNation.className = 'ku_details_nationality'
+                        divNation.innerHTML = nation;
+                        profileDetails.append(divNation);
                     }
                 }
 
+                let memberSince = profileHtml.match(/Member Since:.+/s);
+                let memberSinceAgo = ''
+                if (memberSince && memberSince[0]) {
+                    memberSince = memberSince[0].split("\n")
+                    if (memberSince[1]) {
+                        memberSince = memberSince[1].match(/>(.+)</)[1]
+                        let msDate = new Date(memberSince.split('/').reverse().join(' '))
+                        memberSinceAgo = `, joined ${timeAgo(msDate)}`
+                    }
+                }
 
                 let lastLogin = profileHtml.match(/Last Login:.+/s);
                 if (lastLogin && lastLogin[0]) {
                     lastLogin = lastLogin[0].split("\n")
                     if (lastLogin[1]) {
                         lastLogin = lastLogin[1].match(/>(.+)</)[1]
+                        lastLogin = lastLogin.toLowerCase()
                         profileDetails.append(makeDiv(``,
-                            'Online: ' + lastLogin, 'ku_details_seen_online'));
+                            `Online ${lastLogin}${memberSinceAgo}`, 'ku_details_seen_online'));
 
                     }
                 }
