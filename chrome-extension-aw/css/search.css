@@ -65,6 +65,10 @@
     font-size: 8pt;
 }
 
+div.ku_get_live_review_counts:hover {
+    text-decoration: underline;
+}
+
 .ku_review_details {
     background-color: white;
 }
