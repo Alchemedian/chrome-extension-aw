@@ -71,7 +71,8 @@
 
 .ku_review_details a {
     text-decoration: none;
-    font-size: 12pt
+    font-size: 12pt;
+    display: block;
 }
 
 .ku_details .ku_details_seen_online {
