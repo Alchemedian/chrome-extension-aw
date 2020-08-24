@@ -1,5 +1,12 @@
 if (isSearchPage()) {
 
+    //Cummings:
+    (() => {
+        let cwarn = document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > table > tbody > tr > td > table > tbody > tr > td > p')
+        if (cwarn)
+            cwarn.innerHTML += ". <span style='color:red'>Common sense exceptions apply if you wish to test your eyes or other body parts.</span>"
+    })()
+
     //hide featured members crap
     let featuredMembers = document.querySelector('.HomePageTabLink')
     if (featuredMembers && featuredMembers.innerText === "Featured Members") {

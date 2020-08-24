@@ -3,6 +3,12 @@
         return;
     }
 
+    //Cummings:
+    (() => {
+        let cwarn = document.querySelector('#main-content-container > tbody > tr > td > div:nth-child(2) > center > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > p')
+        if (cwarn)
+            cwarn.innerHTML += ". <span style='color:red'>Common sense exceptions apply if you wish to test your eyes or other body parts.</span>"
+    })()
 
     try {
         document.getElementById("dPref").style.height = document.getElementById("dPref").children[0].offsetHeight + "px";

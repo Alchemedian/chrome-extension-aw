@@ -88,6 +88,8 @@ div.ku_get_live_review_counts:hover {
 .ku_details .ku_telephone_number {
     border: none;
     font-size: 13pt;
+    padding: 0;
+    margin: 0;
 }
 
 .ku_details .ku_details_telephone {
