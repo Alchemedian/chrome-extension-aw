@@ -5,7 +5,6 @@ form[name=frmProfile] .Padded {
 
 .ku_gallerywrapper {
     display: inline-flex;
-    min-width: 375px;
 }
 
 .ku_gallerywrapper img {
@@ -17,6 +16,8 @@ form[name=frmProfile] .Padded {
     top: -40px;
     height: 40px;
     right: -40px;
+    margin-bottom: -40px;
+    margin-right: -40px;
     visibility: hidden;
 }
 
@@ -51,6 +52,15 @@ form[name=frmProfile] .Padded {
 .ku_gallery_large {
     border: '1px solid #ccc';
     display: inline-flex;
+}
+
+.ku_gallery_slider {
+    position: sticky;
+    float: right;
+    right: 0;
+    width: 200px;
+    top: -10px;
+    padding: 20px;
 }
 
 

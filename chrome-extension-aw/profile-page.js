@@ -66,12 +66,14 @@
 
     function wrapImg(src) {
         let fileName = src.split(/(\\|\/)/g).pop()
+        let maxWidth = window.localStorage.ku_gallery_max_width ?
+            window.localStorage.ku_gallery_max_width : window.innerWidth - 200
         return `<div class='ku_gallerywrapper'>
             <div>
-                <img style='max-width:${(window.innerWidth - 200)}px;' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
+                <img class='ku_gallerywrapper_img' style='max-width:${maxWidth}px;' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
                     <div class='ku_reverse_img_search'>
-                        <button onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Search On Yandex</button>
-                        <button onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Search On Google</button>
+                        <button onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Yandex</button>
+                        <button onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Google</button>
                     </div>
             </div>
         </div>`;
@@ -195,8 +197,31 @@
                 .forEach((src, i) => downloadImage(src, `000${i}`.substr(-3)))
         })
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadAllButton)
-        document.querySelector("div.stripMenuLevelFooterContainer").before(divGallery);
 
+
+        //img size slider:
+        let imgSizeSliderContainer = document.createElement('div')
+        imgSizeSliderContainer.className = 'ku_gallery_slider'
+        let maxWidth = window.localStorage.ku_gallery_max_width ?
+            window.localStorage.ku_gallery_max_width : window.innerWidth - 200
+
+        let imgSizeSlider = document.createElement('input')
+        imgSizeSlider.type = 'range'
+        imgSizeSlider.min = 150
+        imgSizeSlider.step = 25
+        imgSizeSlider.max = Math.floor(window.innerWidth / 100) * 100
+        imgSizeSlider.value = maxWidth
+        imgSizeSlider.addEventListener('input', function() {
+            document.querySelectorAll('.ku_gallerywrapper_img').forEach(ele => {
+                ele.style.maxWidth = this.value + 'px'
+                window.localStorage.ku_gallery_max_width = this.value
+            })
+        })
+
+        imgSizeSliderContainer.appendChild(imgSizeSlider)
+        document.querySelector("div.stripMenuLevelFooterContainer").before(imgSizeSliderContainer)
+
+        document.querySelector("div.stripMenuLevelFooterContainer").before(divGallery);
 
         function downloadScreenshot() {
             let element = document.querySelector('td div[align=center]')

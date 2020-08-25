@@ -260,22 +260,20 @@ if (isSearchPage()) {
                 }
 
                 let nation = profileHtml.match(/Nationality:.+/s);
+                let divNation = document.createElement('div');
+                divNation.className = 'ku_details_nationality'
                 if (nation && nation[0]) {
                     nation = nation[0].split("\n")
                     if (nation[1]) {
                         nation = nation[1].match(/>(.+)</) && nation[1].match(/>(.+)</)[1]
                         nation = nation ? nation : '???'
-                        let divNation = document.createElement('div');
-                        if (nation === 'Romanian')
-                            divNation.style = 'font-weight:bold'
-                        if (nation === 'Brazilian')
-                            divNation.style = 'font-weight:bold'
-
-                        divNation.className = 'ku_details_nationality'
                         divNation.innerHTML = nation;
-                        profileDetails.append(divNation);
                     }
+                } else {
+                    divNation.style = 'font-weight:bold;color:red'
+                    divNation.innerHTML = 'No Nationality Found!';
                 }
+                profileDetails.append(divNation);
 
                 let memberSince = profileHtml.match(/Member Since:.+/s);
                 let memberSinceAgo = ''
