@@ -209,7 +209,7 @@
         imgSizeSlider.type = 'range'
         imgSizeSlider.min = 150
         imgSizeSlider.step = 25
-        imgSizeSlider.max = Math.floor(window.innerWidth / 100) * 100
+        imgSizeSlider.max = Math.ceil(window.innerWidth / 100) * 100
         imgSizeSlider.value = maxWidth
         imgSizeSlider.addEventListener('input', function() {
             document.querySelectorAll('.ku_gallerywrapper_img').forEach(ele => {
