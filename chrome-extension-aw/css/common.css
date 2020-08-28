@@ -24,6 +24,10 @@
     background-color: #cccccc
 }
 
+.ku_ukp_search_buttons {
+    width: 140px;
+}
+
 .ku_ukp_button {
     cursor: pointer;
     padding: 1px;

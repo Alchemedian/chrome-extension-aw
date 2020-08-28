@@ -118,5 +118,20 @@ div.ku_get_live_review_counts:hover {
 }
 
 .Padded[colspan="4"] {
-    font-size: 13px !important;
+    font-size: 8px !important;
+}
+
+.ku_stylised_age {
+    font-size: 18px;
+    border-radius: 14px;
+    width: 14px;
+    display: block;
+    margin: 0;
+    padding: 5px;
+    font-size: 11px;
+    text-align: center;
+    color: white;
+    background-color: darkgreen;
+    border: 2px solid lightgreen;
+    box-shadow: 0px 1px green;
 }

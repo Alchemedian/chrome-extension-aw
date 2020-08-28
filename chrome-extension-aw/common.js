@@ -46,7 +46,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
 }
 
 function ukpSearchButtons(uid) {
-    let ukp = makeDiv('width:140px', '');
+    let ukp = makeDiv('', '', 'ku_ukp_search_buttons');
 
     let dhid = document.createElement('div')
     dhid.style.display = "none"
