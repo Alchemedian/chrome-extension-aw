@@ -36,12 +36,14 @@ if (isSearchPage()) {
 
     //replace useless words
     document.querySelectorAll('center td[colspan="2"]').forEach(ele => {
-        ele.innerText = ele.innerText
-            .replace(/[^\d]+/g, '')
-        if (ele.innerText === "") {
-            ele.innerText = "?"
+        if (/year old/.test(ele.innerText)) {
+            ele.innerText = ele.innerText
+                .replace(/[^\d]+/g, '')
+            if (ele.innerText === "") {
+                ele.innerText = "?"
+            }
+            ele.classList.add('ku_stylised_age')
         }
-        ele.classList.add('ku_stylised_age')
     })
 
     let profileImages = {}
