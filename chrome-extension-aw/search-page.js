@@ -135,6 +135,12 @@ if (isSearchPage()) {
             return;
         let uid = st[1]
 
+        let spacerDiv = document.createElement('div')
+        spacerDiv.className = 'ku_spacer_placeholder'
+
+
+        anchorTag.after(spacerDiv)
+
         let loadingDiv = document.createElement('div')
         loadingDiv.className = "ku_loader_profile_anim"
         loadingDiv.innerHTML = "Loading..."
@@ -143,6 +149,7 @@ if (isSearchPage()) {
         fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + uid)
             .then(y => y.text())
             .then(profileHtml => {
+                spacerDiv.parentNode.removeChild(spacerDiv)
                 loadingDiv.parentNode.removeChild(loadingDiv)
                 let divProfileHTML = document.createElement('div')
                 divProfileHTML.innerHTML = profileHtml

@@ -11,6 +11,11 @@
     cursor: pointer;
 }
 
+.ku_spacer_placeholder {
+    height: 150px;
+    width: 170px;
+}
+
 .ku_loader_profile_anim {
     animation: ku_loader_anim_zoomout 1s ease-in-out infinite;
     border: 1px solid rgb(76, 0, 111);
