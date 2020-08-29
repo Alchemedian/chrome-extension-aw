@@ -198,6 +198,13 @@
         })
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadAllButton)
 
+        let screenshotButton = document.createElement('button')
+        screenshotButton.innerHTML = "Screenshot"
+        screenshotButton.id = "ku_download_screenshot"
+        screenshotButton.addEventListener('click', (e) => {
+            downloadScreenshot()
+        })
+        document.querySelector("div.stripMenuLevelFooterContainer").before(screenshotButton)
 
         //img size slider:
         let imgSizeSliderContainer = document.createElement('div')

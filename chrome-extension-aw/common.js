@@ -154,14 +154,14 @@ if (isSearchPage() || isProfilePage()) {
 }
 
 //Permission from Dear Leader Cummings, Highest Incarnation of the Revolutionary Tufton Street Comradeship:
-(() => {
-    const cummingsPass = ". <span style='color:red'>Commonsense exceptions apply if you wish to test your eyes or other body parts.</span>"
-    let cwarn = document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > table > tbody > tr > td > table > tbody > tr > td > p')
-    if (cwarn)
-        cwarn.innerHTML += cummingsPass
-    else {
-        cwarn = document.querySelector('#main-content-container > tbody > tr > td > div:nth-child(2) > center > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > p')
-        if (cwarn)
-            cwarn.innerHTML += cummingsPass
-    }
-})()
+// (() => {
+//     const cummingsPass = ". <span style='color:red'>Commonsense exceptions apply if you wish to test your eyes or other body parts.</span>"
+//     let cwarn = document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > table > tbody > tr > td > table > tbody > tr > td > p')
+//     if (cwarn)
+//         cwarn.innerHTML += cummingsPass
+//     else {
+//         cwarn = document.querySelector('#main-content-container > tbody > tr > td > div:nth-child(2) > center > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > p')
+//         if (cwarn)
+//             cwarn.innerHTML += cummingsPass
+//     }
+// })()
