@@ -57,26 +57,23 @@
 }
 
 .ku_loader_anim {
-    animation: zoomout 1s ease-in-out infinite;
-    /*     background-color: crimson; */
-    /* color: white; */
-    border: 1px solid crimson;
+    animation: ku_loader_anim_zoomout 1s ease-in-out infinite;
+    border: 1px solid rgb(76, 0, 111);
+    background-color: white;
     font-weight: bold;
     height: 20px;
     width: 120px;
     padding: 10px;
     margin: 20px;
     font-size: 20px;
-    box-shadow: 5px 10px #888888;
+    box-shadow: 5px 10px 3px rgba(76, 0, 111, 1);
 }
 
-@keyframes zoomout {
+@keyframes ku_loader_anim_zoomout {
     0% {
-        /* transform: scale(1); */
         transform: scale3d(1, 1, 1);
     }
     50% {
-        /* transform: scale(.8); */
-        transform: scale3d(.8, .7, 1);
+        transform: scale3d(.9, .8, 1);
     }
 }
