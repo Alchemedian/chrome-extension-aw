@@ -158,14 +158,7 @@
 
         let downloadAllButton = document.createElement('button')
         downloadAllButton.innerHTML = "Download All Images"
-        downloadAllButton.title = "Right click to download only screenshot"
         downloadAllButton.id = "ku_download_all"
-        downloadAllButton.addEventListener('contextmenu', (e) => {
-            disableDownloadAllButton(2000)
-            downloadScreenshot()
-            e.preventDefault()
-            return false
-        })
 
         function disableDownloadAllButton(n = 5000) {
             document.querySelector('#ku_download_all').setAttribute('disabled', true)

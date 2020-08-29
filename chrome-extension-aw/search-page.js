@@ -318,6 +318,18 @@ if (isSearchPage()) {
                     if (lastLogin[1]) {
                         lastLogin = lastLogin[1].match(/>(.+)</)[1]
                         lastLogin = lastLogin.toLowerCase()
+                        let dateRegex = new RegExp('[0-9]{2}/[0-9]{2}/[0-9]{4}')
+                        if (dateRegex.test(lastLogin)) {
+                            let loginDate = new Date(lastLogin.split('/').reverse().join(' '))
+                            lastLogin = timeAgo(loginDate)
+                            if ((new Date() - loginDate) / 60 / 60 / 24 / 1000 > 4) {
+                                let style = 'color:red;'
+                                if ((new Date() - loginDate) / 60 / 60 / 24 / 1000 > 7)
+                                    style += 'font-weight:bold;'
+                                lastLogin = `<span style='${style}'>${lastLogin}</span>`
+
+                            }
+                        }
                         profileDetails.append(makeDiv(``,
                             `Online ${lastLogin}${memberSinceAgo}`, 'ku_details_seen_online'));
 
