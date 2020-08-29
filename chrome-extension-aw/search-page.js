@@ -34,14 +34,16 @@ if (isSearchPage()) {
         })
     })
 
-    //replace useless words
+    //replace useless words around age on bio
     document.querySelectorAll('center td[colspan="2"]').forEach(ele => {
         if (/year old/.test(ele.innerText)) {
-            ele.innerText = ele.innerText
+            let origText = ele.innerText
+            ele.innerText = origText
                 .replace(/[^\d]+/g, '')
             if (ele.innerText === "") {
                 ele.innerText = "?"
             }
+            ele.title = origText
             ele.classList.add('ku_stylised_age')
         }
     })
