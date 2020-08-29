@@ -55,25 +55,3 @@
     float: right;
     font-size: 10pt;
 }
-
-.ku_loader_anim {
-    animation: ku_loader_anim_zoomout 1s ease-in-out infinite;
-    border: 1px solid rgb(76, 0, 111);
-    background-color: white;
-    font-weight: bold;
-    height: 20px;
-    width: 120px;
-    padding: 10px;
-    margin: 20px;
-    font-size: 20px;
-    box-shadow: 5px 10px 3px rgba(76, 0, 111, 1);
-}
-
-@keyframes ku_loader_anim_zoomout {
-    0% {
-        transform: scale3d(1, 1, 1);
-    }
-    50% {
-        transform: scale3d(.9, .8, 1);
-    }
-}

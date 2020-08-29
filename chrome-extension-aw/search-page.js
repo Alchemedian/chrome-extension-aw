@@ -136,14 +136,14 @@ if (isSearchPage()) {
         let uid = st[1]
 
         let loadingDiv = document.createElement('div')
-        loadingDiv.className = "ku_loader_anim"
-        loadingDiv.id = `ky_profile_loading_${uid}`
+        loadingDiv.className = "ku_loader_profile_anim"
         loadingDiv.innerHTML = "Loading..."
         anchorTag.after(loadingDiv)
 
         fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + uid)
             .then(y => y.text())
             .then(profileHtml => {
+                loadingDiv.parentNode.removeChild(loadingDiv)
                 let divProfileHTML = document.createElement('div')
                 divProfileHTML.innerHTML = profileHtml
                 profileImages[uid] = parseProfileImages(profileHtml)
@@ -219,8 +219,6 @@ if (isSearchPage()) {
                     dots.forEach(dot => ruler.append(dot))
                     rulerContainer.appendChild(ruler)
                     ancImg[0].after(rulerContainer)
-                    document.getElementById(`ky_profile_loading_${uid}`).style.display = "none"
-                        // rulerContainer.addEventListener('mouseout', hideOverlayImage)
                 }
 
                 let profileDetails = document.createElement('div')
