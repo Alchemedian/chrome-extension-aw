@@ -102,6 +102,8 @@ div.ku_get_live_review_counts:hover {
 
 .ku_review_details {
     background-color: white;
+    height: 20px;
+    line-height: 20px;
 }
 
 .ku_review_details a {
