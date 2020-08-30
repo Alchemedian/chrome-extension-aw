@@ -137,10 +137,7 @@ if (isSearchPage()) {
 
         let spacerDiv = document.createElement('div')
         spacerDiv.className = 'ku_spacer_placeholder'
-
-
         anchorTag.after(spacerDiv)
-
         let loadingDiv = document.createElement('div')
         loadingDiv.className = "ku_loader_profile_anim"
         loadingDiv.innerHTML = "Loading..."
