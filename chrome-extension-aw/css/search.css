@@ -61,19 +61,6 @@
 
 .ku_details {
     width: 176px;
-    animation: ku_details_zoomin .1s ease-in 0s 1;
-}
-
-@keyframes ku_details_zoomin {
-    0% {
-        transform: scale3d(.8, .8, 1);
-    }
-    90% {
-        transform: scale3d(1, 1, 1);
-    }
-    100% {
-        transform: none;
-    }
 }
 
 .ku_details div {
