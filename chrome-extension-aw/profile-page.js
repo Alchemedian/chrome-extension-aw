@@ -288,7 +288,8 @@
 
                     function waitForDownloadAll() {
                         if (document.querySelector("#ku_download_all")) {
-                            document.querySelector("#ku_download_all").after(child);
+                            // document.querySelector("#ku_download_all").after(child);
+                            document.querySelector('#ku_gallery_images').prepend(child)
                         } else {
                             setTimeout(waitForDownloadAll, 300)
                         }
