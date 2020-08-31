@@ -334,25 +334,15 @@ if (isSearchPage()) {
                 }
 
                 let ukpReviewDetails = document.createElement('div')
-                ukpReviewDetails.className = "ku_review_details"
+                ukpReviewDetails.classList.add("ku_review_details")
+                ukpReviewDetails.classList.add('ku_review_details_to_fetch')
                 ukpReviewDetails.id = `ku_ukp_review_summary_${uid}`
                 ukpReviewDetails.innerHTML = `<a href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>UKP Reviews</a>`
                 profileDetails.append(ukpReviewDetails)
-                getUKPsummary(uid, ukpReviewDetails)
-                    // getUKPsummary(uid, ukpReviewDetails, 'scrape')
-                let ukpReviewDetailsRefresh = document.createElement('div')
-                ukpReviewDetailsRefresh.className = "ku_get_live_review_counts"
-                ukpReviewDetailsRefresh.innerHTML = "🔄 Get live UKP data"
-
-                ukpReviewDetailsRefresh.addEventListener('click', function() {
-                    ukpReviewDetails.innerHTML = 'Loading...'
-                    getUKPsummary(uid, ukpReviewDetails, 'scrape')
-                    this.style.display = "none"
-                })
-                ukpReviewDetails.after(ukpReviewDetailsRefresh)
-
 
                 anchorTag.after(profileDetails)
+
+                updateUKPReviewCountsIfVisible()
             })
 
         anchorTag.href = location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + uid;
@@ -393,4 +383,38 @@ if (isSearchPage()) {
         setTimeout(hideNoPhone, i * 400);
     }
     document.getElementById('ku_hide').addEventListener('click', hideNoPhone)
+
+
+    //on scroll, load UKP review data
+    window.addEventListener('scroll', updateUKPReviewCountsIfVisible)
+    window.addEventListener('resize', updateUKPReviewCountsIfVisible)
+
+    function updateUKPReviewCountsIfVisible() {
+        document.querySelectorAll('.ku_review_details_to_fetch').forEach(ele => {
+            let offset = cumulativeOffset(ele)
+            if (offset.top > window.scrollY && offset.top < window.scrollY + window.innerHeight) {
+                let uid = ele.id.replace('ku_ukp_review_summary_', '')
+                ele.innerHTML = 'Loading...'
+                getUKPsummary(uid, ele, 'scrape')
+                ele.classList.remove('ku_review_details_to_fetch')
+                console.log(uid)
+            }
+        })
+    }
+
+    function cumulativeOffset(ele) {
+        let top = 0,
+            left = 0;
+        do {
+            top += ele.offsetTop || 0;
+            left += ele.offsetLeft || 0;
+            ele = ele.offsetParent;
+        } while (ele);
+
+        return {
+            top: top,
+            left: left
+        };
+    };
+
 }
