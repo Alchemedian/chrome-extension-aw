@@ -65,7 +65,8 @@
 }
 
 .ku_details div {
-    border: 1px solid #888;
+    /* border: 1px solid #888; */
+    border: 1px solid #ddd;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
@@ -81,6 +82,7 @@
 
 .ku_details_price_n_likes {
     font-size: 12pt;
+    background-color: white;
 }
 
 .ku_details .ku_details_likes {
@@ -162,19 +164,20 @@ div.ku_get_live_review_counts:hover {
 
 .ku_stylised_age {
     font-size: 18px;
-    border-radius: 14px;
-    width: 14px;
+    border-radius: 5px;
+    border: 1px solid rgb(136, 136, 136);
+    width: 163px;
     display: block;
-    margin: 0;
-    margin-left: 14px;
-    padding: 5px;
-    font-size: 11px;
+    margin: 5px;
+    padding: 2px;
+    font-size: 15px;
     text-align: center;
     color: white;
-    background-color: darkgreen;
-    border: 2px solid lightgreen;
-    box-shadow: 0px 1px green;
-    transform: scale(1.3);
+    background-color: darkslategray;
+}
+
+.ku_stylised_age::after {
+    content: " year old";
 }
 
 .ku_ordpos_hover {
