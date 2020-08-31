@@ -246,7 +246,6 @@ if (isSearchPage()) {
                     tel = tel.replace(/\+?44/g, '0')
                     let telSearch = tel.split(",")[0]
                     let telFull = telSearch.replace(/^0/, '+44')
-                        // telSearch = telSearch + ' OR ' + telFull
                     telSearch = `${telSearch}  OR ${telFull} OR "${telSearch.substr(0,5) +' '+telSearch.substr(5)}"`
                     let qrLink = `http://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(telFull)}&size=150x150&color=4C006F`
                     profileDetails.append(makeDiv('',
