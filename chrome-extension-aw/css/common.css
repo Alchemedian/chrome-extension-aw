@@ -9,19 +9,26 @@
     border-radius: 15px;
 }
 
+.ku_review_details {
+    width: 250px;
+}
+
 .ku_ukp_review_item_positive {
     color: green;
-    background-color: #ccffcc
+    background-color: #ccffcc;
+    border: 1px solid darkgreen;
 }
 
 .ku_ukp_review_item_negative {
     color: white;
-    background-color: crimson
+    background-color: crimson;
+    border: 1px solid darkred;
 }
 
 .ku_ukp_review_item_neutral {
     background-color: black;
-    background-color: #cccccc
+    background-color: #cccccc;
+    border: 1px solid darkgray;
 }
 
 .ku_ukp_search_buttons {

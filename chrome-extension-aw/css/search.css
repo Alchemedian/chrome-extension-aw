@@ -72,6 +72,13 @@
     cursor: default;
 }
 
+.ku_details_price_n_likes,
+.ku_details_nationality,
+.ku_details_seen_online,
+.ku_review_details {
+    width: 300px;
+}
+
 .ku_details_price_n_likes {
     font-size: 12pt;
 }

@@ -24,7 +24,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
             aWrapper.title = title
             aWrapper.target = "_blank"
             aWrapper.href = `https://www.ukpunting.com/index.php?action=adultwork;id=${uid}`
-            aWrapper.style.fontSize = "14px"
+            aWrapper.style.fontSize = "24px"
             aWrapper.style.textDecoration = "none"
             let html = ""
             if (json.review_count == 0) {

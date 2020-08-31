@@ -279,12 +279,14 @@ if (isSearchPage()) {
                     let dPref = divProfileHTML.querySelectorAll('#dPref')[0].innerText;
                     /Oral without Protection\n/.test(dPref) && services.push("<span title='OWO'>😋</span>");
                     /CIM/.test(dPref) && services.push("<span title='CIM'>👄</span>");
+                    /Swallow/.test(dPref) && services.push("<span title='Swallow'>💊</span>");
                     /"A" Levels\n/.test(dPref) && services.push("<span title='Anal'>🍩</span>");
                     /French Kissing\n/.test(dPref) && services.push("<span title='French Kissing'>😘</span>");
                     /Foot Worship/.test(dPref) && services.push("<span title='Foot Worship'>👣</span>");
                     /Rimming \(giving\)/.test(dPref) && services.push("<span title='Rimming'>👅</span>");
                     /Massage/.test(dPref) && services.push("<span title='Massage'>💆‍♂️</span>");
                     /Hand Relief/.test(dPref) && services.push("<span title='Hand Relief'>✊</span>");
+                    /Strap On/.test(dPref) && services.push("<span title='Strap On'>👺</span>");
                     /Watersports \(Giving\)/.test(dPref) && services.push("<span title='Water Sports (Giving)'>🏄</span>");
                     /Bareback/.test(dPref) && services.push("bb");
                     profileDetails.append(makeDiv('',
