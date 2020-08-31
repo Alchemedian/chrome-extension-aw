@@ -51,7 +51,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
             destinationDiv.appendChild(aWrapper)
             while (destinationDiv.offsetHeight > 30) {
                 let fontSize = parseInt(aWrapper.style.fontSize)
-                if (fontSize == 0)
+                if (fontSize <= 5)
                     break;
                 fontSize--
                 aWrapper.style.fontSize = `${fontSize}px`
