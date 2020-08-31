@@ -14,8 +14,8 @@
 }
 
 .ku_ukp_review_item_positive {
-    color: green;
-    background-color: #ccffcc;
+    color: white;
+    background-color: green;
     border: 1px solid darkgreen;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .ku_ukp_review_item_neutral {
-    background-color: black;
+    color: white;
     background-color: #cccccc;
     border: 1px solid darkgray;
 }
