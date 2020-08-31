@@ -171,6 +171,6 @@ div.ku_get_live_review_counts:hover {
 
 .ku_ordpos_hover {
     background-color: darkslategray;
-    transform: scale(1.5);
-    transition: transform .2s ease-in;
+    transform: scale(1.2);
+    transition: transform .2s cubic-bezier(.93, .07, .6, 3);
 }
