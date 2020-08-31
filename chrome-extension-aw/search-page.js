@@ -100,14 +100,14 @@ if (isSearchPage()) {
         eleOverlay.style.width = mw;
         eleOverlay.style.height = mh - 6;
 
-        document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
+        document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.classList.remove('ku_ordpos_hover'))
         document.querySelectorAll(`#ku_ruler_${uid} .ku_ordpos:nth-child(${ord + 1})`)
-            .forEach(ele => ele.style.backgroundColor = 'darkslategray')
+            .forEach(ele => ele.classList.add('ku_ordpos_hover'))
     }
 
     function hideOverlayImage() {
         document.getElementsByClassName('ku_picture_overlay')[0].style.display = "none";
-        document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.style.backgroundColor = '')
+        document.querySelectorAll(`.ku_ordpos`).forEach(ele => ele.classList.remove('ku_ordpos_hover'))
     }
 
     function biggerHoverImages() {
@@ -339,6 +339,7 @@ if (isSearchPage()) {
                 ukpReviewDetails.innerHTML = `<a href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>UKP Reviews</a>`
                 profileDetails.append(ukpReviewDetails)
                 getUKPsummary(uid, ukpReviewDetails)
+                    // getUKPsummary(uid, ukpReviewDetails, 'scrape')
                 let ukpReviewDetailsRefresh = document.createElement('div')
                 ukpReviewDetailsRefresh.className = "ku_get_live_review_counts"
                 ukpReviewDetailsRefresh.innerHTML = "🔄 Get live UKP data"

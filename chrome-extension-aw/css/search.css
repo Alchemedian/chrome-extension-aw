@@ -105,6 +105,8 @@ div.ku_get_live_review_counts:hover {
     background-color: white;
     min-height: 20px;
     line-height: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 .ku_review_details a {
@@ -164,4 +166,10 @@ div.ku_get_live_review_counts:hover {
     background-color: darkgreen;
     border: 2px solid lightgreen;
     box-shadow: 0px 1px green;
+}
+
+.ku_ordpos_hover {
+    background-color: darkslategray;
+    transform: scale(1.5);
+    transition: transform .2s ease-in;
 }
