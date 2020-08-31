@@ -68,6 +68,10 @@ form[name=frmProfile] .Padded {
     padding: 20px;
 }
 
+.ku_gallerywrapper_img {
+    transition: cubic-bezier(0, 1.3, .44, 1.04) .05s;
+}
+
 
 /* hide stupid banner  */
 
