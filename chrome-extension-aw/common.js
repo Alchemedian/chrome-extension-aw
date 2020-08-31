@@ -20,7 +20,13 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
     fetch(url)
         .then(y => y.json())
         .then(json => {
-            let html = `<a title="${title}" style="text-decoration:none;font-size:13px" href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>`
+            let aWrapper = document.createElement('a')
+            aWrapper.title = title
+            aWrapper.target = "_blank"
+            aWrapper.href = `https://www.ukpunting.com/index.php?action=adultwork;id=${uid}`
+            aWrapper.style.fontSize = "14px"
+            aWrapper.style.textDecoration = "none"
+            let html = ""
             if (json.review_count == 0) {
                 html += `No UKP Reviews 😢`
                 if (scrape)
@@ -40,8 +46,16 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                     destinationDiv.style.background = `linear-gradient(90deg, rgba(0,254,0,${alpha}) 0%, rgba(255,0,0,${alpha}) ${percent}%)`
                 }
             }
-            html += "</a>"
-            destinationDiv.innerHTML = html
+            aWrapper.innerHTML = html
+            destinationDiv.innerHTML = ''
+            destinationDiv.appendChild(aWrapper)
+            while (destinationDiv.offsetHeight > 30) {
+                let fontSize = parseInt(aWrapper.style.fontSize)
+                if (fontSize == 0)
+                    break;
+                fontSize--
+                aWrapper.style.fontSize = `${fontSize}px`
+            }
         })
 }
 

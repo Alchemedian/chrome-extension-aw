@@ -110,8 +110,8 @@ div.ku_get_live_review_counts:hover {
 }
 
 .ku_review_details a {
-    text-decoration: none;
-    font-size: 12pt;
+    text-decoration: none !important;
+    font-size: .9em;
     display: block;
 }
 
