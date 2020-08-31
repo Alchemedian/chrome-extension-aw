@@ -14,7 +14,6 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
         url = `https://ukp-scrape.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
         title = 'Up to date review counts :-)'
         destinationDiv.innerHTML = "Loading UKP Reviews..."
-        destinationDiv.style.background = `linear-gradient(90deg, rgba(4,254,4,1) 0%, rgba(38,182,38,1) 100%)`
     } else {
         destinationDiv.style.background = ''
     }
