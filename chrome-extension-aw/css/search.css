@@ -159,6 +159,7 @@ div.ku_get_live_review_counts:hover {
     width: 14px;
     display: block;
     margin: 0;
+    margin-left: 14px;
     padding: 5px;
     font-size: 11px;
     text-align: center;
