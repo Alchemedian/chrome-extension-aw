@@ -166,39 +166,3 @@ if (isSearchPage() || isProfilePage()) {
     <div id="ku_ukp_summary"></div>`
     })();
 }
-
-
-function flagCdn(nationality) {
-    const key = {
-        'American': 'us',
-        'British': 'gb',
-        'Polish': 'pl',
-        'Chinese': 'cn',
-        'Portuguese': 'pt',
-        'Ukrainian': 'ua',
-        'German': 'de',
-        'South African': 'za',
-        'Spanish': 'es',
-        'Moldovan': 'md',
-        'Malaysian': 'my',
-        'Zimbabwean': 'zw',
-        'Jamaican': 'jm',
-        'Danish': 'dk',
-        'Sri Lankan': 'lk',
-        'Mauritanian': 'mr',
-        'Angolan': 'ao',
-        'Irish': 'ie',
-        'Mexican': 'mx',
-        'Moroccan': 'ma',
-        'Bulgarian': 'bg',
-        'Lithuanian': 'lt',
-        'Swedish': 'se',
-        'Japanese': 'jp',
-        'Estonian': 'ee',
-    }
-    let isoCode =
-        key[nationality] ? key[nationality] :
-        String(nationality).toLowerCase().substr(0, 2)
-
-    return `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${isoCode}.svg`
-}
