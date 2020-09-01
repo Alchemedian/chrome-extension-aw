@@ -1,5 +1,4 @@
-// fetched via AW Api
-const awCountries = {
+{
     "Country": [{
             "AgeVerificationRequired": "false",
             "CountryID": "58",
@@ -80,14 +79,14 @@ const awCountries = {
             "CountryName": "Armenia",
             "Nationality": "Armenian"
         },
-        // {
-        //     "AgeVerificationRequired": "false",
-        //     "CountryID": "162",
-        //     "CountryISO2": "AW",
-        //     "CountryISO3": "ABW",
-        //     "CountryName": "Aruba",
-        //     "Nationality": "Dutch"
-        // },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "162",
+            "CountryISO2": "AW",
+            "CountryISO3": "ABW",
+            "CountryName": "Aruba",
+            "Nationality": "Dutch"
+        },
         {
             "AgeVerificationRequired": "false",
             "CountryID": "213",
@@ -127,6 +126,20 @@ const awCountries = {
             "CountryISO3": "BHR",
             "CountryName": "Bahrain",
             "Nationality": "Bahraini"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "214",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Baker Island",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -218,20 +231,30 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "245",
+            "CountryISO2": "BV",
+            "CountryISO3": "BVT",
+            "CountryName": "Bouvet Island",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "200",
             "CountryISO2": "BR",
             "CountryISO3": "BRA",
             "CountryName": "Brazil",
             "Nationality": "Brazilian"
         },
-        // {
-        //     "AgeVerificationRequired": "false",
-        //     "CountryID": "62",
-        //     "CountryISO2": "IO",
-        //     "CountryISO3": "IOT",
-        //     "CountryName": "British Indian Ocean Territory",
-        //     "Nationality": "British"
-        // },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "62",
+            "CountryISO2": "IO",
+            "CountryISO3": "IOT",
+            "CountryName": "British Indian Ocean Territory",
+            "Nationality": "British"
+        },
         {
             "AgeVerificationRequired": "false",
             "CountryID": "63",
@@ -298,6 +321,16 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "169",
+            "CountryISO2": "KY",
+            "CountryISO3": "CYM",
+            "CountryName": "Cayman Islands",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "9",
             "CountryISO2": "CF",
             "CountryISO3": "CAF",
@@ -322,11 +355,43 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "250",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Chile - Easter Island",
+            "Nationality": "Chilean"
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "65",
             "CountryISO2": "CN",
             "CountryISO3": "CHN",
             "CountryName": "China",
             "Nationality": "Chinese"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "66",
+            "CountryISO2": "CX",
+            "CountryISO3": "CXR",
+            "CountryName": "Christmas Island (Indian Ocean)",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "67",
+            "CountryISO2": "CC",
+            "CountryISO3": "CCK",
+            "CountryName": "Cocos (Keeling) Islands",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -344,14 +409,14 @@ const awCountries = {
             "CountryName": "Comoros",
             "Nationality": "Comoran"
         },
-        // {
-        //     "AgeVerificationRequired": "false",
-        //     "CountryID": "13",
-        //     "CountryISO2": "CG",
-        //     "CountryISO3": "COG",
-        //     "CountryName": "Congo",
-        //     "Nationality": "Congolese"
-        // },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "13",
+            "CountryISO2": "CG",
+            "CountryISO3": "COG",
+            "CountryName": "Congo",
+            "Nationality": "Congolese"
+        },
         {
             "AgeVerificationRequired": "false",
             "CountryID": "12",
@@ -359,6 +424,16 @@ const awCountries = {
             "CountryISO3": "COD",
             "CountryName": "Congo, Democratic Republic of",
             "Nationality": "Congolese"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "215",
+            "CountryISO2": "CK",
+            "CountryISO3": "COK",
+            "CountryName": "Cook Islands",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -424,14 +499,14 @@ const awCountries = {
             "CountryName": "Djibouti",
             "Nationality": "Djibouti"
         },
-        // {
-        //     "AgeVerificationRequired": "false",
-        //     "CountryID": "172",
-        //     "CountryISO2": "DM",
-        //     "CountryISO3": "DMA",
-        //     "CountryName": "Dominica",
-        //     "Nationality": "Dominican"
-        // },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "172",
+            "CountryISO2": "DM",
+            "CountryISO3": "DMA",
+            "CountryName": "Dominica",
+            "Nationality": "Dominican"
+        },
         {
             "AgeVerificationRequired": "false",
             "CountryID": "173",
@@ -446,6 +521,18 @@ const awCountries = {
             "CountryISO2": "EC",
             "CountryISO3": "ECU",
             "CountryName": "Ecuador",
+            "Nationality": "Ecuadorean"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "252",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Ecuador - Galapagos Islands",
             "Nationality": "Ecuadorean"
         },
         {
@@ -496,14 +583,14 @@ const awCountries = {
             "CountryName": "Ethiopia",
             "Nationality": "Ethiopian"
         },
-        // {
-        //     "AgeVerificationRequired": "false",
-        //     "CountryID": "204",
-        //     "CountryISO2": "FK",
-        //     "CountryISO3": "FLK",
-        //     "CountryName": "Falkland Islands (Malvinas)",
-        //     "Nationality": "British"
-        // },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "204",
+            "CountryISO2": "FK",
+            "CountryISO3": "FLK",
+            "CountryName": "Falkland Islands (Malvinas)",
+            "Nationality": "British"
+        },
         {
             "AgeVerificationRequired": "false",
             "CountryID": "122",
@@ -554,6 +641,16 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "246",
+            "CountryISO2": "TF",
+            "CountryISO3": "ATF",
+            "CountryName": "French Southern Territories",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "20",
             "CountryISO2": "GA",
             "CountryISO3": "GAB",
@@ -592,14 +689,14 @@ const awCountries = {
             "CountryName": "Ghana",
             "Nationality": "Ghanaian"
         },
-        // {
-        //     "AgeVerificationRequired": "false",
-        //     "CountryID": "127",
-        //     "CountryISO2": "GI",
-        //     "CountryISO3": "GIB",
-        //     "CountryName": "Gibraltar",
-        //     "Nationality": "British"
-        // },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "127",
+            "CountryISO2": "GI",
+            "CountryISO3": "GIB",
+            "CountryName": "Gibraltar",
+            "Nationality": "British"
+        },
         {
             "AgeVerificationRequired": "false",
             "CountryID": "128",
@@ -682,6 +779,16 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "247",
+            "CountryISO2": "HM",
+            "CountryISO3": "HMD",
+            "CountryName": "Heard Island and McDonald Islands",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "180",
             "CountryISO2": "HN",
             "CountryISO3": "HND",
@@ -695,6 +802,20 @@ const awCountries = {
             "CountryISO3": "HKG",
             "CountryName": "Hong Kong",
             "Nationality": "Chinese (Hong Kong)"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "219",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Howland Island",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -794,6 +915,34 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "220",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Jarvis Island",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "221",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Johnston Atoll (U.S.)",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "76",
             "CountryISO2": "JO",
             "CountryISO3": "JOR",
@@ -815,6 +964,20 @@ const awCountries = {
             "CountryISO3": "KEN",
             "CountryName": "Kenya",
             "Nationality": "Kenyan"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "222",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Kingman Reef",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -1050,6 +1213,20 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "226",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Midway Islands (U.S.)",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "142",
             "CountryISO2": "MD",
             "CountryISO3": "MDA",
@@ -1122,6 +1299,20 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "185",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Navassa Island",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "89",
             "CountryISO2": "NP",
             "CountryISO3": "NPL",
@@ -1136,14 +1327,14 @@ const awCountries = {
             "CountryName": "Netherlands",
             "Nationality": "Dutch"
         },
-        // {
-        //     "AgeVerificationRequired": "false",
-        //     "CountryID": "186",
-        //     "CountryISO2": "AN",
-        //     "CountryISO3": "ANT",
-        //     "CountryName": "Netherlands Antilles",
-        //     "Nationality": "Dutch"
-        // },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "186",
+            "CountryISO2": "AN",
+            "CountryISO3": "ANT",
+            "CountryName": "Netherlands Antilles",
+            "Nationality": "Dutch"
+        },
         {
             "AgeVerificationRequired": "false",
             "CountryID": "228",
@@ -1158,6 +1349,18 @@ const awCountries = {
             "CountryISO2": "NZ",
             "CountryISO3": "NZL",
             "CountryName": "New Zealand",
+            "Nationality": "New Zealander"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "253",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "New Zealand - Chatham Islands",
             "Nationality": "New Zealander"
         },
         {
@@ -1191,6 +1394,26 @@ const awCountries = {
             "CountryISO3": "NIU",
             "CountryName": "Niue",
             "Nationality": "Niuean"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "231",
+            "CountryISO2": "NF",
+            "CountryISO3": "NFK",
+            "CountryName": "Norfolk Island",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "232",
+            "CountryISO2": "MP",
+            "CountryISO3": "MNP",
+            "CountryName": "Northern Mariana Islands",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -1234,6 +1457,20 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "234",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Palmyra Atoll",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "188",
             "CountryISO2": "PA",
             "CountryISO3": "PAN",
@@ -1271,6 +1508,16 @@ const awCountries = {
             "CountryISO3": "PHL",
             "CountryName": "Philippines",
             "Nationality": "Filipino"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "236",
+            "CountryISO2": "PN",
+            "CountryISO3": "PCN",
+            "CountryName": "Pitcairn",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -1338,6 +1585,16 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "42",
+            "CountryISO2": "SH",
+            "CountryISO3": "SHN",
+            "CountryName": "Saint Helena",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "190",
             "CountryISO2": "KN",
             "CountryISO3": "KNA",
@@ -1351,6 +1608,26 @@ const awCountries = {
             "CountryISO3": "LCA",
             "CountryName": "Saint Lucia",
             "Nationality": "Saint Lucian"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "192",
+            "CountryISO2": "PM",
+            "CountryISO3": "SPM",
+            "CountryName": "Saint Pierre and Miquelon",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "193",
+            "CountryISO2": "VC",
+            "CountryISO3": "VCT",
+            "CountryName": "Saint Vincent and the Grenadines",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -1466,6 +1743,16 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "248",
+            "CountryISO2": "GS",
+            "CountryISO3": "SGS",
+            "CountryName": "South Georgia and the South Sandwich Islands",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "154",
             "CountryISO2": "ES",
             "CountryISO3": "ESP",
@@ -1495,6 +1782,16 @@ const awCountries = {
             "CountryISO3": "SUR",
             "CountryName": "Suriname",
             "Nationality": "Surinamer"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "254",
+            "CountryISO2": "SJ",
+            "CountryISO3": "SJM",
+            "CountryName": "Svalbard and Jan Mayen",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -1626,6 +1923,16 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "195",
+            "CountryISO2": "TC",
+            "CountryISO3": "TCA",
+            "CountryName": "Turks and Caicos Islands",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "241",
             "CountryISO2": "TV",
             "CountryISO3": "TUV",
@@ -1698,6 +2005,16 @@ const awCountries = {
         },
         {
             "AgeVerificationRequired": "false",
+            "CountryID": "159",
+            "CountryISO2": "VA",
+            "CountryISO3": "VAT",
+            "CountryName": "Vatican City",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
             "CountryID": "211",
             "CountryISO2": "VE",
             "CountryISO3": "VEN",
@@ -1711,6 +2028,40 @@ const awCountries = {
             "CountryISO3": "VNM",
             "CountryName": "Viet Nam",
             "Nationality": "Vietnamese"
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "167",
+            "CountryISO2": "VG",
+            "CountryISO3": "VGB",
+            "CountryName": "Virgin Islands (British)",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "197",
+            "CountryISO2": "VI",
+            "CountryISO3": "VIR",
+            "CountryName": "Virgin Islands (U.S.)",
+            "Nationality": {
+                "@nil": "true"
+            }
+        },
+        {
+            "AgeVerificationRequired": "false",
+            "CountryID": "243",
+            "CountryISO2": {
+                "@nil": "true"
+            },
+            "CountryISO3": {
+                "@nil": "true"
+            },
+            "CountryName": "Wake Island (U.S.)",
+            "Nationality": {
+                "@nil": "true"
+            }
         },
         {
             "AgeVerificationRequired": "false",
@@ -1753,24 +2104,4 @@ const awCountries = {
             "Nationality": "Zimbabwean"
         }
     ]
-}
-
-const countryCodeOverrides = {
-    'UK': 'GB',
-}
-
-const countryCodes = {}
-
-
-awCountries.Country.forEach(item => {
-    let cc = item.CountryISO2
-    cc = countryCodeOverrides[cc] ? countryCodeOverrides[cc] : cc
-    countryCodes[item.Nationality] = cc
-})
-
-function flagCdn(nationality) {
-    let isoCode =
-        countryCodes[nationality] ? countryCodes[nationality] : ''
-    isoCode = String(isoCode).toLowerCase()
-    return `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${isoCode}.svg`
 }
