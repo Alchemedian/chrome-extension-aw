@@ -141,6 +141,7 @@ if (isSearchPage()) {
         setTimeout(() => embelishProfileBlurb(uid), fetchDelay)
 
         function embelishProfileBlurb(uid) {
+            anchorTag.after(ukpSearchButtons(uid))
             let spacerDiv = document.createElement('div')
             spacerDiv.className = 'ku_spacer_placeholder'
             anchorTag.after(spacerDiv)
@@ -368,8 +369,6 @@ if (isSearchPage()) {
                 window.open(location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + uid);
                 return false;
             };
-
-            anchorTag.after(ukpSearchButtons(uid))
         }
 
     })
