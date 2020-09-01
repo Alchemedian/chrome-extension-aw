@@ -308,7 +308,7 @@ if (isSearchPage()) {
                         // divNationality.style.backgroundImage = `url('${flagCdn(nationality)}')`
                     divNationality.innerHTML = nationality;
                 } else {
-                    divNationality.style = 'font-weight:bold;color:red'
+                    divNationality.style = 'font-weight:bold;color:red;padding-left:5px'
                     divNationality.innerHTML = 'No Nationality Found!';
                 }
 
