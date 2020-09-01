@@ -94,13 +94,13 @@
 
 .ku_details div.ku_details_nationality {
     font-weight: bold;
-    height: 22px;
-    line-height: 22px;
     background-repeat: no-repeat;
     background-position: left;
     text-align: left;
     border-radius: 5px;
-    padding: 0 5px 0 32px;
+    height: 19px;
+    line-height: 18px;
+    padding: 0 5px 0 28px;
     margin: 5px;
     width: fit-content;
     border: 1px solid #eee;
