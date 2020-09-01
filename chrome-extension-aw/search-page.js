@@ -293,21 +293,26 @@ if (isSearchPage()) {
                         price + '<div class="ku_details_likes">' + services.join(' ') + '</div>', 'ku_details_price_n_likes'));
                 }
 
-                let nation = profileHtml.match(/Nationality:.+/s);
-                let divNation = document.createElement('div');
-                divNation.className = 'ku_details_nationality'
-                if (nation && nation[0]) {
-                    nation = nation[0].split("\n")
-                    if (nation[1]) {
-                        nation = nation[1].match(/>(.+)</) && nation[1].match(/>(.+)</)[1]
-                        nation = nation ? nation : '???'
-                        divNation.innerHTML = nation;
+
+                let nationality;
+                divProfileHTML.querySelectorAll('td.Label').forEach(ele => {
+                    if (ele.innerText.match(/Nationality/)) {
+                        nationality = ele.parentElement.querySelector('td:nth-child(2)').innerText
                     }
+                })
+
+                let divNationality = document.createElement('div');
+                divNationality.className = 'ku_details_nationality'
+                if (nationality) {
+                    divNationality.style.backgroundImage = `url('${flagCdn(nationality)}')`
+                        // divNationality.style.backgroundImage = `url('${flagCdn(nationality)}')`
+                    divNationality.innerHTML = nationality;
                 } else {
-                    divNation.style = 'font-weight:bold;color:red'
-                    divNation.innerHTML = 'No Nationality Found!';
+                    divNationality.style = 'font-weight:bold;color:red'
+                    divNationality.innerHTML = 'No Nationality Found!';
                 }
-                profileDetails.append(divNation);
+
+                profileDetails.append(divNationality);
 
                 let memberSince = profileHtml.match(/Member Since:.+/s);
                 let memberSinceAgo = ''
@@ -316,7 +321,7 @@ if (isSearchPage()) {
                     if (memberSince[1]) {
                         memberSince = memberSince[1].match(/>(.+)</)[1]
                         let msDate = new Date(memberSince.split('/').reverse().join(' '))
-                        memberSinceAgo = `, <br>joined ${timeAgo(msDate)}`
+                        memberSinceAgo = `, joined ${timeAgo(msDate)}`
                     }
                 }
 

@@ -66,7 +66,7 @@
 
 .ku_details div {
     /* border: 1px solid #888; */
-    border: 1px solid #ddd;
+    border: 1px solid #eee;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
@@ -83,6 +83,7 @@
 .ku_details_price_n_likes {
     font-size: 12pt;
     background-color: white;
+    position: relative;
 }
 
 .ku_details .ku_details_likes {
@@ -90,10 +91,19 @@
     border: none;
 }
 
-.ku_details_nationality {
-    text-align: center;
+.ku_details div.ku_details_nationality {
     font-weight: bold;
-    background-color: white;
+    height: 12px;
+    line-height: 12px;
+    background-repeat: no-repeat;
+    background-position: left;
+    text-align: left;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    padding-left: 20px;
+    margin-left: 8px;
 }
 
 .ku_details div.ku_get_live_review_counts {
@@ -110,12 +120,12 @@ div.ku_get_live_review_counts:hover {
     text-decoration: underline;
 }
 
-.ku_review_details {
+.ku_details div.ku_review_details {
     background-color: white;
     min-height: 20px;
     line-height: 20px;
     padding: 0;
-    margin: 0;
+    margin: 20px 0;
 }
 
 .ku_review_details a {
@@ -125,9 +135,10 @@ div.ku_get_live_review_counts:hover {
 }
 
 .ku_details .ku_details_seen_online {
+    border: 0;
     font-size: 10pt;
-    text-align: center;
-    background-color: #f9f9f9;
+    /* text-align: center; */
+    /* background-color: #f9f9f9; */
 }
 
 .ku_details .ku_telephone_number {

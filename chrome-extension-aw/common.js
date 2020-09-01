@@ -167,15 +167,38 @@ if (isSearchPage() || isProfilePage()) {
     })();
 }
 
-//Permission from Dear Leader Cummings, Highest Incarnation of the Revolutionary Tufton Street Comradeship:
-// (() => {
-//     const cummingsPass = ". <span style='color:red'>Commonsense exceptions apply if you wish to test your eyes or other body parts.</span>"
-//     let cwarn = document.querySelector('#main-content-container > tbody > tr > td > form > div:nth-child(1) > table > tbody > tr > td > table > tbody > tr > td > p')
-//     if (cwarn)
-//         cwarn.innerHTML += cummingsPass
-//     else {
-//         cwarn = document.querySelector('#main-content-container > tbody > tr > td > div:nth-child(2) > center > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td > p')
-//         if (cwarn)
-//             cwarn.innerHTML += cummingsPass
-//     }
-// })()
+
+function flagCdn(nationality) {
+    const key = {
+        'American': 'us',
+        'British': 'gb',
+        'Polish': 'pl',
+        'Chinese': 'cn',
+        'Portuguese': 'pt',
+        'Ukrainian': 'ua',
+        'German': 'de',
+        'South African': 'za',
+        'Spanish': 'es',
+        'Moldovan': 'md',
+        'Malaysian': 'my',
+        'Zimbabwean': 'zw',
+        'Jamaican': 'jm',
+        'Danish': 'dk',
+        'Sri Lankan': 'lk',
+        'Mauritanian': 'mr',
+        'Angolan': 'ao',
+        'Irish': 'ie',
+        'Mexican': 'mx',
+        'Moroccan': 'ma',
+        'Bulgarian': 'bg',
+        'Lithuanian': 'lt',
+        'Swedish': 'se',
+        'Japanese': 'jp',
+        'Estonian': 'ee',
+    }
+    let isoCode =
+        key[nationality] ? key[nationality] :
+        String(nationality).toLowerCase().substr(0, 2)
+
+    return `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${isoCode}.svg`
+}
