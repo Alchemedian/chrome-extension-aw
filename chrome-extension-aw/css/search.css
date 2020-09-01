@@ -133,6 +133,8 @@ div.ku_get_live_review_counts:hover {
     text-decoration: none !important;
     font-size: .9em;
     display: block;
+    padding-left: 5px;
+    color: #666;
 }
 
 .ku_details .ku_details_seen_online {

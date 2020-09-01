@@ -28,11 +28,13 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
             aWrapper.style.textDecoration = "none"
             let html = ""
             if (json.review_count == 0) {
+                destinationDiv.classList.add('ku_ukp_review_item_no_reviews')
+                aWrapper.style.fontSize = "15px"
                 html += `No UKP Reviews 😢`
                 if (scrape)
                     destinationDiv.style.background = '#eee'
             } else {
-                html += 'UKP '
+                html += '<span class="ku_ukp_review_item_label">UKP</span> '
                 if (json.positive_count)
                     html += `<span class="ku_ukp_review_item ku_ukp_review_item_positive">👍 ${json.positive_count}</span>`
                 if (json.negative_count)

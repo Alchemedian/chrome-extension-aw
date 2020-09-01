@@ -31,6 +31,16 @@
     border: 1px solid darkgray;
 }
 
+.ku_ukp_review_item_label {
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.ku_ukp_review_item_no_reviews {
+    font-weight: bold;
+}
+
 .ku_ukp_search_buttons {
     width: 140px;
 }
