@@ -397,9 +397,13 @@ if (isSearchPage()) {
                         }, 90)
                     }
                 }
+                document.querySelector('#ku_phone_hidden_count').innerHTML =
+                    ` (${document.querySelectorAll('.nophone').length} hidden)`
+
             } else {
                 ele.setAttribute('hidden', false)
                 showBlock(show, ele)
+                document.querySelector('#ku_phone_hidden_count').innerHTML = ''
             }
         })
 
