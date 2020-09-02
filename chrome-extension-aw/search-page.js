@@ -181,7 +181,7 @@ if (isSearchPage()) {
                     return false;
                 })
 
-                let rsearch = makeDiv('position:relative;bottom:52px', '')
+                let rsearch = makeDiv('position:relative;bottom:52px', '', 'ku_reverse_search_buttons')
                 rsearch.appendChild(bYandex)
                 rsearch.appendChild(bGoogle)
                 let ancImg = document.querySelectorAll(`a[href="javascript:vU(${uid})"]`)
