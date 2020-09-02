@@ -394,7 +394,7 @@ if (isSearchPage()) {
                                 divAnim.parentNode.removeChild(divAnim)
                             ele.setAttribute('hidden', true)
                             showBlock(show, ele)
-                        }, 250)
+                        }, 90)
                     }
                 }
             } else {
