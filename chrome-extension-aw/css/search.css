@@ -104,7 +104,8 @@
     margin: 5px;
     width: fit-content;
     border: 1px solid #eee;
-    background-color: white;
+    background-color: #f7f7f7;
+    color: black;
 }
 
 .ku_details div.ku_get_live_review_counts {
@@ -206,4 +207,32 @@ div.ku_get_live_review_counts:hover {
 
 .Padded:hover .ku_reverse_search_buttons {
     visibility: visible;
+}
+
+.ku_hide_phone_transition {
+    /* animation: ku_hide_phone_transition_anim .05s cubic-bezier(.93, .07, .6, 3) 1; */
+    animation: ku_hide_phone_transition_anim .2s ease-in-out 1;
+    width: 260px;
+    height: 240px;
+    line-height: 240px;
+    position: absolute;
+    z-index: 1000;
+    background-color: #eee;
+    border: 1px solid black;
+    color: red;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    opacity: .8;
+}
+
+@keyframes ku_hide_phone_transition_anim {
+    0% {
+        height: 240px;
+        line-height: 240px;
+    }
+    100% {
+        height: 235px;
+        line-height: 235px;
+    }
 }

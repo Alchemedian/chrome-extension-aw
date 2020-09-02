@@ -380,6 +380,30 @@ if (isSearchPage()) {
         window.localStorage.hideNoPhone = String(document.getElementById('ku_check_phone') && document.getElementById('ku_check_phone').checked)
         let show = JSON.parse(window.localStorage.hideNoPhone) ? 'none' : '';
         window.document.querySelectorAll('.nophone').forEach(ele => {
+            if (show === 'none') {
+                if (!ele.parentElement.parentElement.querySelector('.ku_hide_phone_transition')) {
+                    if (ele.getAttribute('hidden') !== "true") {
+                        let divAnim = document.createElement('div')
+                        divAnim.className = "ku_hide_phone_transition"
+                        divAnim.innerHTML = "No Phone. Hiding..."
+                        ele.setAttribute('hidden', false)
+                        ele.parentElement.parentElement.prepend(divAnim)
+                        setTimeout(() => {
+                            let divAnim = ele.parentElement.parentElement.querySelector('.ku_hide_phone_transition')
+                            if (divAnim)
+                                divAnim.parentNode.removeChild(divAnim)
+                            ele.setAttribute('hidden', true)
+                            showBlock(show, ele)
+                        }, 250)
+                    }
+                }
+            } else {
+                ele.setAttribute('hidden', false)
+                showBlock(show, ele)
+            }
+        })
+
+        function showBlock(show, ele) {
             let tdOne = ele.parentElement
                 .parentElement
                 .parentElement
@@ -391,7 +415,7 @@ if (isSearchPage()) {
             tdOne.style.display = show;
             tdOne.nextElementSibling.nextElementSibling.style.display = show;
             tdOne.nextElementSibling.style.display = show;
-        })
+        }
     }
 
     // phone number info only becomes available after async calls
