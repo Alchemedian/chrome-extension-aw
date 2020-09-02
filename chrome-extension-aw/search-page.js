@@ -310,7 +310,7 @@ if (isSearchPage()) {
                     divNationality.innerHTML = nationality;
                 } else {
                     divNationality.style = 'font-weight:bold;color:red;padding-left:5px'
-                    divNationality.innerHTML = 'No Nationality Found!';
+                    divNationality.innerHTML = 'No Nationality Found';
                 }
 
                 profileDetails.append(divNationality);
@@ -399,11 +399,13 @@ if (isSearchPage()) {
                 }
                 document.querySelector('#ku_phone_hidden_count').innerHTML =
                     ` (${document.querySelectorAll('.nophone').length} hidden)`
+                document.querySelector('#ku_top_bar').style.position = "sticky"
 
             } else {
                 ele.setAttribute('hidden', false)
                 showBlock(show, ele)
                 document.querySelector('#ku_phone_hidden_count').innerHTML = ''
+                document.querySelector('#ku_top_bar').style.position = ""
             }
         })
 

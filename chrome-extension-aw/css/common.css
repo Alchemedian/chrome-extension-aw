@@ -73,3 +73,13 @@
     font-size: 10pt;
     position: relative;
 }
+
+#ku_top_bar {
+    top: 0;
+    border: 1px solid gray;
+    background-color: gray;
+    color: white;
+    height: 22px;
+    line-height: 22px;
+    z-index: 100;
+}
