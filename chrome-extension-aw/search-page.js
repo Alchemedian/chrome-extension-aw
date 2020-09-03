@@ -394,6 +394,7 @@ if (isSearchPage()) {
                                 divAnim.parentNode.removeChild(divAnim)
                             ele.setAttribute('hidden', true)
                             showBlock(show, ele)
+                            updateUKPReviewCountsIfVisible()
                         }, 90)
                     }
                 }
