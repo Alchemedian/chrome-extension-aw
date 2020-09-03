@@ -289,7 +289,7 @@ if (isSearchPage()) {
                     /Hand Relief/.test(dPref) && services.push("<span title='Hand Relief'>✊</span>");
                     /Strap On/.test(dPref) && services.push("<span title='Strap On'>👺</span>");
                     /Watersports \(Giving\)/.test(dPref) && services.push("<span title='Water Sports (Giving)'>🏄</span>");
-                    /Bareback/.test(dPref) && services.push("bb");
+                    (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && services.push("bb");
                     profileDetails.append(makeDiv('',
                         price + '<div class="ku_details_likes">' + services.join(' ') + '</div>', 'ku_details_price_n_likes'));
                 }
