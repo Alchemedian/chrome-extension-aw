@@ -106,15 +106,18 @@
 }
 
 .ku_ukp_timeline_positive {
-    background-color: green;
+    border: 1px solid green;
+    background-color: lightgreen;
 }
 
 .ku_ukp_timeline_negative {
-    background-color: red;
+    border: 1px solid red;
+    background-color: lightcoral;
 }
 
 .ku_ukp_timeline_neutral {
-    background-color: gray;
+    border: 1px solid gray;
+    background-color: lightgray;
 }
 
 #ku_top_bar {
