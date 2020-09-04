@@ -278,18 +278,18 @@ if (isSearchPage()) {
                     let services = [];
 
                     let dPref = divProfileHTML.querySelectorAll('#dPref')[0].innerText;
-                    /Oral without Protection\n/.test(dPref) && services.push("<span title='OWO'>😋</span>");
-                    /CIM/.test(dPref) && services.push("<span title='CIM'>👄</span>");
-                    /Swallow/.test(dPref) && services.push("<span title='Swallow'>💊</span>");
-                    /"A" Levels\n/.test(dPref) && services.push("<span title='Anal'>🍩</span>");
-                    /French Kissing\n/.test(dPref) && services.push("<span title='French Kissing'>😘</span>");
-                    /Foot Worship/.test(dPref) && services.push("<span title='Foot Worship'>👣</span>");
-                    /Rimming \(giving\)/.test(dPref) && services.push("<span title='Rimming'>👅</span>");
-                    /Massage/.test(dPref) && services.push("<span title='Massage'>💆‍♂️</span>");
-                    /Hand Relief/.test(dPref) && services.push("<span title='Hand Relief'>✊</span>");
-                    /Strap On/.test(dPref) && services.push("<span title='Strap On'>👺</span>");
-                    /Watersports \(Giving\)/.test(dPref) && services.push("<span title='Water Sports (Giving)'>🏄</span>");
-                    (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && services.push("bb");
+                    /Oral without Protection\n/.test(dPref) && services.push("<span class='ku_tooltip'>😋<span class='ku_tooltiptext'>OWO</span></span>");
+                    /CIM/.test(dPref) && services.push("<span class='ku_tooltip'>👄<span class='ku_tooltiptext'>CIM</span></span>");
+                    /Swallow/.test(dPref) && services.push("<span class='ku_tooltip'>💊<span class='ku_tooltiptext'>Swallow</span></span>");
+                    /"A" Levels\n/.test(dPref) && services.push("<span class='ku_tooltip'>🍩<span class='ku_tooltiptext'>Anal</span></span>");
+                    /French Kissing\n/.test(dPref) && services.push("<span class='ku_tooltip'>😘<span class='ku_tooltiptext'>French Kissing</span></span>");
+                    /Foot Worship/.test(dPref) && services.push("<span class='ku_tooltip'>👣<span class='ku_tooltiptext'>Foot Worship</span></span>");
+                    /Rimming \(giving\)/.test(dPref) && services.push("<span class='ku_tooltip'>👅<span class='ku_tooltiptext'>Rimming</span></span>");
+                    /Massage/.test(dPref) && services.push("<span class='ku_tooltip'>💆‍♂️<span class='ku_tooltiptext'>Massage</span></span>");
+                    /Hand Relief/.test(dPref) && services.push("<span class='ku_tooltip'>✊<span class='ku_tooltiptext'>Hand Relief</span></span>");
+                    /Strap On/.test(dPref) && services.push("<span class='ku_tooltip'>👺<span class='ku_tooltiptext'>Strap On</span></span>");
+                    /Watersports \(Giving\)/.test(dPref) && services.push("<span class='ku_tooltip'>🏄<span class='ku_tooltiptext'>Water Sports</span></span>");
+                    (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && services.push("<span class='ku_tooltip'>BB<span class='ku_tooltiptext'>Bareback</span></span>");
                     profileDetails.append(makeDiv('',
                         price + '<div class="ku_details_likes">' + services.join(' ') + '</div>', 'ku_details_price_n_likes'));
                 }
