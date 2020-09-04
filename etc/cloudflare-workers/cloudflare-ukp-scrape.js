@@ -52,9 +52,7 @@ function getOrderOfReviews(content) {
         .reverse()
         .map(ele => {
             return ele
-                .replace('positive.gif', '👍')
-                .replace('negative.gif', '👎')
-                .replace('negative.gif', '😐')
+                .replace('.gif', '')
         })
 
     function runningParser(haystack, needles) {

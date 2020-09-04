@@ -65,13 +65,52 @@
 }
 
 #ku_ukp_summary {
+    position: relative;
+    float: right;
+}
+
+#ku_ukp_summary a {
+    color: black;
+    font-size: 10pt;
     border-radius: 5px;
     padding: 0 15px 0 15px;
-    background-color: white;
-    color: black;
-    float: right;
-    font-size: 10pt;
-    position: relative;
+}
+
+#ku_ukp_summary .ku_ukp_summary_chron,
+.ku_review_details .ku_ukp_summary_chron {
+    text-align: right;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    padding-top: 5px;
+}
+
+.ku_review_details a {
+    border-radius: 4px;
+}
+
+.ku_ukp_timeline_positive,
+.ku_ukp_timeline_negative,
+.ku_ukp_timeline_neutral {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 5px;
+    padding: 2px;
+    margin-left: 1px;
+}
+
+.ku_ukp_timeline_positive {
+    background-color: green;
+}
+
+.ku_ukp_timeline_negative {
+    background-color: red;
+}
+
+.ku_ukp_timeline_neutral {
+    background-color: gray;
 }
 
 #ku_top_bar {

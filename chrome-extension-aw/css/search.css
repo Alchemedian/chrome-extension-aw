@@ -123,11 +123,11 @@ div.ku_get_live_review_counts:hover {
 }
 
 .ku_details div.ku_review_details {
-    background-color: white;
     min-height: 20px;
     line-height: 20px;
     padding: 0;
     margin: 20px 0;
+    border: 0;
 }
 
 .ku_review_details a {
@@ -141,8 +141,6 @@ div.ku_get_live_review_counts:hover {
 .ku_details .ku_details_seen_online {
     border: 0;
     font-size: 10pt;
-    /* text-align: center; */
-    /* background-color: #f9f9f9; */
 }
 
 .ku_details .ku_telephone_number {

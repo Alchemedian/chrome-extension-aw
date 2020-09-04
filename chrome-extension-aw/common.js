@@ -9,10 +9,8 @@ function isProfilePage() {
 function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
     const scrape = apiOrScrape === 'scrape'
     let url = `https://ukp-aw2ukp-cors-proxy.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
-    let title = `Counts could be out of date :-(`
     if (scrape) {
         url = `https://ukp-scrape.bwkake.workers.dev/?awid=${encodeURIComponent(uid)}`
-        title = 'Up to date review counts :-)'
         destinationDiv.innerHTML = "Loading UKP Reviews..."
     } else {
         destinationDiv.style.background = ''
@@ -21,7 +19,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
         .then(y => y.json())
         .then(json => {
             let aWrapper = document.createElement('a')
-            aWrapper.title = title
+            let chronDiv = document.createElement('div')
             aWrapper.target = "_blank"
             aWrapper.href = `https://www.ukpunting.com/index.php?action=adultwork;id=${uid}`
             aWrapper.style.fontSize = "20px"
@@ -42,16 +40,30 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                 if (json.neutral_count)
                     html += `<span class="ku_ukp_review_item ku_ukp_review_item_neutral">😐 ${json.neutral_count}</span>`
 
+                if (json.order) {
+                    let chronology = json.order.map(item => {
+                        return item
+                            .replace('positive', '<span class="ku_ukp_timeline_positive"></span>')
+                            .replace('negative', '<span class="ku_ukp_timeline_negative"></span>')
+                            .replace('neutral', '<span class="ku_ukp_timeline_neutral"></span>')
+                    }).join('')
+                    chronDiv.innerHTML = chronology
+                    chronDiv.title = "Chronology of UKP reviews"
+                    chronDiv.className = "ku_ukp_summary_chron"
+                }
+
+
                 if (scrape) {
                     let percent = Math.round(200 * (json.positive_count + .5 * json.neutral_count) / json.review_count)
                     let alpha = json.review_count < 4 ? .5 : 1
-                    destinationDiv.style.background = `linear-gradient(90deg, rgba(0,254,0,${alpha}) 0%, rgba(255,0,0,${alpha}) ${percent}%)`
+                    aWrapper.style.background = `linear-gradient(90deg, rgba(0,254,0,${alpha}) 0%, rgba(255,0,0,${alpha}) ${percent}%)`
                 }
             }
             aWrapper.innerHTML = html
             destinationDiv.innerHTML = ''
             destinationDiv.appendChild(aWrapper)
-            while (destinationDiv.offsetHeight > 30) {
+            destinationDiv.appendChild(chronDiv)
+            while (aWrapper.offsetHeight > 30) {
                 let fontSize = parseInt(aWrapper.style.fontSize)
                 if (fontSize <= 5)
                     break;
