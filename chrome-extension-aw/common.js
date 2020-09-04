@@ -20,6 +20,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
         .then(json => {
             let aWrapper = document.createElement('a')
             let chronDiv = document.createElement('div')
+            chronDiv.className = "ku_ukp_summary_chron"
             aWrapper.target = "_blank"
             aWrapper.href = `https://www.ukpunting.com/index.php?action=adultwork;id=${uid}`
             aWrapper.style.fontSize = "20px"
@@ -49,7 +50,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                     }).join('')
                     chronDiv.innerHTML = chronology
                     chronDiv.title = "Chronology of UKP reviews"
-                    chronDiv.className = "ku_ukp_summary_chron"
+
                 }
 
 

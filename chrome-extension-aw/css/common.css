@@ -86,6 +86,10 @@
     padding-top: 5px;
 }
 
+.ku_ukp_summary_chron:empty {
+    display: none;
+}
+
 .ku_review_details a {
     border-radius: 4px;
 }
