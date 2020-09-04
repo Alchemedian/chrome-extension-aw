@@ -22,12 +22,15 @@ async function handleRequest(event) {
         positive = positive ? positive.length : 0
         negative = negative ? negative.length : 0
         neutral = neutral ? neutral.length : 0
+        let order = getOrderOfReviews(text)
+
         const ret = {
             positive_count: positive,
             negative_count: negative,
             neutral_count: neutral,
             review_count: neutral + negative + positive,
-            order: getOrderOfReviews(text),
+            order: order,
+            dates: getReviewDates(text),
         }
 
         response = new Response(JSON.stringify(ret))
@@ -46,9 +49,10 @@ async function handleRequest(event) {
     return response
 }
 
+const reviewTypes = ['positive.gif', 'negative.gif', 'neutral.gif']
 
 function getOrderOfReviews(content) {
-    return runningParser(content, ['positive.gif', 'negative.gif', 'neutral.gif'])
+    return runningParser(content, reviewTypes)
         .reverse()
         .map(ele => {
             return ele
@@ -65,4 +69,24 @@ function getOrderOfReviews(content) {
         }
         return ret
     }
+}
+
+function getReviewDates(haystack) {
+    let dateRegex = /(Janurary|February|March|April|May|June|July|August|September|October|November|December) [0-9]{2}, [0-9]{4},/
+
+    let positions = []
+    for (let i = 0; i < haystack.length; i++) {
+        reviewTypes.forEach(needle => {
+            if (haystack.substr(i, needle.length) === needle)
+                positions.push(i)
+        })
+    }
+    let ret = []
+    positions.forEach(pos => {
+        let match = haystack.substr(pos).match(dateRegex)
+        if (match && match[0])
+            ret.push(match[0])
+
+    })
+    return ret.map(item => item.replace(/,$/, ''))
 }
