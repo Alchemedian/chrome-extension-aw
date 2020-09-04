@@ -72,7 +72,7 @@ function getOrderOfReviews(content) {
 }
 
 function getReviewDates(haystack) {
-    let dateRegex = /(Janurary|February|March|April|May|June|July|August|September|October|November|December) [0-9]{2}, [0-9]{4},/
+    let dateRegex = /(January|February|March|April|May|June|July|August|September|October|November|December) [0-9]{2}, [0-9]{4},/
 
     let positions = []
     for (let i = 0; i < haystack.length; i++) {
