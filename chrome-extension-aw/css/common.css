@@ -98,10 +98,8 @@
 .ku_ukp_timeline_negative,
 .ku_ukp_timeline_neutral {
     display: inline-block;
-    width: 3px;
-    height: 3px;
-    border-radius: 5px;
-    padding: 2px;
+    width: 5px;
+    height: 5px;
     margin-left: 1px;
 }
 
@@ -111,8 +109,8 @@
 }
 
 .ku_ukp_timeline_negative {
-    border: 1px solid red;
-    background-color: lightcoral;
+    border: 1px solid #cc0000;
+    background-color: red;
 }
 
 .ku_ukp_timeline_neutral {
