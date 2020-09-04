@@ -48,7 +48,6 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                         spanItem.classList.add(`ku_ukp_timeline_${item}`)
                         spanItem.classList.add(`ku_tooltip`)
                         spanItem.innerHTML = `<span class="ku_tooltiptext">${dat}</span>`
-                        spanItem.title = dat
                         chronDiv.appendChild(spanItem)
                     })
                 }
