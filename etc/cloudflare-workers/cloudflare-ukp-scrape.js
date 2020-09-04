@@ -88,5 +88,5 @@ function getReviewDates(haystack) {
             ret.push(match[0])
 
     })
-    return ret.map(item => item.replace(/,$/, ''))
+    return ret.map(item => item.replace(/,$/, '')).reverse()
 }

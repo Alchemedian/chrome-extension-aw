@@ -42,11 +42,13 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                     html += `<span class="ku_ukp_review_item ku_ukp_review_item_neutral">😐 ${json.neutral_count}</span>`
 
                 if (json.order) {
-                    let chronology = json.order.map(item => {
+                    let chronology = json.order.map((item, i) => {
+                        let dat = json.dates && json.dates[i] ? json.dates[i] : ''
                         return item
-                            .replace('positive', '<span class="ku_ukp_timeline_positive"></span>')
-                            .replace('negative', '<span class="ku_ukp_timeline_negative"></span>')
-                            .replace('neutral', '<span class="ku_ukp_timeline_neutral"></span>')
+                            .replace('positive', '<span {title} class="ku_ukp_timeline_positive"></span>')
+                            .replace('negative', '<span {title} class="ku_ukp_timeline_negative"></span>')
+                            .replace('neutral', '<span {title} class="ku_ukp_timeline_neutral"></span>')
+                            .replace('{title}', `title="${dat}"`)
                     }).join('')
                     chronDiv.innerHTML = chronology
                     chronDiv.title = "Chronology of UKP reviews"
