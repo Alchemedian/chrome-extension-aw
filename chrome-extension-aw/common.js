@@ -47,7 +47,9 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                         let spanItem = document.createElement('span')
                         spanItem.classList.add(`ku_ukp_timeline_${item}`)
                         spanItem.classList.add(`ku_tooltip`)
-                        spanItem.innerHTML = `<span class="ku_tooltiptext">${dat}</span>`
+                        let leftRight = cumulativeOffset(destinationDiv).left > window.innerWidth / 2 ?
+                            'right' : 'left'
+                        spanItem.innerHTML = `<span class="ku_tooltiptext ku_tooltiptext_${leftRight}">${dat}</span>`
                         chronDiv.appendChild(spanItem)
                     })
                 }
@@ -179,4 +181,19 @@ if (isSearchPage() || isProfilePage()) {
         <span id="ku_ukp_search"></span>
     <div id="ku_ukp_summary"></div>`
     })();
+}
+
+function cumulativeOffset(ele) {
+    let top = 0,
+        left = 0;
+    do {
+        top += ele.offsetTop || 0;
+        left += ele.offsetLeft || 0;
+        ele = ele.offsetParent;
+    } while (ele);
+
+    return {
+        top: top,
+        left: left
+    }
 }

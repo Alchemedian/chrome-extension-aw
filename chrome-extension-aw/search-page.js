@@ -452,20 +452,6 @@ if (isSearchPage()) {
         return (offset.top > window.scrollY) &&
             (offset.top < window.scrollY + window.innerHeight)
 
-        function cumulativeOffset(ele) {
-            let top = 0,
-                left = 0;
-            do {
-                top += ele.offsetTop || 0;
-                left += ele.offsetLeft || 0;
-                ele = ele.offsetParent;
-            } while (ele);
-
-            return {
-                top: top,
-                left: left
-            }
-        }
     }
 
 }

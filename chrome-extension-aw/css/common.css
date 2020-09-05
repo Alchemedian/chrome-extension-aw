@@ -134,24 +134,33 @@
 }
 
 .ku_tooltip .ku_tooltiptext {
+    font-size: 14px;
     visibility: hidden;
-    width: 120px;
+    width: 160px;
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
-    /* Position the tooltip */
+    padding: 5px;
     position: absolute;
     z-index: 1;
     bottom: 100%;
     left: 50%;
-    margin-left: -60px;
+    margin-left: -90px;
+    margin-bottom: 5px;
     transition: opacity 0.3s;
     opacity: 0;
 }
 
+.ku_tooltip .ku_tooltiptext_left {
+    margin-left: -90px;
+}
+
+.ku_tooltip .ku_tooltiptext_right {
+    margin-left: -150px;
+}
+
 .ku_tooltip:hover .ku_tooltiptext {
     visibility: visible;
-    opacity: .9;
+    opacity: .95;
 }
