@@ -226,6 +226,7 @@
         function downloadScreenshot() {
             let element = document.querySelector('td div[align=center]')
             element.style.backgroundColor = "#ffffff"
+            let scr = { x: window.scrollX, y: window.scrollY }
             html2canvas(element, {
                 useCORS: true,
                 onrendered: function(canvas) {
@@ -237,7 +238,9 @@
                     let a = document.createElement('a')
                     a.download = `${fileSavePrefix()}_profile_capture.jpg`
                     a.href = canvas.toDataURL("image/jpg")
+                    setTimeout(() => window.scrollTo(scr.x, scr.y), 1)
                     a.click()
+
                 }
             })
         }
