@@ -231,6 +231,9 @@
                 onrendered: function(canvas) {
                     let context = canvas.getContext('2d')
                     context.drawImage(imgIcon, canvas.width - imgIcon.width, canvas.height - imgIcon.height)
+                    context.font = "28px Arial";
+                    let date = String(new Date()).split(1900 + (new Date()).getYear())[0] + (1900 + (new Date()).getYear())
+                    context.fillText(date, 5, canvas.height - 10)
                     let a = document.createElement('a')
                     a.download = `${fileSavePrefix()}_profile_capture.jpg`
                     a.href = canvas.toDataURL("image/jpg")
