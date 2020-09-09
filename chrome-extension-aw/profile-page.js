@@ -238,7 +238,6 @@
                     let a = document.createElement('a')
                     a.download = `${fileSavePrefix()}_profile_capture.jpg`
                     a.href = canvas.toDataURL("image/jpg")
-                        // setTimeout(() => window.scrollTo(scr.x, scr.y), 1)
                     a.click()
                     window.scrollTo(scr.x, scr.y)
 
