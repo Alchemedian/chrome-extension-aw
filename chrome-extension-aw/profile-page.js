@@ -18,6 +18,12 @@
     let ukpSearch = ukpSearchButtons(profileId)
     document.querySelector('#ku_ukp_search').append(ukpSearch)
 
+    let divCovid = document.createElement('div')
+    divCovid.id = 'ku_bar_covid_profile'
+    divCovid.innerHTML = 'Covid Information'
+    document.getElementById('ku_top_bar').after(divCovid)
+    covidData(document.querySelector('[itemprop="addressRegion"]').innerText, document.querySelector('#ku_bar_covid_profile'))
+
     function removeLongTextualCrap() {
         let maxLen = 2000;
         for (let i = 1; i < 24; i++) {

@@ -78,3 +78,10 @@ form[name=frmProfile] .Padded {
 #main-content-container>tbody>tr>td>p {
     display: none
 }
+
+#ku_bar_covid_profile {
+    font-size: 14px;
+    background-color: #ddd;
+    padding: 2px;
+    color: #333;
+}
