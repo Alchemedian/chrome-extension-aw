@@ -256,8 +256,10 @@ function covidData(county, destinationDiv, countySecondary) {
 
         let sign = formatted.casesNewThisWeekComparedToLast > 0 ? '+' : ''
         let redSign = formatted.casesNewThisWeekComparedToLast > 0 ? "color:red" : 'color:green'
-        destinationDiv.innerHTML = `Covid cases per 100k in ${formatted.region}: ${formatted.casesPer100k} | National avg. ${formatted.casesPer100kNationalAverage} |
-        Compared with the previous week: <span style='${redSign}'>${sign}${formatted.casesNewThisWeekComparedToLast}</span>
+        let pipe = `<span style='color:#eee'>|</span>`
+        destinationDiv.innerHTML = `Covid cases per 100k in ${formatted.region}: ${formatted.casesPer100k} ${pipe} National avg. ${formatted.casesPer100kNationalAverage} ${pipe}
+        Cases: ${formatted.casesTotal.toLocaleString()} ${pipe} 
+        <span style='${redSign}'>${sign}${formatted.casesNewThisWeekComparedToLast}</span> from last week
         `
     }
 }
