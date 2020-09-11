@@ -238,7 +238,7 @@ function covidData(county, destinationDiv, countySecondary) {
                 }
             }
             if (matches.length > 0) {
-                matches.forEach(parseCovidData)
+                matches.slice(0, 5).forEach(parseCovidData)
                 regionMatched = true
             }
         }
