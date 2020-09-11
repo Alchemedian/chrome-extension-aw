@@ -22,7 +22,14 @@
     divCovid.id = 'ku_bar_covid_profile'
     divCovid.innerHTML = 'Covid Information'
     document.getElementById('ku_top_bar').after(divCovid)
-    covidData(document.querySelector('[itemprop="addressRegion"]').innerText, document.querySelector('#ku_bar_covid_profile'))
+    let region1 = document.querySelector('[itemprop="addressRegion"]') ? document.querySelector('[itemprop="addressRegion"]').innerText : ''
+    let region2 = document.querySelector('[itemprop="addressLocality"]') ? document.querySelector('[itemprop="addressLocality"]')
+        .innerText.replace(/,/g, '') : ''
+
+    covidData(region1,
+        document.querySelector('#ku_bar_covid_profile'),
+        region2
+    )
 
     function removeLongTextualCrap() {
         let maxLen = 2000;

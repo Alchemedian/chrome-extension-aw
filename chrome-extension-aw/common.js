@@ -199,35 +199,47 @@ function cumulativeOffset(ele) {
 }
 
 
-function covidData(county, destinationDiv) {
+function covidData(county, destinationDiv, countySecondary) {
     if (!covidData.covidData) {
         covidData.covidData = 'waiting'
         fetch('https://www.bbc.co.uk/indepthtoolkit/data-sets/covid_lookup_ltla_surveillance/json')
             .then(y => y.json())
             .then(json => {
                 covidData.covidData = json
-                covidData(county, destinationDiv)
+                covidData(county, destinationDiv, countySecondary)
             })
     } else if (covidData.covidData === 'waiting') {
-        setTimeout(() => covidData(county, destinationDiv), 100)
+        setTimeout(() => covidData(county, destinationDiv, countySecondary), 100)
     } else {
         let dat = covidData.covidData
         let lcCounty = String(county).toLowerCase()
-        let matches = []
+        let regionMatched = false;
 
         for (let i = 0; i < dat.length; i++) {
             let lcRegion = dat[i][1].toLowerCase()
             if (lcRegion === lcCounty) {
                 parseCovidData(dat[i])
+                regionMatched = true;
                 break
-            } else if (lcRegion.indexOf(lcCounty) !== -1 || lcCounty.indexOf(lcRegion) !== -1) {
-                let one = lcRegion.split(' ')
-                let two = lcCounty.split(' ')
-                let intersection = one.filter(x => two.includes(x))
-                if (intersection.length !== 0) {
-                    parseCovidData(dat[i])
+            }
+        }
+        if (!regionMatched) {
+            for (let i = 0; i < dat.length; i++) {
+                let lcRegion = dat[i][1].toLowerCase()
+                if (lcRegion.indexOf(lcCounty) !== -1 || lcCounty.indexOf(lcRegion) !== -1) {
+                    let one = lcRegion.split(' ')
+                    let two = lcCounty.split(' ')
+                    let intersection = one.filter(x => two.includes(x))
+                    if (intersection.length !== 0) {
+                        parseCovidData(dat[i])
+                        regionMatched = true
+                        break
+                    }
                 }
             }
+        }
+        if (!regionMatched && countySecondary) {
+            covidData(countySecondary, destinationDiv)
         }
     }
 
@@ -242,7 +254,7 @@ function covidData(county, destinationDiv) {
             casesPer100kNationalAverage: row[13],
         }
 
-        let sign = formatted.casesNewThisWeekComparedToLast > 0 ? '+' : '-'
+        let sign = formatted.casesNewThisWeekComparedToLast > 0 ? '+' : ''
         let redSign = formatted.casesNewThisWeekComparedToLast > 0 ? "color:red" : 'color:green'
         destinationDiv.innerHTML = `Covid cases per 100k in ${formatted.region}: ${formatted.casesPer100k} | National avg. ${formatted.casesPer100kNationalAverage} |
         Compared with the previous week: <span style='${redSign}'>${sign}${formatted.casesNewThisWeekComparedToLast}</span>
