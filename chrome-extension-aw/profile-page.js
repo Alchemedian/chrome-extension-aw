@@ -20,7 +20,6 @@
 
     let divCovid = document.createElement('div')
     divCovid.id = 'ku_bar_covid_profile'
-    divCovid.innerHTML = 'Covid Information'
     document.getElementById('ku_top_bar').after(divCovid)
     let region1 = document.querySelector('[itemprop="addressRegion"]') ? document.querySelector('[itemprop="addressRegion"]').innerText : ''
     let region2 = document.querySelector('[itemprop="addressLocality"]') ? document.querySelector('[itemprop="addressLocality"]')

@@ -224,6 +224,7 @@ function covidData(county, destinationDiv, countySecondary) {
             }
         }
         if (!regionMatched) {
+            let matches = []
             for (let i = 0; i < dat.length; i++) {
                 let lcRegion = dat[i][1].toLowerCase()
                 if (lcRegion.indexOf(lcCounty) !== -1 || lcCounty.indexOf(lcRegion) !== -1) {
@@ -231,11 +232,14 @@ function covidData(county, destinationDiv, countySecondary) {
                     let two = lcCounty.split(' ')
                     let intersection = one.filter(x => two.includes(x))
                     if (intersection.length !== 0) {
-                        parseCovidData(dat[i])
-                        regionMatched = true
-                        break
+                        matches.push(dat[i])
+                            // break
                     }
                 }
+            }
+            if (matches.length > 0) {
+                matches.forEach(parseCovidData)
+                regionMatched = true
             }
         }
         if (!regionMatched && countySecondary) {
@@ -254,15 +258,18 @@ function covidData(county, destinationDiv, countySecondary) {
             casesPer100kNationalAverage: row[13],
         }
 
+        let divRegion = document.createElement('div')
+
         let sign = formatted.casesNewThisWeekComparedToLast > 0 ? '+' : ''
         let redSign = formatted.casesNewThisWeekComparedToLast > 0 ? "color:red" : 'color:green'
         let pipe = `<span style='color:#eee'>|</span>`
-        destinationDiv.innerHTML = `Covid cases per 100k in ${formatted.region}: ${formatted.casesPer100k} ${pipe} 
+        divRegion.innerHTML = `Covid cases per 100k in ${formatted.region}: ${formatted.casesPer100k} ${pipe} 
         National avg. ${formatted.casesPer100kNationalAverage} ${pipe}
         Cases: <span class="ku_tooltip">${formatted.casesTotal.toLocaleString()}
         <span class="ku_tooltiptext">${formatted.casesToDate}</span></span>
          ${pipe} 
         <span style='${redSign}'>${sign}${formatted.casesNewThisWeekComparedToLast}</span> from last week
         `
+        destinationDiv.appendChild(divRegion)
     }
 }
