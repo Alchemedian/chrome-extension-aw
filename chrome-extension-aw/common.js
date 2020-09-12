@@ -273,3 +273,9 @@ function covidData(county, destinationDiv, countySecondary) {
         destinationDiv.appendChild(divRegion)
     }
 }
+
+async function postCodeToName(postcode) {
+    let url = 'https://api.postcodes.io/postcodes?q=' + encodeURIComponent(postcode)
+    let data = await (await fetch(url)).json()
+    return data.result[0].admin_district
+}

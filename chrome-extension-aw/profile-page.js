@@ -22,13 +22,25 @@
     divCovid.id = 'ku_bar_covid_profile'
     document.getElementById('ku_top_bar').after(divCovid)
     let region1 = document.querySelector('[itemprop="addressRegion"]') ? document.querySelector('[itemprop="addressRegion"]').innerText : ''
-    let region2 = document.querySelector('[itemprop="addressLocality"]') ? document.querySelector('[itemprop="addressLocality"]')
-        .innerText.replace(/,/g, '') : ''
 
-    covidData(region1,
-        document.querySelector('#ku_bar_covid_profile'),
-        region2
-    )
+    let postCode = document.head.innerHTML.match(/&PostCode=([^&,']+)/)
+    if (postCode && postCode[0] && postCode[1]) {
+        postCode = postCode[1]
+        postCodeToName(postCode)
+            .then(pc => {
+                region1 = pc
+                covidData(region1,
+                    document.querySelector('#ku_bar_covid_profile')
+                )
+            })
+    } else {
+        let region2 = document.querySelector('[itemprop="addressLocality"]') ? document.querySelector('[itemprop="addressLocality"]')
+            .innerText.replace(/,/g, '') : ''
+        covidData(region1,
+            document.querySelector('#ku_bar_covid_profile'),
+            region2
+        )
+    }
 
     function removeLongTextualCrap() {
         let maxLen = 2000;
