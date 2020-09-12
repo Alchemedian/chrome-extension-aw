@@ -28,10 +28,10 @@
         postCode = postCode[1]
         postCodeToName(postCode)
             .then(pc => {
-                region1 = pc
-                covidData(region1,
-                    document.querySelector('#ku_bar_covid_profile')
-                )
+                covidData(pc, document.querySelector('#ku_bar_covid_profile'))
+                if (String(pc).toLowerCase() !== String(region1).toLowerCase()) {
+                    covidData(region1, document.querySelector('#ku_bar_covid_profile'))
+                }
             })
     } else {
         let region2 = document.querySelector('[itemprop="addressLocality"]') ? document.querySelector('[itemprop="addressLocality"]')
