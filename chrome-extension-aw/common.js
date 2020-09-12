@@ -279,3 +279,12 @@ async function postCodeToName(postcode) {
     let data = await (await fetch(url)).json()
     return data.result[0].admin_district
 }
+
+/*
+returns mutliple matches, e.g. N11 matches 3 admin districts
+*/
+async function postCodeOutward(postcode) {
+    let url = 'https://api.postcodes.io/outcodes/' + encodeURIComponent(postcode)
+    let data = await (await fetch(url)).json()
+    return data.result.admin_district
+}

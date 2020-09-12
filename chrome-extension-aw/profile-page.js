@@ -26,12 +26,11 @@
     let postCode = document.head.innerHTML.match(/&PostCode=([^&,']+)/)
     if (postCode && postCode[0] && postCode[1]) {
         postCode = postCode[1]
-        postCodeToName(postCode)
-            .then(pc => {
-                covidData(pc, document.querySelector('#ku_bar_covid_profile'))
-                if (String(pc).toLowerCase() !== String(region1).toLowerCase()) {
-                    covidData(region1, document.querySelector('#ku_bar_covid_profile'))
-                }
+        postCodeOutward(postCode)
+            .then(adminDistricts => {
+                adminDistricts.slice(0, 5).forEach(ad => {
+                    covidData(ad, document.querySelector('#ku_bar_covid_profile'))
+                })
             })
     } else {
         let region2 = document.querySelector('[itemprop="addressLocality"]') ? document.querySelector('[itemprop="addressLocality"]')
