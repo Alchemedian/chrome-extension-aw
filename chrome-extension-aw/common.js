@@ -229,7 +229,7 @@ function covidData(county, destinationDiv, countySecondary) {
                 let lcRegion = dat[i][1].toLowerCase()
                 if (lcRegion.indexOf(lcCounty) !== -1 || lcCounty.indexOf(lcRegion) !== -1) {
                     let one = lcRegion.split(' ')
-                    let two = lcCounty.split(' ')
+                    let two = lcCounty.replace(/,/g, ' ').split(' ')
                     let intersection = one.filter(x => two.includes(x))
                     if (intersection.length !== 0) {
                         matches.push(dat[i])
