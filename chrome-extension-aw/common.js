@@ -270,7 +270,26 @@ function covidData(county, destinationDiv, countySecondary) {
          ${pipe} 
         <span style='${redSign}'>${sign}${formatted.casesNewThisWeekComparedToLast}</span> from last week
         `
-        destinationDiv.appendChild(divRegion)
+        let id = 'hash_' + hashCode(divRegion.innerHTML)
+        divRegion.id = id
+        if (!document.querySelector(`#${id}`)) {
+            destinationDiv.appendChild(divRegion)
+        }
+    }
+
+    function hashCode(str) {
+        var hash = 0;
+        if (str.length == 0) {
+            return hash;
+        }
+        for (var i = 0; i < str.length; i++) {
+            var char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        if (hash < 0)
+            hash = `${hash}`.replace('-', '9')
+        return hash;
     }
 }
 
