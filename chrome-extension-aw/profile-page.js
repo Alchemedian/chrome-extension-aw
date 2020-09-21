@@ -111,12 +111,17 @@
             if (x.parentElement && x.parentElement.href && /(sIWishlist|:sI|:vSI)/.test(x.parentElement.href)) {
 
             } else {
-                if (c++ < 55) {
-                    html += wrapImg(thumbToFull(x.src))
-                    images.push(thumbToFull(x.src))
-                }
+                html += wrapImg(thumbToFull(x.src))
+                images.push(thumbToFull(x.src))
             }
         })
+
+        document.querySelectorAll(".cp__video__thumb img")
+            .forEach(el => {
+                html += wrapImg(el.src)
+                images.push(el.src)
+            })
+
         c = 0;
         document.querySelectorAll(".ImageBorder").forEach(function(x) {
             if (c++ < 55) {
