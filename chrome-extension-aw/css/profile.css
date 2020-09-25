@@ -29,6 +29,11 @@ form[name=frmProfile] .Padded {
     margin: 9px
 }
 
+.ku_gallerywrapper .ku_reverse_img_search span.emoji {
+    visibility: visible;
+    margin-left: -33px;
+}
+
 .ku_removed_content {
     background-color: black;
     color: white;
