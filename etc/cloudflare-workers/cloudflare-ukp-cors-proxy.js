@@ -1,32 +1,24 @@
 addEventListener('fetch', event => {
-    event.respondWith(handleRequest(event))
+    event.respondWith(handleRequest(event.request))
 })
 
-async function handleRequest(event) {
-    const request = event.request
+async function handleRequest(request) {
     const url = new URL(request.url)
-    let awid = url.searchParams.get('awid')
-    let apiUrl = `https://www.ukpunting.com/aw2ukp.php?id=${awid}`
+    let apiUrl = url.searchParams.get('apiurl')
+    let headers = new Headers({
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"
+    });
 
-    const cacheUrl = new URL(request.url)
-    const cacheKey = new Request(cacheUrl.toString(), request)
-    const cache = caches.default
-    // Get this request from this zone's cache
-    let response = await cache.match(cacheKey)
-    if (!response) {
-        response = await fetch(apiUrl)
-        response = new Response(response.body, response)
+
+    let response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: headers,
+    })
+
+    response = new Response(response.body, response)
         // Set CORS headers
-        response.headers.set('Access-Control-Allow-Origin', '*')
-        // Cache-Control: public
-        // response.headers.set('Cache-Control', 'public')
-        //max-age=<seconds>
-        response.headers.set('Cache-Control', ['public', 'max-age=604800'])
+    response.headers.set('Access-Control-Allow-Origin', '*')
         // Append to/Add Vary header so browser will cache response correctly
-        response.headers.append('Vary', 'Origin')
-        // await cache.put(cacheKey, response.clone())
-        event.waitUntil(cache.put(cacheKey, response.clone()))
-    }
-
+    response.headers.append('Vary', 'Origin')
     return response
 }
