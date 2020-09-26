@@ -32,6 +32,11 @@ form[name=frmProfile] .Padded {
 .ku_gallerywrapper .ku_reverse_img_search span.emoji {
     visibility: visible;
     margin-left: -33px;
+    font-size: 30px;
+    opacity: 0.5;
+    position: relative;
+    top: -9px;
+    right: -9px;
 }
 
 .ku_removed_content {
