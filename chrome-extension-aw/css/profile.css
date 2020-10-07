@@ -39,6 +39,12 @@ form[name=frmProfile] .Padded {
     right: -9px;
 }
 
+.ku_gallerywrapper .ku_movie_image {
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
 .ku_removed_content {
     background-color: black;
     color: white;

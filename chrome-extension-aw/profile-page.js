@@ -88,13 +88,13 @@
 
     let images = []
 
-    function wrapImg(src, emoji = '') {
+    function wrapImg(src, emoji = '', divClass = '') {
         let fileName = src.split(/(\\|\/)/g).pop()
         let maxWidth = window.localStorage.ku_gallery_max_width ?
             window.localStorage.ku_gallery_max_width : window.innerWidth - 200
 
         return `<div class='ku_gallerywrapper'>
-            <div>
+            <div class='${divClass}'>
                 <img class='ku_gallerywrapper_img' style='max-width:${maxWidth}px;' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
                     <div class='ku_reverse_img_search'>
                     <span class="emoji">${emoji}</span>
@@ -206,7 +206,7 @@
                         let meta = dtemp.querySelector('meta[name="twitter:image"]')
                         if (meta) {
                             let src = meta.getAttribute('content')
-                            divGallery.innerHTML += wrapImg(src, '🎦')
+                            divGallery.innerHTML += wrapImg(src, '🎦', 'ku_movie_image')
                             images.push(src)
                         }
                     })
