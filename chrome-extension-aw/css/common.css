@@ -45,10 +45,10 @@
     width: 140px;
 }
 
-.ku_ukp_button {
+.ku_google_button {
     cursor: pointer;
     padding: 1px;
-    margin-right: 5px;
+    margin-right: 0;
 }
 
 #ku_hide {

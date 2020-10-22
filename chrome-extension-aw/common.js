@@ -89,17 +89,18 @@ function ukpSearchButtons(uid) {
             </form>
             `
     document.querySelector('body').after(dhid)
-    let ukpButton = document.createElement('button');
-    ukpButton.className = "ku_ukp_button"
-    ukpButton.innerHTML = "UKP"
-    ukpButton.addEventListener('click', () => {
+    let googleButton = document.createElement('button');
+    googleButton.className = "ku_google_button"
+    googleButton.innerHTML = "Google"
+    googleButton.addEventListener('click', () => {
         event.preventDefault();
-        document.getElementById(`ku_ukp_form_${uid}`).submit()
+        // document.getElementById(`ku_ukp_form_${uid}`).submit()
+        window.open("https://www.google.co.uk/search?q=" + encodeURIComponent('adultwork ' + uid))
     })
-    ukp.appendChild(ukpButton)
+    ukp.appendChild(googleButton)
 
     let ukpGoogleButton = document.createElement('button');
-    ukpGoogleButton.className = "ku_ukp_button"
+    ukpGoogleButton.className = "ku_oogle_button"
     ukpGoogleButton.innerHTML = "Google UKP"
 
     ukpGoogleButton.addEventListener('click', () => {
