@@ -203,7 +203,7 @@ function cumulativeOffset(ele) {
 function covidData(county, destinationDiv, countySecondary) {
     if (!covidData.covidData) {
         covidData.covidData = 'waiting'
-        fetch('https://www.bbc.co.uk/indepthtoolkit/data-sets/covid_lookup_ltla_surveillance/json')
+        fetch('https://news.files.bbci.co.uk/include/newsspec/codebuilddata/Weekly_cases_lookup_data.json')
             .then(y => y.json())
             .then(json => {
                 covidData.covidData = json
