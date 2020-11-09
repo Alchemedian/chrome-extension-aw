@@ -266,10 +266,12 @@ function covidData(county, destinationDiv, countySecondary) {
         let pipe = `<span style='color:#eee'>|</span>`
         divRegion.innerHTML = `Covid cases per 100k in ${formatted.region}: ${formatted.casesPer100k} ${pipe} 
         National avg. ${formatted.casesPer100kNationalAverage} ${pipe}
-        Cases: <span class="ku_tooltip">${formatted.casesTotal.toLocaleString()}
-        <span class="ku_tooltiptext">${formatted.casesToDate}</span></span>
+        Cases: <span class="ku_tooltip">${formatted.casesTotal.toLocaleString()}        
+        </span>
          ${pipe} 
         <span style='${redSign}'>${sign}${formatted.casesNewThisWeekComparedToLast}</span> from last week
+        ${pipe}
+        Updated ${formatted.casesToDate}
         `
         let id = 'hash_' + hashCode(divRegion.innerHTML)
         divRegion.id = id
