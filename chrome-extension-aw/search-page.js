@@ -141,6 +141,7 @@ if (isSearchPage()) {
         setTimeout(() => embelishProfileBlurb(uid), fetchDelay)
 
         function embelishProfileBlurb(uid) {
+            if (uid == 5741000) { return } //AW left a driver's licence in the html, blocking
             anchorTag.after(ukpSearchButtons(uid))
             let spacerDiv = document.createElement('div')
             spacerDiv.className = 'ku_spacer_placeholder'
