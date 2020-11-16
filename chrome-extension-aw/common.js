@@ -26,6 +26,9 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
             aWrapper.style.fontSize = "20px"
             aWrapper.style.textDecoration = "none"
             let html = ""
+            let probabilityGood = (json.positive_count + 1) / (json.positive_count + json.negative_count + json.neutral_count + 2)
+            let starRating = Math.round(probabilityGood * 50) / 10
+            let probabilityGoodPercent = Math.round(probabilityGood * 100)
             if (json.review_count == 0) {
                 destinationDiv.classList.add('ku_ukp_review_item_no_reviews')
                 aWrapper.style.fontSize = "15px"
@@ -41,6 +44,7 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                 if (json.neutral_count)
                     html += `<span class="ku_ukp_review_item ku_ukp_review_item_neutral">😐 ${json.neutral_count}</span>`
 
+                html += `<span class="ku_ukp_review_item ku_ukp_review_item_probability ku_tooltip">${starRating} ⭐<span class="ku_tooltiptext ku_tooltiptext_small">${probabilityGoodPercent}% chances of a +ve experience</span> </span>`
                 if (json.order) {
                     json.order.forEach((item, i) => {
                         let dat = json.dates && json.dates[i] ? json.dates[i] : ''

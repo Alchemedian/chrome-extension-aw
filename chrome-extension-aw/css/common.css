@@ -31,6 +31,14 @@
     border: 1px solid darkgray;
 }
 
+.ku_ukp_review_item_probability {
+    color: #333;
+    background-color: #ffffff;
+    border: 1px solid darkgray;
+    float: right;
+    border-radius: 5px;
+}
+
 .ku_ukp_review_item_label {
     color: white;
     font-size: 17px;
@@ -163,4 +171,10 @@
 .ku_tooltip:hover .ku_tooltiptext {
     display: block;
     opacity: .95;
+}
+
+.ku_tooltip:hover .ku_tooltiptext_small {
+    /* font-size: 12px; */
+    width: 250px;
+    margin-left: -220px;
 }
