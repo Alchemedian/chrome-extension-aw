@@ -331,6 +331,28 @@
         imgify(), removeLongTextualCrap()
     }, 300);
 
+    //add call and whatsapp link
+    setTimeout(() => {
+        document.querySelectorAll('[itemprop=telephone]').forEach(ele => {
+            let telFull = ele.innerText.replace(/^0/, '+44')
+
+            let tel = document.createElement('a')
+            tel.setAttribute('target', '_blank')
+            tel.className = 'ku_prof_tel'
+            tel.innerHTML = '☎️ Call'
+            tel.setAttribute('href', `tel:${telFull}`)
+            ele.append(tel)
+
+            let wa = document.createElement('a')
+            wa.setAttribute('target', '_blank')
+
+            wa.setAttribute('href', `https://wa.me/${telFull}`)
+            wa.className = "ku_prof_whatsapp"
+            wa.innerHTML = `<img class="whatsapp" alt="WhatsApp" title="WhatsApp" src='https://web.whatsapp.com/img/favicon/1x/favicon.png' /> WhatsApp`
+            ele.append(wa)
+        })
+    }, 300)
+
     function thumbToFull(img) {
         return img.replace('/t/', '/f/').replace('/thumbnails/', '/images/');
     }

@@ -109,3 +109,23 @@ form[name=frmProfile] .Padded {
     padding: 2px;
     border-bottom: 1px solid white;
 }
+
+.ku_prof_tel {
+    margin-left: 10px;
+    margin-right: 5px;
+    border-bottom: 1px dotted black;
+    text-decoration: none;
+}
+
+.ku_prof_whatsapp {
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px dotted black;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.ku_prof_whatsapp img.whatsapp {
+    position: relative;
+    top: 4px;
+}
