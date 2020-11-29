@@ -98,10 +98,8 @@
                 <img class='ku_gallerywrapper_img' style='max-width:${maxWidth}px;' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
                     <div class='ku_reverse_img_search'>
                     <span class="emoji">${emoji}</span>
-                        <button onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}')">Yandex</button>
-                        <button onclick="window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Google</button>                        
-                    </div>
-                    
+                        <button onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}');window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Image Search</button>
+                    </div>                    
             </div>
         </div>`;
     }
