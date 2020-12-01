@@ -136,8 +136,8 @@ if (isSearchPage()) {
         let uid = st[1]
 
         let fetchDelay = isVisibleInPageScroll(anchorTag) ?
-            1 + Math.random() * 20 :
-            200 + Math.floor(Math.random() * 400)
+            1 + Math.random() * 100 :
+            700 + Math.floor(Math.random() * 400)
         setTimeout(() => embelishProfileBlurb(uid), fetchDelay)
 
         function embelishProfileBlurb(uid) {
