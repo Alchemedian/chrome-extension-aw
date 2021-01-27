@@ -36,7 +36,6 @@
     background-color: #ffffff;
     border: 1px solid darkgray;
     float: right;
-    border-radius: 5px;
 }
 
 .ku_ukp_review_item_label {
@@ -177,4 +176,28 @@
     /* font-size: 12px; */
     width: 250px;
     margin-left: -220px;
+}
+
+.ku_tooltip:hover .ku_tooltiptext_medium {
+    width: 320px;
+    margin-left: -220px;
+}
+
+.ku_stars {
+    --star-size: 18px;
+    --star-color: #666;
+    --star-background: #f80;
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: var(--star-size);
+    line-height: 1;
+    border: 0;
+}
+
+.ku_stars::before {
+    content: "★★★★★";
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

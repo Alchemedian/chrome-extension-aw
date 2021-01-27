@@ -44,7 +44,11 @@ function getUKPsummary(uid, destinationDiv, apiOrScrape = 'api') {
                 if (json.neutral_count)
                     html += `<span class="ku_ukp_review_item ku_ukp_review_item_neutral">😐 ${json.neutral_count}</span>`
 
-                html += `<span class="ku_ukp_review_item ku_ukp_review_item_probability ku_tooltip">${starRating} ⭐<span class="ku_tooltiptext ku_tooltiptext_small">${probabilityGoodPercent}% chance of a +ve experience</span> </span>`
+                let gn = starRating == 1 ? '' : 's';
+                html += `<span class="ku_ukp_review_item ku_ukp_review_item_probability ku_tooltip">                
+                <div class="ku_stars" style="--rating: ${starRating};border: 0;margin: 0;padding: 0;" >
+                <span class="ku_tooltiptext ku_tooltiptext_small"><b>${starRating} Star${gn}</b><br> ${probabilityGoodPercent}% chance of a +ve experience</span> </span>`
+
                 if (json.order) {
                     json.order.forEach((item, i) => {
                         let dat = json.dates && json.dates[i] ? json.dates[i] : ''
