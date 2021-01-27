@@ -178,11 +178,6 @@
     margin-left: -220px;
 }
 
-.ku_tooltip:hover .ku_tooltiptext_medium {
-    width: 320px;
-    margin-left: -220px;
-}
-
 .ku_stars {
     --star-size: 18px;
     --star-color: #666;
