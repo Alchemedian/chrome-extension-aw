@@ -278,7 +278,7 @@ if (isSearchPage()) {
                     }
                     let services = [];
 
-                    let dPref = divProfileHTML.querySelectorAll('#dPref')[0].innerText;
+                    let dPref = divProfileHTML.querySelectorAll('#dPref').length !== 0 ? divProfileHTML.querySelectorAll('#dPref')[0].innerText : '';
                     /Oral without Protection\n/.test(dPref) && services.push("<span class='ku_tooltip'>😋<span class='ku_tooltiptext'>OWO</span></span>");
                     /CIM/.test(dPref) && services.push("<span class='ku_tooltip'>👄<span class='ku_tooltiptext'>CIM</span></span>");
                     /Swallow/.test(dPref) && services.push("<span class='ku_tooltip'>💊<span class='ku_tooltiptext'>Swallow</span></span>");
