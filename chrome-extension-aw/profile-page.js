@@ -86,7 +86,7 @@
         setTimeout(removeDuplicateGalleryImages, timeout)
     }
 
-    let images = []
+    let imagesDict = {}
 
     function wrapImg(src, emoji = '', divClass = '') {
         let fileName = src.split(/(\\|\/)/g).pop()
@@ -113,7 +113,7 @@
 
             } else {
                 html += wrapImg(thumbToFull(x.src))
-                images.push(thumbToFull(x.src))
+                imagesDict[x.src] = 'lead'
             }
         })
 
@@ -128,7 +128,7 @@
         document.querySelectorAll(".ImageBorder").forEach(function(x) {
             if (c++ < 55) {
                 html += wrapImg(thumbToFull(x.src));
-                images.push(thumbToFull(x.src))
+                imagesDict[x.src] = 'via_thumbnail'
             }
         })
 
@@ -205,7 +205,7 @@
                         if (meta) {
                             let src = meta.getAttribute('content')
                             divGallery.innerHTML += wrapImg(src, '🎦', 'ku_movie_image')
-                            images.push(src)
+                            imagesDict[src] = 'video'
                         }
                     })
                 }
@@ -227,14 +227,14 @@
             disableDownloadAllButton()
             downloadScreenshot()
             let uniqImages = {}
-            images.forEach(src => {
+            Object.keys(imagesDict).forEach(src => {
                 let fileName = src.split(/(\\|\/)/g).pop()
                 let maxImg = { width: 0 }
                 document.querySelectorAll(`img[data-file-name="${fileName}"]`).forEach(img => {
                     if (maxImg.width < img.width)
                         maxImg = img
                 })
-                uniqImages[maxImg.src] = { width: maxImg.width, height: maxImg.height }
+                uniqImages[maxImg.src] = { width: maxImg.width, height: maxImg.height, type: imagesDict[src] }
             })
             Object.keys(uniqImages)
                 .sort((a, b) => {
@@ -246,7 +246,7 @@
                         return -1
                     return 0
                 })
-                .forEach((src, i) => downloadImage(src, `000${i}`.substr(-3)))
+                .forEach((src, i) => downloadImage(src, `000${i}`.substr(-3) + `_${uniqImages[src].type}_`))
         })
         document.querySelector("div.stripMenuLevelFooterContainer").before(downloadAllButton)
 
@@ -316,7 +316,7 @@
                     let div = document.createElement('div')
                     div.className = 'ku_gallery_large'
                     div.innerHTML = wrapImg(src)
-                    images.push(src)
+                    imagesDict[src] = 'gallery_via_viewer'
                     document.querySelector('#ku_gallery_images').append(div)
                 })
             })
@@ -384,7 +384,7 @@
                     }
                     waitForDownloadAll()
 
-                    images.push(src)
+                    imagesDict[src] = 'verification'
                 }
             }
         };
