@@ -218,6 +218,7 @@ if (isSearchPage()) {
                             let src = profileImages[uid][i]
                             window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}`)
                             window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}`)
+                            window.open(`https://www.bing.com/visualsearch/Microsoft/SimilarImages?&imgurl=${encodeURIComponent(src)}`)
                         })
                         dot.addEventListener('contextmenu', (e) => {
                             let src = profileImages[uid][i]
