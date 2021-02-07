@@ -165,26 +165,25 @@ if (isSearchPage()) {
                 let aImg = document.querySelectorAll(`a[href="javascript:vU(${uid})"`)
                 if (aImg && aImg[0])
                     aImg[0].style.cursor = "ew-resize"
-
-                //add reverse image search
-                let bYandex = document.createElement('button');
-                bYandex.innerHTML = "Yandex"
-                bYandex.addEventListener('click', () => {
-                    window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[uid][0])}`)
-                    event.preventDefault()
-                    return false;
-                })
-                let bGoogle = document.createElement('button');
-                bGoogle.innerHTML = "Google"
-                bGoogle.addEventListener('click', () => {
-                    window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[uid][0])}`)
-                    event.preventDefault()
-                    return false;
-                })
-
                 let rsearch = makeDiv('position:relative;bottom:52px', '', 'ku_reverse_search_buttons')
-                rsearch.appendChild(bYandex)
-                rsearch.appendChild(bGoogle)
+
+                let reversSearchList = {
+                    Yandex: `https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[uid][0])}`,
+                    Google: `https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[uid][0])}`,
+                    Bing: `https://www.bing.com/visualsearch/Microsoft/SimilarImages?&imgurl=${encodeURIComponent(profileImages[uid][0])}`
+                }
+
+                Object.keys(reversSearchList).forEach(key => {
+                    let b = document.createElement('button');
+                    b.innerHTML = key
+                    b.addEventListener('click', () => {
+                        window.open(reversSearchList[key])
+                        event.preventDefault()
+                        return false;
+                    })
+                    rsearch.appendChild(b)
+                })
+
                 let ancImg = document.querySelectorAll(`a[href="javascript:vU(${uid})"]`)
                 if (ancImg && ancImg[0]) {
                     ancImg[0].after(rsearch)
