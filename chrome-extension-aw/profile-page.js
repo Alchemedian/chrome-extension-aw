@@ -89,7 +89,7 @@
     let imagesDict = {}
 
     function wrapImg(src, emoji = '', divClass = '') {
-        let fileName = src.split(/(\\|\/)/g).pop()
+        let fileName = src ? src.split(/(\\|\/)/g).pop() : String((new Date()) / 1) + String(Math.random()).replace("0.", "")
         let maxWidth = window.localStorage.ku_gallery_max_width ?
             window.localStorage.ku_gallery_max_width : window.innerWidth - 200
 
@@ -197,17 +197,30 @@
 
             Object.keys(videoUrl).forEach(url => {
                 if (url) {
-                    fetch("https://cors-proxy.bwkake.workers.dev/?apiurl=" +
-                        encodeURIComponent(url)).then(x => x.text()).then(txt => {
-                        let dtemp = document.createElement('div')
-                        dtemp.innerHTML = txt
-                        let meta = dtemp.querySelector('meta[name="twitter:image"]')
-                        if (meta) {
-                            let src = meta.getAttribute('content')
+                    /*
+                    // commented out as twitter og img has been removed
+                                        fetch("https://cors-proxy.bwkake.workers.dev/?apiurl=" +
+                                            encodeURIComponent(url)).then(x => x.text()).then(txt => {
+                                            let dtemp = document.createElement('div')
+                                            dtemp.innerHTML = txt
+                                            let meta = dtemp.querySelector('meta[name="twitter:image"]')
+                                            if (meta) {
+                                                let src = meta.getAttribute('content')
+                                                if (src) {
+                                                    divGallery.innerHTML += wrapImg(src, '🎦', 'ku_movie_image')
+                                                    imagesDict[src] = 'video'
+                                                }
+                                            }
+                                        })
+                    */
+                    graphQLVideoImageLoad(url, function(src) {
+                        if (src) {
                             divGallery.innerHTML += wrapImg(src, '🎦', 'ku_movie_image')
                             imagesDict[src] = 'video'
                         }
+
                     })
+
                 }
             })
         }

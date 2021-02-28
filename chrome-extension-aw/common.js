@@ -318,3 +318,35 @@ async function postCodeOutward(postcode) {
     let data = await (await fetch(url)).json()
     return data.result.admin_district
 }
+
+
+function graphQLVideoImageLoad(pageURL, callback) {
+    guid = "08e962c8-bec9-43f2-8881-41e170e7c310"
+    let guidReg = reg = /[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    let matches = pageURL.match(guidReg)
+    if (matches && matches[0]) {
+        guid = matches[0]
+    } else {
+        return
+    }
+    fetch("https://webapi.adultwork.com/graphql", {
+        "headers": {
+            "accept": "*/*",
+            "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+            "content-type": "application/json",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site"
+        },
+        "referrer": "https://m.adultwork.com/",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": "{\"operationName\":\"IMovieViewPageData\",\"variables\":{\"externalId\":\"" + guid + "\",\"imagePreset\":\"WH960\",\"tilePreset\":\"WH360X200\"},\"query\":\"query IMovieViewPageData($externalId: Uuid!, $imagePreset: Preset!, $tilePreset: Preset!) {\\n  viewMovie: movie(externalId: $externalId) {\\n    ...IMoviePlayerPageMovie\\n    __typename\\n  }\\n  userMovies: relatedUserMoviesByMovieFilterable(\\n    externalId: $externalId\\n    first: 18\\n  ) {\\n    ...IMovieViewPageMovieConnection\\n    __typename\\n  }\\n  latestMovies: hPNewMoviesFilterable(first: 12, where: {price: {gt: 0.00}}) {\\n    ...IMovieViewPageMovieConnection\\n    __typename\\n  }\\n  featuredMovies: hPFeaturedMoviesFilterable(\\n    first: 12\\n    where: {price: {gt: 0.00}}\\n  ) {\\n    ...IMovieViewPageMovieConnection\\n    __typename\\n  }\\n  relatedMovies: relatedMoviesFilterable(externalId: $externalId, first: 4) {\\n    ...IMovieViewPageMovieConnection\\n    __typename\\n  }\\n}\\n\\nfragment IMovieViewPageMovieConnection on MovieConnection {\\n  pageInfo {\\n    hasNextPage\\n    hasPreviousPage\\n    startCursor\\n    endCursor\\n    __typename\\n  }\\n  nodes {\\n    ...IMovieViewPageTileMovie\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment IMovieViewPageTileMovie on Movie {\\n  userID\\n  title\\n  imageURL(format: JPG, preset: $tilePreset)\\n  duration\\n  externalID\\n  priceVAT {\\n    creditsGross\\n    __typename\\n  }\\n  profile {\\n    nickname\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment IMoviePlayerPageCategories on Movie {\\n  categories {\\n    categoryID\\n    category\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment IMoviePlayerPageCollection on Movie {\\n  collection {\\n    name\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment IMoviePlayerPageFileData on FileData {\\n  uRL\\n  hasAudio\\n  thumbnailTrackURL\\n  __typename\\n}\\n\\nfragment IMoviePlayerPagePriceVat on Movie {\\n  priceVAT {\\n    creditsGross\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment IMoviePlayerPageServices on OfferedServices {\\n  isEscort\\n  isWebcam\\n  isPhoneChat\\n  isSMSChat\\n  __typename\\n}\\n\\nfragment IMoviePlayerPageProfile on Profile {\\n  userID\\n  nickname\\n  age\\n  verified\\n  primaryImage {\\n    imageURL(format: JPG, preset: SMSQ48)\\n    __typename\\n  }\\n  gender\\n  orientation\\n  ratings {\\n    total\\n    __typename\\n  }\\n  services {\\n    ...IMoviePlayerPageServices\\n    __typename\\n  }\\n  escort {\\n    ...IMoviePlayerPageServiceAvailability\\n    __typename\\n  }\\n  availableNowWebCam\\n  availableNowPhoneChat\\n  __typename\\n}\\n\\nfragment IMoviePlayerPageGender on Movie {\\n  contentGender {\\n    gender\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment IMoviePlayerPageServiceAvailability on EscortDetails {\\n  availableToday\\n  __typename\\n}\\n\\nfragment IMoviePlayerPageMovie on Movie {\\n  externalID\\n  title\\n  imageFileName\\n  imageURL(format: JPG, preset: $imagePreset)\\n  thumbnailURL\\n  description\\n  duration\\n  createdDate\\n  movieViewToken\\n  ...IMoviePlayerPagePriceVat\\n  ...IMoviePlayerPageGender\\n  ...IMoviePlayerPageCollection\\n  profile {\\n    ...IMoviePlayerPageProfile\\n    __typename\\n  }\\n  ...IMoviePlayerPageCategories\\n  fileData {\\n    ...IMoviePlayerPageFileData\\n    __typename\\n  }\\n  __typename\\n}\\n\"}",
+        "method": "POST",
+        "mode": "cors",
+        "credentials": "include"
+    }).then(x => x.json()).then(json => {
+        callback(json.data.viewMovie.imageURL)
+    })
+
+
+}
