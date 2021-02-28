@@ -159,14 +159,24 @@
                 let context = canvas.getContext('2d')
                 context.drawImage(this, 0, 0)
                 context.globalAlpha = 0.15;
-                context.drawImage(imgIcon, canvas.width - imgIcon.width, canvas.height - imgIcon.height)
-                    // let fontSize = Math.round(Math.sqrt(canvas.width * canvas.height) / 30)
-                    // context.font = fontSize +
-                    //     "px Georgia";
-                    // context.shadowColor = "rgba(255,255,255,1)";
-                    // context.shadowBlur = fontSize;
-                    // context.fillText("😋 " + profileName,
-                    //     0, canvas.height - fontSize);
+
+                let overlayRatio = .05;
+                let widthOverlay = canvas.width * overlayRatio;
+                let heightOverlay = widthOverlay * imgIcon.height / imgIcon.width; //preserve aspect ratio
+
+                context.shadowBlur = widthOverlay;
+
+                context.drawImage(imgIcon, canvas.width - widthOverlay, canvas.height - heightOverlay,
+                    widthOverlay / imgIcon.width * 50, heightOverlay / imgIcon.height * 50);
+
+
+                // let fontSize = Math.round(Math.sqrt(canvas.width * canvas.height) / 30)
+                // context.font = fontSize +
+                //     "px Georgia";
+                // context.shadowColor = "rgba(255,255,255,1)";
+                // context.shadowBlur = fontSize;
+                // context.fillText("😋 " + profileName,
+                //     0, canvas.height - fontSize);
 
                 let blob;
                 if (image.src.indexOf(".jpg") > -1) {
