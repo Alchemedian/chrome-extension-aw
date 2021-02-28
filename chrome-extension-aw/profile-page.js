@@ -158,14 +158,15 @@
                 canvas.height = this.naturalHeight;
                 let context = canvas.getContext('2d')
                 context.drawImage(this, 0, 0)
+                context.globalAlpha = 0.15;
                 context.drawImage(imgIcon, canvas.width - imgIcon.width, canvas.height - imgIcon.height)
-                let fontSize = Math.round(Math.sqrt(canvas.width * canvas.height) / 30)
-                context.font = fontSize +
-                    "px Georgia";
-                context.shadowColor = "rgba(255,255,255,1)";
-                context.shadowBlur = fontSize;
-                context.fillText("😋 " + profileName,
-                    0, canvas.height - fontSize);
+                    // let fontSize = Math.round(Math.sqrt(canvas.width * canvas.height) / 30)
+                    // context.font = fontSize +
+                    //     "px Georgia";
+                    // context.shadowColor = "rgba(255,255,255,1)";
+                    // context.shadowBlur = fontSize;
+                    // context.fillText("😋 " + profileName,
+                    //     0, canvas.height - fontSize);
 
                 let blob;
                 if (image.src.indexOf(".jpg") > -1) {
