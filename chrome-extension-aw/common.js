@@ -349,3 +349,83 @@ function graphQLVideoImageLoad(pageURL, callback) {
 
 
 }
+
+
+function parseProfileData(uid, profileHtml) {
+    let profileData = { uid: uid, ts: new Date() / 1 }
+    let divProfileHTML = document.createElement('div')
+    divProfileHTML.innerHTML = profileHtml
+
+    let tel = profileHtml.match(/"telephone".+/g)
+    if (tel && tel[0]) {
+        let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
+        if (tels.length == 2 && tels[1].substr(-10) == tels[0].substr(-10)) {
+            tels.pop()
+        }
+        tel = tels.join(', ')
+        tel = tel.replace(/\+?44/g, '0')
+        let telSearch = tel.split(",")[0]
+        let telFull = telSearch.replace(/^0/, '+44')
+        profileData.tel = telFull;
+    }
+    if (profileHtml && profileHtml[0]) {
+        profileData.rates = {}
+        let hourly = divProfileHTML.querySelector('#tdRI1')
+        hourly = hourly ? hourly.innerText : '?'
+        profileData.rates.hourly = hourly
+
+        let halfHourly = divProfileHTML.querySelector('#tdRI0\\.5')
+        halfHourly = halfHourly ? halfHourly.innerText : '?'
+        profileData.rates.halfHourly = halfHourly
+
+        let hourlyOutcall = divProfileHTML.querySelector('#tdRO1')
+        if (hourlyOutcall && hourlyOutcall.innerText) {
+            profileData.rates.hourlyOutcall = hourlyOutcall.innerText
+        }
+
+        profileData.services = []
+
+        let dPref = divProfileHTML.querySelectorAll('#dPref').length !== 0 ? divProfileHTML.querySelectorAll('#dPref')[0].innerText : '';
+        /Oral without Protection\n/.test(dPref) && profileData.services.push('OWO');
+        /CIM/.test(dPref) && profileData.services.push('CIM');
+        /Swallow/.test(dPref) && profileData.services.push('Swallow');
+        /"A" Levels\n/.test(dPref) && profileData.services.push('Anal');
+        /French Kissing\n/.test(dPref && profileData.services.push('DFK'));
+        /Foot Worship/.test(dPref) && profileData.services.push('Foot Worship');
+        /Rimming \(giving\)/.test(dPref) && profileData.services.push('Rimming');
+        /Massage/.test(dPref) && profileData.services.push('Massage');
+        /Hand Relief/.test(dPref) && profileData.services.push('HR');
+        /Strap On/.test(dPref) && profileData.services.push('Strap On');
+        /Watersports \(Giving\)/.test(dPref) && profileData.services.push('WS');
+        (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && profileData.services.push('BB');
+    }
+
+
+    let nationality;
+    divProfileHTML.querySelectorAll('td.Label').forEach(ele => {
+        if (ele.innerText.match(/Nationality/)) {
+            nationality = ele.parentElement.querySelector('td:nth-child(2)').innerText
+        }
+    })
+    profileData.nationality = nationality
+    return profileData
+}
+
+
+function saveProfileData(uid, data) {
+    let keyName = '_ku_data'
+    let store = localStorage[keyName] ? JSON.parse(localStorage[keyName]) : {}
+    store[uid] = store[uid] ? store[uid] : []
+    store[uid] = store[uid].sort((a, b) => {
+        if (a.ts > b.ts)
+            return -1
+        if (a.ts < b.ts)
+            return 1
+        return 0
+    })
+    if (!store[uid][0] || store[uid][0].ts < data.ts - 24 * 60 * 60) {
+        store[uid].push(data)
+    }
+
+    localStorage[keyName] = JSON.stringify(store)
+}
