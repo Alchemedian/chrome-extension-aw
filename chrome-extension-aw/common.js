@@ -103,7 +103,7 @@ function ukpSearchButtons(uid) {
     googleButton.addEventListener('click', () => {
         event.preventDefault();
         // document.getElementById(`ku_ukp_form_${uid}`).submit()
-        window.open("https://www.google.co.uk/search?q=" + encodeURIComponent('adultwork ' + uid))
+        window.open("https://www.google.co.uk/search?q=" + encodeURIComponent(`adultwork "${uid}"`))
     })
     ukp.appendChild(googleButton)
 
@@ -113,7 +113,7 @@ function ukpSearchButtons(uid) {
 
     ukpGoogleButton.addEventListener('click', () => {
         event.preventDefault();
-        window.open("https://www.google.co.uk/search?q=" + encodeURIComponent('site:ukpunting.com ' + uid))
+        window.open("https://www.google.co.uk/search?q=" + encodeURIComponent(`site:ukpunting.com "${uid}"`))
     })
     ukp.appendChild(ukpGoogleButton)
 
