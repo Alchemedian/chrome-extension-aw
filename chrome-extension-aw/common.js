@@ -1,3 +1,5 @@
+const localStorageKeyName = '_ku_data'
+
 function isSearchPage() {
     return !!location.href.match(/\/Search.asp/)
 }
@@ -351,8 +353,8 @@ function graphQLVideoImageLoad(pageURL, callback) {
 }
 
 
-function parseProfileData(uid, profileHtml) {
-    let profileData = { uid: uid, ts: new Date() / 1 }
+function parseProfileData(profileHtml) {
+    let profileData = { ts: new Date() / 1 }
     let divProfileHTML = document.createElement('div')
     divProfileHTML.innerHTML = profileHtml
 
@@ -412,20 +414,42 @@ function parseProfileData(uid, profileHtml) {
 }
 
 
-function saveProfileData(uid, data) {
-    let keyName = '_ku_data'
-    let store = localStorage[keyName] ? JSON.parse(localStorage[keyName]) : {}
-    store[uid] = store[uid] ? store[uid] : []
-    store[uid] = store[uid].sort((a, b) => {
-        if (a.ts > b.ts)
-            return -1
-        if (a.ts < b.ts)
-            return 1
-        return 0
-    })
-    if (!store[uid][0] || store[uid][0].ts < data.ts - 24 * 60 * 60) {
-        store[uid].push(data)
+function saveProfileData(uid, data, isProfilePage) {
+    try {
+        let store = {}
+        if (localStorage[localStorageKeyName]) {
+            store = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
+        }
+        store[uid] = store[uid] ? store[uid] : {
+            d: [],
+            c: 0, // total profile views count, including in search results
+            p: 0 // total profile page visits
+        }
+        store[uid].d = store[uid].d.sort((a, b) => {
+            if (a.ts > b.ts)
+                return -1
+            if (a.ts < b.ts)
+                return 1
+            return 0
+        })
+        if (!store[uid].d[0] || store[uid].d[0].ts < data.ts - 24 * 60 * 60 * 1000) {
+            store[uid].d.push(data)
+        }
+        store[uid].c++;
+        if (isProfilePage)
+            store[uid].p++;
+
+        localStorage[localStorageKeyName] = LZString.compress(JSON.stringify(store))
+    } catch (e) {
+        console.log(e)
     }
 
-    localStorage[keyName] = JSON.stringify(store)
+}
+
+function getProfileHistory(id) {
+    let store = {}
+    if (localStorage[keyName]) {
+        store = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
+    }
+    return store[id] ? store[id] : {}
 }

@@ -18,6 +18,7 @@
         ],
         "js": [
             "common.js",
+            "lib/lz-string.js",
             "icon-base64.js",
             "profile-page.js",
             "search-page.js",

@@ -154,9 +154,15 @@ if (isSearchPage()) {
 
             fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + uid)
                 .then(y => y.text())
-                .then(parseProfile)
+                .then((html) => {
+                    parseProfile(html)
+                    saveProfileData(uid, parseProfileData(html), false)
+                })
 
             function parseProfile(profileHtml) {
+                /*
+                TODO: use function parseProfileData in common.js to implement this
+                */
                 spacerDiv.parentNode.removeChild(spacerDiv)
                 loadingDiv.parentNode.removeChild(loadingDiv)
                 let divProfileHTML = document.createElement('div')
