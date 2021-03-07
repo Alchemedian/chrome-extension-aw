@@ -23,7 +23,8 @@
 
     let priceBands = {
         'halfHourly': 'tdRI0.5',
-        'hourly': 'tdRI1'
+        'hourly': 'tdRI1',
+        'hourlyOutcall': 'tdRO1'
     }
 
     Object.keys(priceBands).forEach(band => {
@@ -33,7 +34,8 @@
         if (!eleTimeDisplay)
             return
         if (!priceLastRecorded || priceLastRecorded.length == 0) {
-            eleTimeDisplay.title = `Price history not available`
+            eleTimeDisplay.title = `Price history not available.\nCurrent price saved, for as long as you don't clear your browser cache`
+            eleTimeDisplay.innerHTML += " ⚪"
             return
         }
 

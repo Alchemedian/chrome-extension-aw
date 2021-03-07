@@ -432,9 +432,16 @@ function saveProfileData(uid, data, isProfilePage) {
                 return -1
             return 0
         })
-        if (store[uid].d.length == 0 || store[uid].d[0].ts < data.ts - 24 * 60 * 60 * 1000) {
+        if (store[uid].d.length == 0 ||
+            store[uid].d.slice(-1)[0].ts < data.ts - 24 * 60 * 60 * 1000
+
+        ) {
             store[uid].d.push(data)
         }
+
+        //limit to 50 records
+        store[uid].d.slice(-50)
+
         store[uid].c++;
         if (isProfilePage)
             store[uid].p++;
@@ -458,15 +465,6 @@ function getProfileHistory(id) {
             if (a.ts < b.ts)
                 return -1
             return 0
-        })
-        let lastRow = store[id].d[0]
-        store[id].d.forEach((row, i) => {
-            Object.keys(lastRow).forEach(key => {
-                if (!row[key])
-                    row[key] = lastRow[key]
-            })
-            store[id].d[i] = row
-            lastRow = row
         })
     }
 
