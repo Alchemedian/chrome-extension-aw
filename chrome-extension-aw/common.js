@@ -427,13 +427,20 @@ function saveProfileData(uid, data, isProfilePage) {
         }
         store[uid].d = store[uid].d.sort((a, b) => {
             if (a.ts > b.ts)
-                return -1
-            if (a.ts < b.ts)
                 return 1
+            if (a.ts < b.ts)
+                return -1
             return 0
         })
         if (!store[uid].d[0] || store[uid].d[0].ts < data.ts - 24 * 60 * 60 * 1000) {
-            store[uid].d.push(data)
+            let changed = {}
+            let lastRow = JSON.parse(JSON.stringify(store[uid].d)).pop()
+            Object.keys(data).forEach(key => {
+                if (JSON.stringify(lastRow[key]) !== JSON.stringify(data[key])) {
+                    changed[key] = data[key]
+                }
+            })
+            store[uid].d.push(changed)
         }
         store[uid].c++;
         if (isProfilePage)
@@ -448,8 +455,43 @@ function saveProfileData(uid, data, isProfilePage) {
 
 function getProfileHistory(id) {
     let store = {}
-    if (localStorage[keyName]) {
+    if (localStorage[localStorageKeyName]) {
         store = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
     }
+    store[id].d = store[id].d.sort((a, b) => {
+        if (a.ts > b.ts)
+            return 1
+        if (a.ts < b.ts)
+            return -1
+        return 0
+    })
+    if (store[id] && store[id].d) {
+        let lastRow = store[id].d[0]
+        store[id].d.forEach((row, i) => {
+            Object.keys(lastRow).forEach(key => {
+                if (!row[key])
+                    row[key] = lastRow[key]
+            })
+            store[id].d[i] = row
+            lastRow = row
+        })
+    }
+
     return store[id] ? store[id] : {}
+}
+
+function getPriceHistory(id, band = 'hourly') {
+    let history = getProfileHistory(id)
+    let prices = []
+    if (history.d) {
+        let last = ""
+        history.d.forEach(row => {
+            if (last != row.rates[band]) {
+                prices.push([row.ts, row.rates[band]])
+            }
+
+            last = row.rates[band]
+        })
+    }
+    return prices
 }

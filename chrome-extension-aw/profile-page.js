@@ -13,8 +13,46 @@
         document.querySelector('html').style.overflowX = 'hidden'
 
     let profileId = location.href.match(/UserID=([0-9]+)/i)[1]
+    let parsedData = parseProfileData(document.body.innerHTML)
+    saveProfileData(profileId, parsedData, isProfilePage())
 
-    saveProfileData(profileId, parseProfileData(document.body.innerHTML), isProfilePage())
+
+    /*
+    Price history
+    */
+
+    let priceBands = {
+        'halfHourly': 'tdRI0.5',
+        'hourly': 'tdRI1'
+    }
+
+    Object.keys(priceBands).forEach(band => {
+        let priceHistory = getPriceHistory(profileId, band)
+        let eleTimeDisplay = document.getElementById(priceBands[band])
+        let priceLastRecorded = JSON.parse(JSON.stringify(priceHistory)).pop()
+        let priceTitle = []
+        priceHistory.forEach(row => {
+            priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
+        })
+        eleTimeDisplay.title = `Was: \n` + priceTitle.join("\n")
+        if (priceLastRecorded[1] > parsedData.rates[band]) {
+            eleTimeDisplay.style.color = "green"
+            eleTimeDisplay.style.fontWeight = "bold"
+            eleTimeDisplay.innerHTML += " ↑"
+        }
+        if (priceLastRecorded[1] < parsedData.rates[band]) {
+            eleTimeDisplay.style.color = "red"
+            eleTimeDisplay.style.fontWeight = "bold"
+            eleTimeDisplay.innerHTML += " ↓"
+        }
+        if (priceLastRecorded[1] == parsedData.rates[band]) {
+            eleTimeDisplay.style.fontWeight = "bold"
+            eleTimeDisplay.innerHTML += " ✓"
+        }
+
+    })
+
+
 
     let profileName = document.querySelector('.PageHeading').innerText
     getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'scrape')
