@@ -432,11 +432,17 @@ function saveProfileData(uid, data, isProfilePage) {
                 return -1
             return 0
         })
-        if (store[uid].d.length == 0 ||
-            store[uid].d.slice(-1)[0].ts < data.ts - 24 * 60 * 60 * 1000
 
+
+        if (store[uid].d.length == 0 ||
+            store[uid].d.slice(-1)[0].ts < data.ts - 24 * 60 * 60 * 1000 ||
+            historyChanged(store[uid].d.slice(-1)[0], data)
         ) {
             store[uid].d.push(data)
+        }
+
+        function historyChanged(a, b) {
+            return JSON.stringify({...a, ts: 1 }) == JSON.stringify({...b, ts: 1 })
         }
 
         //limit to 50 records
