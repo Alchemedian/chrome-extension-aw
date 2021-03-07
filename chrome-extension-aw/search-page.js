@@ -270,16 +270,34 @@ if (isSearchPage()) {
                 }
                 if (profileHtml && profileHtml[0]) {
                     let hourly = divProfileHTML.querySelector('#tdRI1')
-                    hourly = hourly ? hourly.innerText : '?'
+                    if (hourly) {
+                        let comparison = '/hr ⚪'
+                        let lastPrice = getPriceHistory(uid, 'hourly')
+                        if (lastPrice) {
+                            lastPrice = lastPrice.slice(-1)[1]
+                            if (lastPrice > hourly.innerText) {
+                                comparison = "/hr ↓"
+                            } else if (lastPrice < hourly.innerText) {
+                                comparison = "/hr ↑"
+                            } else {
+                                comparison = "/hr ✓"
+                            }
+                        }
+
+                        hourly = hourly.innerText + comparison
+                    } else {
+                        hourly = '?'
+                    }
+                    // hourly = hourly ? hourly.innerText : '?'
 
                     let halfHourly = divProfileHTML.querySelector('#tdRI0\\.5')
                     halfHourly = halfHourly ? halfHourly.innerText : '?'
 
-                    let price = `£${halfHourly}/30m £${hourly}/hr`
+                    let price = `£${halfHourly}/30m £${hourly}`
                     if (hourly == '?' || halfHourly == '?') {
-                        let hourly = divProfileHTML.querySelector('#tdRO1')
-                        if (hourly && hourly.innerText) {
-                            price = `Outcall: £${hourly.innerText}/hr`
+                        let hourlyOutcall = divProfileHTML.querySelector('#tdRO1')
+                        if (hourlyOutcall && hourlyOutcall.innerText) {
+                            price = `Outcall: £${hourlyOutcall.innerText}/hr`
                         }
                     }
                     let services = [];

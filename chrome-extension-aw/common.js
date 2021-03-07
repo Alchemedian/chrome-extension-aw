@@ -500,11 +500,12 @@ function getPriceHistory(id, band = 'hourly') {
     if (history.d) {
         let last = ""
         history.d.forEach(row => {
+            if (!row.rates)
+                return;
             if (last != row.rates[band]) {
                 if (row.ts < new Date() / 1 - 10 * 60 * 1e3)
                     prices.push([row.ts, row.rates[band]])
             }
-
             last = row.rates[band]
         })
     }
