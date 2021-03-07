@@ -30,6 +30,14 @@
         let priceHistory = getPriceHistory(profileId, band)
         let eleTimeDisplay = document.getElementById(priceBands[band])
         let priceLastRecorded = JSON.parse(JSON.stringify(priceHistory)).pop()
+        if (!eleTimeDisplay)
+            return
+        if (!priceLastRecorded || priceLastRecorded.length == 0) {
+            eleTimeDisplay.title = `Price history not available`
+            return
+        }
+
+
         let priceTitle = []
         priceHistory.forEach(row => {
             priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))

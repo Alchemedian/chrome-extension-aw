@@ -432,15 +432,8 @@ function saveProfileData(uid, data, isProfilePage) {
                 return -1
             return 0
         })
-        if (!store[uid].d[0] || store[uid].d[0].ts < data.ts - 24 * 60 * 60 * 1000) {
-            let changed = {}
-            let lastRow = JSON.parse(JSON.stringify(store[uid].d)).pop()
-            Object.keys(data).forEach(key => {
-                if (JSON.stringify(lastRow[key]) !== JSON.stringify(data[key])) {
-                    changed[key] = data[key]
-                }
-            })
-            store[uid].d.push(changed)
+        if (store[uid].d.length == 0 || store[uid].d[0].ts < data.ts - 24 * 60 * 60 * 1000) {
+            store[uid].d.push(data)
         }
         store[uid].c++;
         if (isProfilePage)
@@ -458,14 +451,14 @@ function getProfileHistory(id) {
     if (localStorage[localStorageKeyName]) {
         store = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
     }
-    store[id].d = store[id].d.sort((a, b) => {
-        if (a.ts > b.ts)
-            return 1
-        if (a.ts < b.ts)
-            return -1
-        return 0
-    })
     if (store[id] && store[id].d) {
+        store[id].d = store[id].d.sort((a, b) => {
+            if (a.ts > b.ts)
+                return 1
+            if (a.ts < b.ts)
+                return -1
+            return 0
+        })
         let lastRow = store[id].d[0]
         store[id].d.forEach((row, i) => {
             Object.keys(lastRow).forEach(key => {
@@ -487,7 +480,8 @@ function getPriceHistory(id, band = 'hourly') {
         let last = ""
         history.d.forEach(row => {
             if (last != row.rates[band]) {
-                prices.push([row.ts, row.rates[band]])
+                if (row.ts < new Date() / 1 - 10 * 60 * 1e3)
+                    prices.push([row.ts, row.rates[band]])
             }
 
             last = row.rates[band]
