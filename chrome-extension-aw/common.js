@@ -413,12 +413,29 @@ function parseProfileData(profileHtml) {
     return profileData
 }
 
+function cachedLocalStorage(dataSave = false) {
+    if (!cachedLocalStorage.cache) {
+        cachedLocalStorage.cache = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
+    }
+    if (dataSave) {
+        cachedLocalStorage.cache = dataSave
+        if (cachedLocalStorage.setTimeout) {
+            clearTimeout(cachedLocalStorage.setTimeout)
+        }
+        cachedLocalStorage.setTimeout = setTimeout(() => {
+            cachedLocalStorage.setTimeout = false;
+            localStorage[localStorageKeyName] = LZString.compress(JSON.stringify(dataSave))
+        }, 100)
+    }
+
+    return cachedLocalStorage.cache
+}
 
 function saveProfileData(uid, data, isProfilePage) {
     try {
         let store = {}
-        if (localStorage[localStorageKeyName]) {
-            store = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
+        if (cachedLocalStorage()) {
+            store = cachedLocalStorage()
         }
         store[uid] = store[uid] ? store[uid] : {
             d: [],
@@ -452,7 +469,7 @@ function saveProfileData(uid, data, isProfilePage) {
         if (isProfilePage)
             store[uid].p++;
 
-        localStorage[localStorageKeyName] = LZString.compress(JSON.stringify(store))
+        cachedLocalStorage(store)
     } catch (e) {
         console.log(e)
     }
@@ -461,8 +478,8 @@ function saveProfileData(uid, data, isProfilePage) {
 
 function getProfileHistory(id) {
     let store = {}
-    if (localStorage[localStorageKeyName]) {
-        store = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
+    if (cachedLocalStorage()) {
+        store = cachedLocalStorage()
     }
     if (store[id] && store[id].d) {
         store[id].d = store[id].d.sort((a, b) => {
