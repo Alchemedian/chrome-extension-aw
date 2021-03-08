@@ -272,13 +272,16 @@ if (isSearchPage()) {
                     let hourly = divProfileHTML.querySelector('#tdRI1')
                     if (hourly) {
                         let comparison = '/hr ⚪'
-                        let lastPrice = getPriceHistory(uid, 'hourly')
-                        if (lastPrice) {
-                            lastPrice = lastPrice.slice(-1)[1]
+                        let lastPrice = 1e99
+                        getPriceHistory(uid, 'hourly').forEach(x => {
+                            lastPrice = Math.min(x[1], lastPrice)
+                        })
+
+                        if (lastPrice != 1e99) {
                             if (lastPrice > hourly.innerText) {
-                                comparison = "/hr ↓"
+                                comparison = "/hr <span style='color:green;font-weight:bold'>↓</span>"
                             } else if (lastPrice < hourly.innerText) {
-                                comparison = "/hr ↑"
+                                comparison = "/hr <span style='color:red;font-weight:bold'>↑</span>"
                             } else {
                                 comparison = "/hr ✓"
                             }

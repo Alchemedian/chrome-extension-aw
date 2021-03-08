@@ -30,10 +30,15 @@
     Object.keys(priceBands).forEach(band => {
         let priceHistory = getPriceHistory(profileId, band)
         let eleTimeDisplay = document.getElementById(priceBands[band])
-        let priceLastRecorded = JSON.parse(JSON.stringify(priceHistory)).pop()
+
+        let lastPrice = 1e99
+        priceHistory.forEach(x => {
+            lastPrice = Math.min(x[1], lastPrice)
+        })
+
         if (!eleTimeDisplay)
             return
-        if (!priceLastRecorded || priceLastRecorded.length == 0) {
+        if (lastPrice == 1e99) {
             eleTimeDisplay.title = `Price history not available.\nCurrent price saved, for as long as you don't clear your browser cache`
             eleTimeDisplay.innerHTML += " ⚪"
             return
@@ -45,18 +50,18 @@
             priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
         })
         eleTimeDisplay.title = `Was: \n` + priceTitle.join("\n")
-        if (!isNaN(priceLastRecorded[1])) {
-            if (priceLastRecorded[1] > parsedData.rates[band]) {
+        if (lastPrice != 1e99) {
+            if (lastPrice > parsedData.rates[band]) {
                 eleTimeDisplay.style.color = "green"
-                eleTimeDisplay.style.fontWeight = "bold"
-                eleTimeDisplay.innerHTML += " ↑"
-            }
-            if (priceLastRecorded[1] < parsedData.rates[band]) {
-                eleTimeDisplay.style.color = "red"
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ↓"
             }
-            if (priceLastRecorded[1] == parsedData.rates[band]) {
+            if (lastPrice < parsedData.rates[band]) {
+                eleTimeDisplay.style.color = "red"
+                eleTimeDisplay.style.fontWeight = "bold"
+                eleTimeDisplay.innerHTML += " ↑"
+            }
+            if (lastPrice == parsedData.rates[band]) {
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ✓"
             }
