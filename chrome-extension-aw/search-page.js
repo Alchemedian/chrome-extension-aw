@@ -271,7 +271,7 @@ if (isSearchPage()) {
                 if (profileHtml && profileHtml[0]) {
                     let hourly = divProfileHTML.querySelector('#tdRI1')
                     if (hourly) {
-                        let comparison = '/hr ⚪'
+                        let comparison = `/hr <span title="Price history not available.\nCurrent price saved, for as long as you don't clear your browser cache">⚪</span>`
                         let lastPrice = 1e99
                         let priceHistory = getPriceHistory(uid, 'hourly')
                         let priceTitle = ["Was:"]
