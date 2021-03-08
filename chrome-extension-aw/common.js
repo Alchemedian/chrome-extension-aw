@@ -415,7 +415,11 @@ function parseProfileData(profileHtml) {
 
 function cachedLocalStorage(dataSave = false) {
     if (!cachedLocalStorage.cache) {
-        cachedLocalStorage.cache = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
+        if (localStorage[localStorageKeyName]) {
+            cachedLocalStorage.cache = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
+        } else {
+            cachedLocalStorage.cache = {}
+        }
     }
     if (dataSave) {
         cachedLocalStorage.cache = dataSave

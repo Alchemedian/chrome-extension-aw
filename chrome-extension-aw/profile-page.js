@@ -45,19 +45,21 @@
             priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
         })
         eleTimeDisplay.title = `Was: \n` + priceTitle.join("\n")
-        if (priceLastRecorded[1] > parsedData.rates[band]) {
-            eleTimeDisplay.style.color = "green"
-            eleTimeDisplay.style.fontWeight = "bold"
-            eleTimeDisplay.innerHTML += " ↑"
-        }
-        if (priceLastRecorded[1] < parsedData.rates[band]) {
-            eleTimeDisplay.style.color = "red"
-            eleTimeDisplay.style.fontWeight = "bold"
-            eleTimeDisplay.innerHTML += " ↓"
-        }
-        if (priceLastRecorded[1] == parsedData.rates[band]) {
-            eleTimeDisplay.style.fontWeight = "bold"
-            eleTimeDisplay.innerHTML += " ✓"
+        if (!isNaN(priceLastRecorded[1])) {
+            if (priceLastRecorded[1] > parsedData.rates[band]) {
+                eleTimeDisplay.style.color = "green"
+                eleTimeDisplay.style.fontWeight = "bold"
+                eleTimeDisplay.innerHTML += " ↑"
+            }
+            if (priceLastRecorded[1] < parsedData.rates[band]) {
+                eleTimeDisplay.style.color = "red"
+                eleTimeDisplay.style.fontWeight = "bold"
+                eleTimeDisplay.innerHTML += " ↓"
+            }
+            if (priceLastRecorded[1] == parsedData.rates[band]) {
+                eleTimeDisplay.style.fontWeight = "bold"
+                eleTimeDisplay.innerHTML += " ✓"
+            }
         }
 
     })
