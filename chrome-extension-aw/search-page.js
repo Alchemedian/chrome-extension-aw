@@ -273,15 +273,20 @@ if (isSearchPage()) {
                     if (hourly) {
                         let comparison = '/hr ⚪'
                         let lastPrice = 1e99
-                        getPriceHistory(uid, 'hourly').forEach(x => {
+                        let priceHistory = getPriceHistory(uid, 'hourly')
+                        let priceTitle = ["Was:"]
+                        priceHistory.forEach(x => {
                             lastPrice = Math.min(x[1], lastPrice)
+                        })
+                        priceHistory.forEach(row => {
+                            priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
                         })
 
                         if (lastPrice != 1e99) {
                             if (lastPrice > hourly.innerText) {
-                                comparison = "/hr <span style='color:green;font-weight:bold'>↓</span>"
+                                comparison = `/hr <span title="${priceTitle.join("\n")}" class="ku_price_change_search" style='color:green'>⬇</span>`
                             } else if (lastPrice < hourly.innerText) {
-                                comparison = "/hr <span style='color:red;font-weight:bold'>↑</span>"
+                                comparison = `/hr <span title="${priceTitle.join("\n")}" class="ku_price_change_search" style='color:red'>⬆</span>`
                             } else {
                                 comparison = "/hr ✓"
                             }

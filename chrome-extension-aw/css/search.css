@@ -229,3 +229,7 @@ div.ku_get_live_review_counts:hover {
         box-shadow: -10px 0px 50px 55px rgba(238, 238, 238, 1);
     }
 }
+
+.ku_price_change_search {
+    font-weight: bold;
+}

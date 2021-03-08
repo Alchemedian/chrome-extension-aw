@@ -54,12 +54,12 @@
             if (lastPrice > parsedData.rates[band]) {
                 eleTimeDisplay.style.color = "green"
                 eleTimeDisplay.style.fontWeight = "bold"
-                eleTimeDisplay.innerHTML += " ↓"
+                eleTimeDisplay.innerHTML += " ⬇"
             }
             if (lastPrice < parsedData.rates[band]) {
                 eleTimeDisplay.style.color = "red"
                 eleTimeDisplay.style.fontWeight = "bold"
-                eleTimeDisplay.innerHTML += " ↑"
+                eleTimeDisplay.innerHTML += " ⬆"
             }
             if (lastPrice == parsedData.rates[band]) {
                 eleTimeDisplay.style.fontWeight = "bold"
