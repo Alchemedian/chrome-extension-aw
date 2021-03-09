@@ -276,12 +276,13 @@ if (isSearchPage()) {
                         let maxPrice = 0
                         let priceHistory = getPriceHistory(uid, 'hourly')
                         let priceTitle = ["Was:"]
+                        priceHistory.forEach(row => {
+                            priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
+                        })
+                        priceHistory.push([new Date() / 1, hourly.innerText])
                         priceHistory.forEach(x => {
                             minPrice = Math.min(x[1], minPrice)
                             maxPrice = Math.max(x[1], maxPrice)
-                        })
-                        priceHistory.forEach(row => {
-                            priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
                         })
 
                         if (minPrice != 1e99) {

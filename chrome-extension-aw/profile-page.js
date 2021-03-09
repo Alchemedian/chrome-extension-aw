@@ -29,6 +29,12 @@
 
     Object.keys(priceBands).forEach(band => {
         let priceHistory = getPriceHistory(profileId, band)
+        let priceTitle = []
+        priceHistory.forEach(row => {
+            priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
+        })
+        priceHistory.push([new Date() / 1, parsedData.rates[band]])
+
         let eleTimeDisplay = document.getElementById(priceBands[band])
 
         let minPrice = 1e99
@@ -37,6 +43,7 @@
             minPrice = Math.min(x[1], minPrice)
             maxPrice = Math.max(x[1], maxPrice)
         })
+
         if (!eleTimeDisplay)
             return
         if (minPrice == 1e99) {
@@ -45,11 +52,6 @@
             return
         }
 
-
-        let priceTitle = []
-        priceHistory.forEach(row => {
-            priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
-        })
         eleTimeDisplay.title = `Was: \n` + priceTitle.join("\n")
         if (minPrice != 1e99) {
             if (minPrice < maxPrice && parsedData.rates[band] == minPrice) {
