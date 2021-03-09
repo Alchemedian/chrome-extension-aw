@@ -507,8 +507,7 @@ function getPriceHistory(id, band = 'hourly') {
             if (!row.rates)
                 return;
             if (last != row.rates[band]) {
-                if (row.ts < new Date() / 1 - 10 * 60 * 1e3)
-                    prices.push([row.ts, row.rates[band]])
+                prices.push([row.ts, row.rates[band]])
             }
             last = row.rates[band]
         })

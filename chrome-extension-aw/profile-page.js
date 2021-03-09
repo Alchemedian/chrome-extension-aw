@@ -37,7 +37,7 @@
             minPrice = Math.min(x[1], minPrice)
             maxPrice = Math.max(x[1], maxPrice)
         })
-
+        console.log(band, minPrice, maxPrice, parsedData.rates[band])
         if (!eleTimeDisplay)
             return
         if (minPrice == 1e99) {
@@ -53,17 +53,15 @@
         })
         eleTimeDisplay.title = `Was: \n` + priceTitle.join("\n")
         if (minPrice != 1e99) {
-            if (minPrice > parsedData.rates[band]) {
+            if (minPrice < maxPrice && parsedData.rates[band] == minPrice) {
                 eleTimeDisplay.style.color = "green"
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ⬇"
-            }
-            if (maxPrice < parsedData.rates[band]) {
+            } else if (minPrice < maxPrice && parsedData.rates[band] == maxPrice) {
                 eleTimeDisplay.style.color = "red"
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ⬆"
-            }
-            if (minPrice == maxPrice && minPrice == parsedData.rates[band]) {
+            } else if (minPrice == maxPrice) {
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ✓"
             }

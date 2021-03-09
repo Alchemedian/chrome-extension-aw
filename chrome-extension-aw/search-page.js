@@ -285,9 +285,9 @@ if (isSearchPage()) {
                         })
 
                         if (minPrice != 1e99) {
-                            if (minPrice > hourly.innerText) {
+                            if (minPrice < maxPrice && minPrice == hourly.innerText) {
                                 comparison = `/hr <span title="${priceTitle.join("\n")}" class="ku_price_change_search" style='color:green'>⬇</span>`
-                            } else if (maxPrice < hourly.innerText) {
+                            } else if (minPrice < maxPrice && maxPrice == hourly.innerText) {
                                 comparison = `/hr <span title="${priceTitle.join("\n")}" class="ku_price_change_search" style='color:red'>⬆</span>`
                             } else {
                                 comparison = "/hr ✓"
