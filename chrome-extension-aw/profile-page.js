@@ -31,14 +31,16 @@
         let priceHistory = getPriceHistory(profileId, band)
         let eleTimeDisplay = document.getElementById(priceBands[band])
 
-        let lastPrice = 1e99
+        let minPrice = 1e99
+        let maxPrice = 0
         priceHistory.forEach(x => {
-            lastPrice = Math.min(x[1], lastPrice)
+            minPrice = Math.min(x[1], minPrice)
+            maxPrice = Math.max(x[1], maxPrice)
         })
 
         if (!eleTimeDisplay)
             return
-        if (lastPrice == 1e99) {
+        if (minPrice == 1e99) {
             eleTimeDisplay.title = `Price history not available.\nCurrent price saved, for as long as you don't clear your browser cache`
             eleTimeDisplay.innerHTML += " ⚪"
             return
@@ -50,18 +52,18 @@
             priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
         })
         eleTimeDisplay.title = `Was: \n` + priceTitle.join("\n")
-        if (lastPrice != 1e99) {
-            if (lastPrice > parsedData.rates[band]) {
+        if (minPrice != 1e99) {
+            if (minPrice > parsedData.rates[band]) {
                 eleTimeDisplay.style.color = "green"
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ⬇"
             }
-            if (lastPrice < parsedData.rates[band]) {
+            if (maxPrice < parsedData.rates[band]) {
                 eleTimeDisplay.style.color = "red"
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ⬆"
             }
-            if (lastPrice == parsedData.rates[band]) {
+            if (minPrice == maxPrice && minPrice == parsedData.rates[band]) {
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ✓"
             }

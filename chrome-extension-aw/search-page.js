@@ -272,20 +272,22 @@ if (isSearchPage()) {
                     let hourly = divProfileHTML.querySelector('#tdRI1')
                     if (hourly) {
                         let comparison = `/hr <span title="Price history not available.\nCurrent price saved, for as long as you don't clear your browser cache">⚪</span>`
-                        let lastPrice = 1e99
+                        let minPrice = 1e99
+                        let maxPrice = 0
                         let priceHistory = getPriceHistory(uid, 'hourly')
                         let priceTitle = ["Was:"]
                         priceHistory.forEach(x => {
-                            lastPrice = Math.min(x[1], lastPrice)
+                            minPrice = Math.min(x[1], minPrice)
+                            maxPrice = Math.max(x[1], maxPrice)
                         })
                         priceHistory.forEach(row => {
                             priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
                         })
 
-                        if (lastPrice != 1e99) {
-                            if (lastPrice > hourly.innerText) {
+                        if (minPrice != 1e99) {
+                            if (minPrice > hourly.innerText) {
                                 comparison = `/hr <span title="${priceTitle.join("\n")}" class="ku_price_change_search" style='color:green'>⬇</span>`
-                            } else if (lastPrice < hourly.innerText) {
+                            } else if (maxPrice < hourly.innerText) {
                                 comparison = `/hr <span title="${priceTitle.join("\n")}" class="ku_price_change_search" style='color:red'>⬆</span>`
                             } else {
                                 comparison = "/hr ✓"
