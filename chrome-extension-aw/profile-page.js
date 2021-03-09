@@ -37,7 +37,6 @@
             minPrice = Math.min(x[1], minPrice)
             maxPrice = Math.max(x[1], maxPrice)
         })
-        console.log(band, minPrice, maxPrice, parsedData.rates[band])
         if (!eleTimeDisplay)
             return
         if (minPrice == 1e99) {
