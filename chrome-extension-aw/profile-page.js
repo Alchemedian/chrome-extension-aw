@@ -54,14 +54,14 @@
 
         eleTimeDisplay.title = `Was: \n` + priceTitle.join("\n")
         if (minPrice != 1e99) {
-            if (minPrice < maxPrice && parsedData.rates[band] == minPrice) {
-                eleTimeDisplay.style.color = "green"
-                eleTimeDisplay.style.fontWeight = "bold"
-                eleTimeDisplay.innerHTML += " ⬇"
-            } else if (minPrice < maxPrice && parsedData.rates[band] == maxPrice) {
+            if (parsedData.rates[band] > minPrice) {
                 eleTimeDisplay.style.color = "red"
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ⬆"
+            } else if (parsedData.rates[band] < maxPrice) {
+                eleTimeDisplay.style.color = "green"
+                eleTimeDisplay.style.fontWeight = "bold"
+                eleTimeDisplay.innerHTML += " ⬇"
             } else if (minPrice == maxPrice) {
                 eleTimeDisplay.style.fontWeight = "bold"
                 eleTimeDisplay.innerHTML += " ✓"
