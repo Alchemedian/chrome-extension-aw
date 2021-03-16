@@ -74,8 +74,19 @@
     //add historical phone numbers
     setTimeout(() => {
         let hist = getProfileHistoryTelephone(profileId)
-        if (hist && document.querySelectorAll("[name=Contact]") && document.querySelectorAll("[name=Contact]")[0])
-            document.querySelectorAll("[name=Contact]")[0].after(" Historical (AW Civilizer cached): " + hist)
+
+        let telFull = ""
+        document.querySelectorAll('[itemprop=telephone]').forEach(ele => {
+            telFull = ele.innerText.replace(/^0/, '+44')
+        })
+
+        if (hist && telFull != hist &&
+            document.querySelectorAll("[name=Contact]") && document.querySelectorAll("[name=Contact]")[0]) {
+            let div = document.createElement('div')
+            div.className = "_ku_cached_phone"
+            div.innerHTML = " AW Civilizer cached: " + hist;
+            document.querySelectorAll("[name=Contact]")[0].after(div)
+        }
     }, 50)
 
 

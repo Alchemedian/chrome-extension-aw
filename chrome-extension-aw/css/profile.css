@@ -129,3 +129,8 @@ form[name=frmProfile] .Padded {
     position: relative;
     top: 4px;
 }
+
+._ku_cached_phone {
+    font-weight: bold;
+    font-size: 12pt;
+}
