@@ -80,11 +80,20 @@
             telFull = ele.innerText.replace(/^0/, '+44')
         })
 
-        if (hist && telFull != hist &&
+        if (hist && hist[0] && telFull != hist[0] &&
             document.querySelectorAll("[name=Contact]") && document.querySelectorAll("[name=Contact]")[0]) {
             let div = document.createElement('div')
             div.className = "_ku_cached_phone"
-            div.innerHTML = " AW Civilizer cached: " + hist;
+            div.innerHTML = " AW Civilizer cached: "
+            hist.forEach(telFull => {
+
+                let divLet = document.createElement('div')
+                divLet.innerHTML = `<div><span name="num"></span><span name="wa"></span></div>`
+                divLet.querySelector("[name=num]").innerHTML = telFull
+                divLet.querySelector("[name=wa]").append(wrapWhatsappLink(telFull))
+
+                div.append(divLet)
+            })
             document.querySelectorAll("[name=Contact]")[0].after(div)
         }
     }, 50)
@@ -442,12 +451,7 @@
             tel.setAttribute('href', `tel:${telFull}`)
             ele.append(tel)
 
-            let wa = document.createElement('a')
-            wa.setAttribute('target', '_blank')
-
-            wa.setAttribute('href', `https://wa.me/${telFull}`)
-            wa.className = "ku_prof_whatsapp"
-            wa.innerHTML = `<img class="whatsapp" alt="WhatsApp" title="WhatsApp" src='https://web.whatsapp.com/img/favicon/1x/favicon.png' /> WhatsApp`
+            let wa = wrapWhatsappLink(telFull)
             ele.append(wa)
         })
     }, 300)
