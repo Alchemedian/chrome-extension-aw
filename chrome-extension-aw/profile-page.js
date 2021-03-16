@@ -71,6 +71,13 @@
     })
 
 
+    //add historical phone numbers
+    setTimeout(() => {
+        let hist = getProfileHistoryTelephone(profileId)
+        if (hist && document.querySelectorAll("[name=Contact]") && document.querySelectorAll("[name=Contact]")[0])
+            document.querySelectorAll("[name=Contact]")[0].after(" Historical (AW Civilizer cached): " + hist)
+    }, 50)
+
 
     let profileName = document.querySelector('.PageHeading').innerText
     getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'scrape')

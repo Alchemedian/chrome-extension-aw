@@ -498,6 +498,19 @@ function getProfileHistory(id) {
     return store[id] ? store[id] : {}
 }
 
+function getProfileHistoryTelephone(id) {
+    let profileHistory = getProfileHistory(id)
+    let tel = {}
+    if (profileHistory && profileHistory.d) {
+        profileHistory.d.forEach(x => {
+            if (x.tel) {
+                tel[x.tel] = 1
+            }
+        })
+    }
+    return Object.keys(tel).join(',')
+}
+
 function getPriceHistory(id, band = 'hourly') {
     let history = getProfileHistory(id)
     let prices = []
