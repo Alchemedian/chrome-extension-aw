@@ -366,7 +366,7 @@ function parseProfileData(profileHtml) {
             tels.pop()
         }
         tel = tels.join(', ')
-        tel = tel.replace(/\+?44/g, '0')
+        tel = tel.replace(/^\+?44/g, '0')
         let telSearch = tel.split(",")[0]
         let telFull = telSearch.replace(/^0/, '+44')
         profileData.tel = telFull;

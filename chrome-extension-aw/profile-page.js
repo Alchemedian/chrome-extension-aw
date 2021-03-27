@@ -85,16 +85,21 @@
             let div = document.createElement('div')
             div.className = "_ku_cached_phone"
             div.innerHTML = " AW Civilizer cached: "
-            hist.forEach(telFull => {
-
+            let count = 0
+            hist.forEach(telNumFull => {
+                if (telNumFull.length != 13)
+                    return
+                count++
                 let divLet = document.createElement('div')
                 divLet.innerHTML = `<div><span name="num"></span><span name="wa"></span></div>`
-                divLet.querySelector("[name=num]").innerHTML = telFull
-                divLet.querySelector("[name=wa]").append(wrapWhatsappLink(telFull))
+                divLet.querySelector("[name=num]").innerHTML = telNumFull
+                divLet.querySelector("[name=wa]").append(wrapWhatsappLink(telNumFull))
 
                 div.append(divLet)
             })
-            document.querySelectorAll("[name=Contact]")[0].after(div)
+            if (count > 0) {
+                document.querySelectorAll("[name=Contact]")[0].after(div)
+            }
         }
     }, 50)
 
