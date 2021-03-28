@@ -359,17 +359,9 @@ function parseProfileData(profileHtml) {
     let divProfileHTML = document.createElement('div')
     divProfileHTML.innerHTML = profileHtml
 
-    let tel = profileHtml.match(/"telephone".+/g)
-    if (tel && tel[0]) {
-        let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
-        if (tels.length == 2 && tels[1].substr(-10) == tels[0].substr(-10)) {
-            tels.pop()
-        }
-        tel = tels.join(', ')
-        tel = tel.replace(/^\+?44/g, '0')
-        let telSearch = tel.split(",")[0]
-        let telFull = telSearch.replace(/^0/, '+44')
-        profileData.tel = telFull;
+    let tel = getCanonicalPhone(profileHtml)
+    if (tel) {
+        profileData.tel = tel
     }
     if (profileHtml && profileHtml[0]) {
         profileData.rates = {}
@@ -536,4 +528,38 @@ function wrapWhatsappLink(telFull) {
     wa.className = "ku_prof_whatsapp"
     wa.innerHTML = `<img class="whatsapp" alt="WhatsApp" title="WhatsApp" src='https://web.whatsapp.com/img/favicon/1x/favicon.png' /> WhatsApp`
     return wa
+}
+
+function getCanonicalPhone(html, countryCode = true) {
+    let canonical = false
+    let regex = /^(\+44|0)\d{10}$/
+    if (html.match(regex)) {
+        canonical = html.match(regex)[0].replace(/^0/, '+44')
+    }
+    let tel = html.match(/"telephone".+/g)
+    if (tel && tel[0]) {
+        let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
+        if (tels.length == 2 && tels[1].substr(-10) == tels[0].substr(-10)) {
+            tels.pop()
+        }
+        tel = tels.join(', ')
+        tel = tel.replace(/^\+?44/g, '0')
+        let telSearch = tel.split(",")[0]
+        let telFull = telSearch.replace(/^0/, '+44')
+        canonical = telFull
+    }
+    if (canonical) {
+        if (countryCode) {
+            return canonical
+        } else {
+            return canonical.replace(/^\+44/, '0')
+        }
+    }
+    return ""
+}
+
+function googlePhoneQueryExpansion(phone) {
+    let telSearch = getCanonicalPhone(phone, false)
+    let telFull = getCanonicalPhone(phone)
+    return `${telSearch}  OR ${telFull} OR "${telSearch.substr(0,5) +' '+telSearch.substr(5)}" OR "${telSearch.substr(0,5) +' '+telSearch.substr(5,3)+' '+telSearch.substr(8)}"`
 }

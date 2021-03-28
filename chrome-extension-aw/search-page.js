@@ -244,21 +244,14 @@ if (isSearchPage()) {
 
                 let profileDetails = document.createElement('div')
                 profileDetails.className = "ku_details"
-                let tel = profileHtml.match(/"telephone".+/g)
-                if (tel && tel[0]) {
-                    let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
-                    if (tels.length == 2 && tels[1].substr(-10) == tels[0].substr(-10)) {
-                        tels.pop()
-                    }
-                    tel = tels.join(', ')
-                    tel = tel.replace(/^\+?44/g, '0')
-                    let telSearch = tel.split(",")[0]
-                    let telFull = telSearch.replace(/^0/, '+44')
-                    telSearch = `${telSearch}  OR ${telFull} OR "${telSearch.substr(0,5) +' '+telSearch.substr(5)}" OR "${telSearch.substr(0,5) +' '+telSearch.substr(5,3)+' '+telSearch.substr(8)}"`
+                let telFull = getCanonicalPhone(profileHtml)
+                if (telFull) {
+                    let telShort = getCanonicalPhone(profileHtml, false)
+                    let telSearch = googlePhoneQueryExpansion(telFull)
                     let qrLink = `http://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(telFull)}&size=150x150&color=4C006F`
                     profileDetails.append(makeDiv('',
                         `<div class='ku_telephone_number'><span class='ku_qr_code' 
-                        onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">☎️</span> ${tel}
+                        onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">☎️</span> ${telShort}
                         <a href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
                         <a href="https://wa.me/${telFull}" target="_blank">Whatsapp</a>
                         </div>`, 'ku_details_telephone'
