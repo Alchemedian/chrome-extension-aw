@@ -251,7 +251,7 @@ if (isSearchPage()) {
                         tels.pop()
                     }
                     tel = tels.join(', ')
-                    tel = tel.replace(/\+?44/g, '0')
+                    tel = tel.replace(/^\+?44/g, '0')
                     let telSearch = tel.split(",")[0]
                     let telFull = telSearch.replace(/^0/, '+44')
                     telSearch = `${telSearch}  OR ${telFull} OR "${telSearch.substr(0,5) +' '+telSearch.substr(5)}" OR "${telSearch.substr(0,5) +' '+telSearch.substr(5,3)+' '+telSearch.substr(8)}"`
