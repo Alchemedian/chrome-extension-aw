@@ -140,9 +140,9 @@ if (isSearchPage()) {
             700 + Math.floor(Math.random() * 400)
         setTimeout(() => embelishProfileBlurb(uid), fetchDelay)
 
-        function embelishProfileBlurb(uid) {
-            if (uid == 5741000) { return } //AW left a driver's licence in the html, blocking
-            anchorTag.after(ukpSearchButtons(uid))
+        function embelishProfileBlurb(userId) {
+            if (userId == 5741000) { return } //AW left a driver's licence in the html, blocking
+            anchorTag.after(ukpSearchButtons(userId))
             let spacerDiv = document.createElement('div')
             spacerDiv.className = 'ku_spacer_placeholder'
             anchorTag.after(spacerDiv)
@@ -152,11 +152,11 @@ if (isSearchPage()) {
             anchorTag.after(loadingDiv)
 
 
-            fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + uid)
+            fetch(location.protocol + '//www.adultwork.com/ViewProfile.asp?UserID=' + userId)
                 .then(y => y.text())
                 .then((html) => {
                     parseProfile(html)
-                    saveProfileData(uid, parseProfileData(html), false)
+                    saveProfileData(userId, parseProfileData(html), false)
                 })
 
             function parseProfile(profileHtml) {
@@ -167,15 +167,15 @@ if (isSearchPage()) {
                 loadingDiv.parentNode.removeChild(loadingDiv)
                 let divProfileHTML = document.createElement('div')
                 divProfileHTML.innerHTML = profileHtml
-                profileImages[uid] = parseProfileImages(profileHtml)
-                let aImg = document.querySelectorAll(`a[href="javascript:vU(${uid})"`)
+                profileImages[userId] = parseProfileImages(profileHtml)
+                let aImg = document.querySelectorAll(`a[href="javascript:vU(${userId})"`)
                 if (aImg && aImg[0])
                     aImg[0].style.cursor = "ew-resize"
                 let rsearch = makeDiv('position:relative;bottom:52px', '', 'ku_reverse_search_buttons')
 
                 let reversSearchList = {
-                    Yandex: `https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[uid][0])}`,
-                    Google: `https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[uid][0])}`,
+                    Yandex: `https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(profileImages[userId][0])}`,
+                    Google: `https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(profileImages[userId][0])}`,
                     // Bing: `https://www.bing.com/visualsearch/Microsoft/SimilarImages?&imgurl=${encodeURIComponent(profileImages[uid][0])}`
                 }
 
@@ -190,23 +190,23 @@ if (isSearchPage()) {
                     rsearch.appendChild(b)
                 })
 
-                let ancImg = document.querySelectorAll(`a[href="javascript:vU(${uid})"]`)
+                let ancImg = document.querySelectorAll(`a[href="javascript:vU(${userId})"]`)
                 if (ancImg && ancImg[0]) {
                     ancImg[0].after(rsearch)
                     let marginRight = 4
 
                     let dots = []
-                    for (let i = 0; i < profileImages[uid].length; i++) {
+                    for (let i = 0; i < profileImages[userId].length; i++) {
                         let wd = 15;
-                        if (profileImages[uid].length > 10) {
+                        if (profileImages[userId].length > 10) {
                             wd = 12;
                             marginRight = 2
                         }
-                        if (profileImages[uid].length > 20) {
-                            wd = Math.round(310 / profileImages[uid].length) - 2
+                        if (profileImages[userId].length > 20) {
+                            wd = Math.round(310 / profileImages[userId].length) - 2
                             marginRight = 1
                         }
-                        if (profileImages[uid].length > 30) {
+                        if (profileImages[userId].length > 30) {
                             marginRight = 0
                         }
                         let dot = document.createElement('div')
@@ -217,26 +217,26 @@ if (isSearchPage()) {
                         dot.style.borderRadius = `${wd}px`
                         dot.style.border = `1px solid #ccc`
                         dot.style.marginRight = `${marginRight}px`
-                        dot.addEventListener('mouseover', () => showOverlayImage(uid, i))
+                        dot.addEventListener('mouseover', () => showOverlayImage(userId, i))
                         dot.addEventListener('mouseout', hideOverlayImage)
                         dot.addEventListener('dblclick', () => {
-                            let src = profileImages[uid][i]
+                            let src = profileImages[userId][i]
                             window.open(`https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}`)
                             window.open(`https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}`)
                                 // window.open(`https://www.bing.com/visualsearch/Microsoft/SimilarImages?&imgurl=${encodeURIComponent(src)}`)
                         })
                         dot.addEventListener('contextmenu', (e) => {
-                            let src = profileImages[uid][i]
+                            let src = profileImages[userId][i]
                             e.preventDefault()
                             window.open(`${src}`)
                             return false
                         })
                         dots.push(dot)
                     }
-                    let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + uid)
+                    let rulerContainer = makeDiv(`text-align:center`, '', 'ku_ruler_container_' + userId)
                     let ruler = makeDiv(`padding-top:17px;height: 7px;display: inline-flex`, '', 'ku_ruler')
                     ruler.title = "\nDouble click to reverse image search\nRight click to open in a new window\n"
-                    ruler.id = "ku_ruler_" + uid
+                    ruler.id = "ku_ruler_" + userId
                     dots.forEach(dot => ruler.append(dot))
                     rulerContainer.appendChild(ruler)
                     ancImg[0].after(rulerContainer)
@@ -267,7 +267,7 @@ if (isSearchPage()) {
                         let comparison = `/hr <span title="Price history not available.\nCurrent price saved, for as long as you don't clear your browser cache">⚪</span>`
                         let minPrice = 1e99
                         let maxPrice = 0
-                        let priceHistory = getPriceHistory(uid, 'hourly')
+                        let priceHistory = getPriceHistory(userId, 'hourly')
                         let priceTitle = ["Was:"]
                         priceHistory.forEach(row => {
                             priceTitle.push('£' + row[1] + ' ' + timeAgo(row[0]))
@@ -382,8 +382,8 @@ if (isSearchPage()) {
                 let ukpReviewDetails = document.createElement('div')
                 ukpReviewDetails.classList.add("ku_review_details")
                 ukpReviewDetails.classList.add('ku_review_details_to_fetch')
-                ukpReviewDetails.id = `ku_ukp_review_summary_${uid}`
-                ukpReviewDetails.innerHTML = `<a href='https://www.ukpunting.com/index.php?action=adultwork;id=${uid}' target='_blank'>UKP Reviews</a>`
+                ukpReviewDetails.id = `ku_ukp_review_summary_${userId}`
+                ukpReviewDetails.innerHTML = `<a href='https://www.ukpunting.com/index.php?action=adultwork;id=${userId}' target='_blank'>UKP Reviews</a>`
                 profileDetails.append(ukpReviewDetails)
 
                 anchorTag.after(profileDetails)
@@ -391,11 +391,11 @@ if (isSearchPage()) {
                 updateUKPReviewCountsIfVisible()
             }
 
-            anchorTag.href = location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + uid;
-            anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + uid)
+            anchorTag.href = location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + userId;
+            anchorTag.setAttribute('href', "https://www.adultwork.com/ViewProfile.asp?UserID=" + userId)
             anchorTag.target = "_blank";
             anchorTag.onclick = function() {
-                window.open(location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + uid);
+                window.open(location.protocol + "//www.adultwork.com/ViewProfile.asp?UserID=" + userId);
                 return false;
             };
         }
@@ -418,9 +418,9 @@ if (isSearchPage()) {
                         ele.setAttribute('hidden', false)
                         ele.parentElement.parentElement.prepend(divAnim)
                         setTimeout(() => {
-                            let divAnim = ele.parentElement.parentElement.querySelector('.ku_hide_phone_transition')
-                            if (divAnim)
-                                divAnim.parentNode.removeChild(divAnim)
+                            let divAnim2 = ele.parentElement.parentElement.querySelector('.ku_hide_phone_transition')
+                            if (divAnim2)
+                                divAnim2.parentNode.removeChild(divAnim2)
                             ele.setAttribute('hidden', true)
                             showBlock(show, ele)
                             updateUKPReviewCountsIfVisible()
@@ -439,7 +439,7 @@ if (isSearchPage()) {
             }
         })
 
-        function showBlock(show, ele) {
+        function showBlock(display, ele) {
             let tdOne = ele.parentElement
                 .parentElement
                 .parentElement
@@ -448,9 +448,9 @@ if (isSearchPage()) {
                 .parentElement
                 .parentElement
                 .parentElement;
-            tdOne.style.display = show;
-            tdOne.nextElementSibling.nextElementSibling.style.display = show;
-            tdOne.nextElementSibling.style.display = show;
+            tdOne.style.display = display;
+            tdOne.nextElementSibling.nextElementSibling.style.display = display;
+            tdOne.nextElementSibling.style.display = display;
         }
     }
 

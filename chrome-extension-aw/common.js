@@ -135,23 +135,24 @@ function makeDiv(style, html, className) {
 
 function timeAgo(d) {
     const diff = (new Date() - d) / 1000;
+    let v
     if (diff < 60) {
-        const v = Math.round(diff)
+        v = Math.round(diff)
         return v + ' second' + (v === 1 ? '' : 's') + ' ago';
     } else if (diff < 60 * 60) {
-        const v = Math.round(diff / 60)
+        v = Math.round(diff / 60)
         return v + ' minute' + (v === 1 ? '' : 's') + ' ago';
     } else if (diff < 60 * 60 * 24) {
-        const v = Math.round(diff / (60 * 60))
+        v = Math.round(diff / (60 * 60))
         return v + ' hour' + (v === 1 ? '' : 's') + ' ago';
     } else if (diff < 60 * 60 * 24 * 30.436875) {
-        const v = Math.round(diff / (60 * 60 * 24))
+        v = Math.round(diff / (60 * 60 * 24))
         return v + ' day' + (v === 1 ? '' : 's') + ' ago';
     } else if (diff < 60 * 60 * 24 * 30.436875 * 12) {
-        const v = Math.round(diff / (60 * 60 * 24 * 30.436875))
+        v = Math.round(diff / (60 * 60 * 24 * 30.436875))
         return v + ' month' + (v === 1 ? '' : 's') + ' ago';
     }
-    const v = Math.round(diff / (60 * 60 * 24 * 30.436875 * 12))
+    v = Math.round(diff / (60 * 60 * 24 * 30.436875 * 12))
     return v + ' year' + (v === 1 ? '' : 's') + ' ago';
 }
 
@@ -323,8 +324,9 @@ async function postCodeOutward(postcode) {
 
 
 function graphQLVideoImageLoad(pageURL, callback) {
-    let guidReg = reg = /[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    let guidReg = /[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
     let matches = pageURL.match(guidReg)
+    let guid
     if (matches && matches[0]) {
         guid = matches[0]
     } else {
@@ -428,7 +430,7 @@ function cachedLocalStorage(dataSave = false) {
     return cachedLocalStorage.cache
 }
 
-function saveProfileData(uid, data, isProfilePage) {
+function saveProfileData(uid, data, onProfilePage = false) {
     try {
         let store = {}
         if (cachedLocalStorage()) {
@@ -463,7 +465,7 @@ function saveProfileData(uid, data, isProfilePage) {
         store[uid].d.slice(-50)
 
         store[uid].c++;
-        if (isProfilePage)
+        if (onProfilePage)
             store[uid].p++;
 
         cachedLocalStorage(store)
