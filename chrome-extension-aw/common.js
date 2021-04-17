@@ -422,12 +422,29 @@ function cachedLocalStorage(dataSave = false) {
             clearTimeout(cachedLocalStorage.setTimeout)
         }
         cachedLocalStorage.setTimeout = setTimeout(() => {
+            //clean up duplicate data:
+            Object.keys(dataSave).forEach(id => { dataSave[id].d = removeRepeatedData(dataSave[id].d) })
             cachedLocalStorage.setTimeout = false;
             localStorage[localStorageKeyName] = LZString.compress(JSON.stringify(dataSave))
         }, 100)
     }
 
     return cachedLocalStorage.cache
+}
+
+function removeRepeatedData(arr) {
+    let retArr = []
+    let lastElement = {}
+    arr.forEach((row) => {
+        let rowCopy = {...row }
+        delete rowCopy.ts
+        delete lastElement.ts
+        if (JSON.stringify(lastElement) !== JSON.stringify(rowCopy)) {
+            retArr.push(row)
+        }
+        lastElement = {...row }
+    })
+    return retArr
 }
 
 function saveProfileData(uid, data, onProfilePage = false) {
