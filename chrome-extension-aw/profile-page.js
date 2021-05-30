@@ -14,7 +14,22 @@
 
     let profileId = location.href.match(/UserID=([0-9]+)/i)[1]
     let parsedData = parseProfileData(document.body.innerHTML)
-    saveProfileData(profileId, parsedData, isProfilePage())
+    setTimeout(() => {
+        let gallery = {}
+        if (isProfilePage()) {
+            document.querySelectorAll('#ku_gallery_images img')
+                .forEach(gImg => {
+                    let imgs = document.querySelectorAll(`#ku_gallery_images img[data-file-name="${gImg.getAttribute('data-file-name')}"]`)
+                    imgs.forEach(ele => {
+                        let src = ele.src
+                        src = src.replace('/i/', '/f/')
+                        gallery[src] = 1
+                    })
+                })
+
+        }
+        saveProfileData(profileId, parsedData, isProfilePage(), gallery)
+    }, 2000)
 
 
     /*

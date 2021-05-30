@@ -447,7 +447,7 @@ function removeRepeatedData(arr) {
     return retArr
 }
 
-function saveProfileData(uid, data, onProfilePage = false) {
+function saveProfileData(uid, data, onProfilePage = false, gallery = {}) {
     try {
         let store = {}
         if (cachedLocalStorage()) {
@@ -456,7 +456,8 @@ function saveProfileData(uid, data, onProfilePage = false) {
         store[uid] = store[uid] ? store[uid] : {
             d: [],
             c: 0, // total profile views count, including in search results
-            p: 0 // total profile page visits
+            p: 0, // total profile page visits
+            g: {},
         }
         store[uid].d = store[uid].d.sort((a, b) => {
             if (a.ts > b.ts)
@@ -482,8 +483,11 @@ function saveProfileData(uid, data, onProfilePage = false) {
         store[uid].d.slice(-50)
 
         store[uid].c++;
-        if (onProfilePage)
+        if (onProfilePage) {
             store[uid].p++;
+            store[uid].g = {...store[uid].g, ...gallery }
+        }
+
 
         cachedLocalStorage(store)
     } catch (e) {
