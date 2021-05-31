@@ -238,6 +238,16 @@
             }
         })
 
+        setTimeout(() => {
+            Object.keys(getProfileHistory(profileId).g).forEach(src => {
+                if (!imagesDict[src]) {
+                    html += wrapImg(src, '<span class="_ku_image_deleted">❌ Deleted. Showing from AW Civiliser cache</span>', 'ku_deleted_image')
+                    imagesDict[src] = 'deleted_local_storage'
+                }
+            })
+        }, 2500)
+
+
         let imgIcon = new Image()
         imgIcon.src = iconBase64
 
