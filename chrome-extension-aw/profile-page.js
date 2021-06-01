@@ -239,12 +239,19 @@
         })
 
         setTimeout(() => {
-            Object.keys(getProfileHistory(profileId).g).forEach(src => {
-                if (!imagesDict[src]) {
-                    html += wrapImg(src, '<span class="_ku_image_deleted">❌ Deleted. Showing from AW Civiliser cache</span>', 'ku_deleted_image')
-                    imagesDict[src] = 'deleted_local_storage'
+            let divGallery = document.getElementById("ku_gallery_images")
+            let shownDict = {}
+            divGallery.querySelectorAll("img").forEach(img => {
+                shownDict[img.src] = 1
+            })
+            let htmlAdditional = ""
+            let galleryHistorical = getProfileHistory(profileId).g
+            Object.keys(galleryHistorical).forEach(src => {
+                if (!shownDict[src]) {
+                    htmlAdditional += wrapImg(src, '<span class="_ku_image_deleted">❌ Deleted. Showing from AW Civiliser cache</span>', 'ku_deleted_image')
                 }
             })
+            divGallery.insertAdjacentHTML('beforeend', htmlAdditional)
         }, 2500)
 
 
