@@ -431,6 +431,11 @@
 
         function downloadScreenshot() {
             let element = document.querySelector('td div[align=center]')
+                //images cors proxy:
+            element.querySelectorAll("img.Border").forEach(el => {
+                el.src = "https://cors-proxy.bwkake.workers.dev/?apiurl=" + encodeURIComponent(el.src)
+            })
+
             element.style.backgroundColor = "#ffffff"
             let scr = { x: window.scrollX, y: window.scrollY }
             html2canvas(element, {
