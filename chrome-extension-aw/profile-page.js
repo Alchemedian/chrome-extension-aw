@@ -188,20 +188,20 @@
             })
     }
 
-    for (timeout = 500; timeout < 10000; timeout += 500) {
+    for (let timeout = 500; timeout < 10000; timeout += 500) {
         setTimeout(removeDuplicateGalleryImages, timeout)
     }
 
     let imagesDict = {}
 
-    function wrapImg(src, emoji = '', divClass = '') {
+    function wrapImg(src, emoji = '', divClass = '', alt = '') {
         let fileName = src ? src.split(/(\\|\/)/g).pop() : String((new Date()) / 1) + String(Math.random()).replace("0.", "")
         let maxWidth = window.localStorage.ku_gallery_max_width ?
             window.localStorage.ku_gallery_max_width : window.innerWidth - 200
 
         return `<div class='ku_gallerywrapper'>
             <div class='${divClass}'>
-                <img class='ku_gallerywrapper_img' style='max-width:${maxWidth}px;' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}"/>
+                <img class='ku_gallerywrapper_img' style='max-width:${maxWidth}px;' src='${src}' onclick="window.open('${src}')" data-file-name="${fileName}" alt=${alt}/>
                     <div class='ku_reverse_img_search'>
                     <span class="emoji">${emoji}</span>
                         <button onclick="window.open('https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(src)}');window.open('https://www.google.com/searchbyimage?&image_url=${encodeURIComponent(src)}')">Image Search</button>
@@ -216,7 +216,7 @@
 
         document.querySelectorAll("img.border").forEach(function(x) {
             if (x.parentElement && x.parentElement.href && /(sIWishlist|:sI|:vSI)/.test(x.parentElement.href)) {
-
+                //nop
             } else {
                 html += wrapImg(thumbToFull(x.src))
                 imagesDict[x.src] = 'lead'
@@ -239,19 +239,26 @@
         })
 
         setTimeout(() => {
-            let divGallery = document.getElementById("ku_gallery_images")
+            let divGallery2 = document.getElementById("ku_gallery_images")
             let shownDict = {}
-            divGallery.querySelectorAll("img").forEach(img => {
+            divGallery2.querySelectorAll("img").forEach(img => {
                 shownDict[img.src] = 1
             })
-            let htmlAdditional = ""
             let galleryHistorical = getProfileHistory(profileId).g
             Object.keys(galleryHistorical).forEach(src => {
-                if (!shownDict[src]) {
-                    htmlAdditional += wrapImg(src, '<span class="_ku_image_deleted">❌ Deleted. Showing from AW Civiliser cache</span>', 'ku_deleted_image')
+                let imgLoad = new Image()
+                imgLoad.src = src
+                imgLoad.onload = () => {
+                    if (imgLoad.width > 50) {
+                        if (!shownDict[src]) {
+                            let htmlAdditional = wrapImg(src, '<span class="_ku_image_deleted">❌ Deleted. Showing from AW Civiliser cache</span>', 'ku_deleted_image', src)
+                            divGallery2.insertAdjacentHTML('beforeend', htmlAdditional)
+                        }
+                    } else {
+                        //TODO: remove from localStorage
+                    }
                 }
             })
-            divGallery.insertAdjacentHTML('beforeend', htmlAdditional)
         }, 2500)
 
 
@@ -478,7 +485,8 @@
     }
 
     setTimeout(() => {
-        imgify(), removeLongTextualCrap()
+        imgify()
+        removeLongTextualCrap()
     }, 300);
 
     //add call and whatsapp link
@@ -516,7 +524,7 @@
                 }
                 if (b && b[1]) {
                     var src = b[1].replace('/i/', '/');
-                    let fileName = src.split(/(\\|\/)/g).pop()
+                    // let fileName = src.split(/(\\|\/)/g).pop()
                     let html = wrapImg(src)
                     var child = document.createElement("div");
                     child.innerHTML = html;
