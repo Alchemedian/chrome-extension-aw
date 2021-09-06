@@ -379,6 +379,10 @@ function parseProfileData(profileHtml) {
         if (hourlyOutcall && hourlyOutcall.innerText) {
             profileData.rates.hourlyOutcall = hourlyOutcall.innerText
         }
+        let profileName = document.querySelector('[itemprop="name"]')
+        if (profileName) {
+            profileData.name = profileName.innerText
+        }
 
         profileData.services = []
 
