@@ -379,10 +379,6 @@ function parseProfileData(profileHtml) {
         if (hourlyOutcall && hourlyOutcall.innerText) {
             profileData.rates.hourlyOutcall = hourlyOutcall.innerText
         }
-        let profileName = document.querySelector('[itemprop="name"]')
-        if (profileName) {
-            profileData.name = profileName.innerText
-        }
 
         profileData.services = []
 
@@ -401,14 +397,20 @@ function parseProfileData(profileHtml) {
         (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && profileData.services.push('BB');
     }
 
-
     let nationality;
     divProfileHTML.querySelectorAll('td.Label').forEach(ele => {
         if (ele.innerText.match(/Nationality/)) {
             nationality = ele.parentElement.querySelector('td:nth-child(2)').innerText
         }
     })
+    let name = ""
+    let profileName = document.querySelector('[itemprop="name"]')
+    if (profileName && profileName.innerText) {
+        name = profileName.innerText
+    }
+
     profileData.nationality = nationality
+    profileData.name = name
     return profileData
 }
 
@@ -480,7 +482,7 @@ function saveProfileData(uid, data, onProfilePage = false, gallery = {}) {
         }
 
         function historyChanged(a, b) {
-            return JSON.stringify({...a, ts: 1 }) == JSON.stringify({...b, ts: 1 })
+            return JSON.stringify({...a, ts: 1 }) !== JSON.stringify({...b, ts: 1 })
         }
 
         //limit to 50 records
@@ -518,17 +520,17 @@ function getProfileHistory(id) {
     return store[id] ? store[id] : {}
 }
 
-function getProfileHistoryTelephone(id) {
+function getProfileHistoryByKey(id, key = 'tel') {
     let profileHistory = getProfileHistory(id)
-    let tel = {}
+    let ret = {}
     if (profileHistory && profileHistory.d) {
         profileHistory.d.forEach(x => {
-            if (x.tel) {
-                tel[x.tel] = 1
+            if (x[key]) {
+                ret[x[key]] = 1
             }
         })
     }
-    return Object.keys(tel)
+    return Object.keys(ret)
 }
 
 function getPriceHistory(id, band = 'hourly') {

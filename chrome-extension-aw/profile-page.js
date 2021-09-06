@@ -88,7 +88,7 @@
 
     //add historical phone numbers
     setTimeout(() => {
-        let hist = getProfileHistoryTelephone(profileId)
+        let hist = getProfileHistoryByKey(profileId, 'tel')
 
         let telFull = ""
         document.querySelectorAll('[itemprop=telephone]').forEach(ele => {
