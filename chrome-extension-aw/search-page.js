@@ -470,7 +470,8 @@ if (isSearchPage()) {
             if (isVisibleInPageScroll(ele)) {
                 let uid = ele.id.replace('ku_ukp_review_summary_', '')
                 ele.innerHTML = 'Loading...'
-                getUKPsummary(uid, ele, 'scrape')
+                    // getUKPsummary(uid, ele, 'scrape')
+                getUKPsummary(uid, ele, 'api')
                 ele.classList.remove('ku_review_details_to_fetch')
             }
         })

@@ -123,6 +123,7 @@ div.ku_get_live_review_counts:hover {
 }
 
 .ku_details div.ku_review_details {
+    background-color: #ccccdd;
     min-height: 20px;
     line-height: 20px;
     padding: 0;
