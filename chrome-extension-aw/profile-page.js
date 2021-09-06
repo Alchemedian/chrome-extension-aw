@@ -116,6 +116,16 @@
                 document.querySelectorAll("[name=Contact]")[0].after(div)
             }
         }
+
+        let histNames = getProfileHistoryByKey(profileId, 'name')
+        let nameElement = document.querySelector('[itemprop="name"]')
+        histNames = histNames.filter(n => n !== nameElement.innerText)
+        if (histNames.length !== 0) {
+            let ele = document.createElement('div')
+            ele.innerHTML = `Cached previous names: <b>${histNames.join(', ')}</b> (via AW Civiliser)`
+            nameElement.after(ele)
+        }
+
     }, 50)
 
 
