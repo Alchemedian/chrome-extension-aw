@@ -129,7 +129,7 @@
     }, 50)
 
 
-    let profileName = document.querySelector('.PageHeading').innerText
+    let profileName = document.querySelector('.PageHeading') ? document.querySelector('.PageHeading').innerText : ''
         // getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'scrape')
     getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'api')
     let ukpSearch = ukpSearchButtons(profileId)
@@ -560,5 +560,21 @@
     }
 
     getVerificationPicture()
+
+
+    //if profile's unavailable, show cached data:
+    if (document.querySelector('p.Error')) {
+        let divHist = document.createElement('div')
+        divHist.innerHTML = '<h1>AW Civliser cached data:</h1>'
+        let profHist = {...getProfileHistory(profileId) }
+        let json = document.createElement('pre')
+        profHist.d = profHist.d.map(a => {
+            a.ts = new Date(a.ts).toDateString()
+            return a
+        })
+        json.innerText = JSON.stringify(profHist, true, ' ')
+        divHist.append(json)
+        document.querySelector('p.Error').parentNode.append(divHist)
+    }
 
 })();
