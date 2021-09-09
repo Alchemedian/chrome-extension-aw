@@ -1,8 +1,46 @@
-addEventListener('fetch', event => {
-    event.respondWith(handleRequest(event))
-})
+const scrape = false
 
-async function handleRequest(event) {
+if (scrape === false) {
+    addEventListener('fetch', event => {
+        event.respondWith(handleRequestApi(event))
+    })
+} else {
+    addEventListener('fetch', event => {
+        event.respondWith(handleRequestScrape(event))
+    })
+
+}
+async function handleRequestApi(event) {
+    const request = event.request
+    const url = new URL(request.url)
+    let awid = url.searchParams.get('awid')
+    let apiUrl = `https://www.ukpunting.com/aw2ukp.php?id=${awid}`
+
+    const cacheUrl = new URL(request.url)
+    const cacheKey = new Request(cacheUrl.toString(), request)
+    const cache = caches.default
+        // Get this request from this zone's cache
+    let response = await cache.match(cacheKey)
+    if (!response) {
+        response = await fetch(apiUrl)
+        response = new Response(response.body, response)
+            // Set CORS headers
+        response.headers.set('Access-Control-Allow-Origin', '*')
+            // Cache-Control: public
+            // response.headers.set('Cache-Control', 'public')
+            //max-age=<seconds>
+        response.headers.set('Cache-Control', ['public', 'max-age=604800'])
+            // Append to/Add Vary header so browser will cache response correctly
+        response.headers.append('Vary', 'Origin')
+            // await cache.put(cacheKey, response.clone())
+        event.waitUntil(cache.put(cacheKey, response.clone()))
+    }
+
+    return response
+}
+
+
+async function handleRequestScrape(event) {
     const request = event.request
     const url = new URL(request.url)
 
@@ -13,11 +51,16 @@ async function handleRequest(event) {
     let response = await cache.match(cacheKey)
     if (!response) {
         let awid = url.searchParams.get('awid')
+            //ukpdown start        
         let apiUrl = `https://www.ukpunting.com/index.php?action=adultwork;id=${awid}`
         let text = await (await fetch(apiUrl)).text()
+            // let text=''
+            //ukpdown end
         let positive = text.match(/positive\.gif/g)
         let negative = text.match(/negative\.gif/g)
         let neutral = text.match(/neutral\.gif/g)
+        let err = text.indexOf('Error communicating with origin') !== -1
+
 
         positive = positive ? positive.length : 0
         negative = negative ? negative.length : 0
@@ -31,6 +74,7 @@ async function handleRequest(event) {
             review_count: neutral + negative + positive,
             order: order,
             dates: getReviewDates(text),
+            error: err,
         }
 
         response = new Response(JSON.stringify(ret))
