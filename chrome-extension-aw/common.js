@@ -158,11 +158,21 @@ function timeAgo(d) {
 
 if (isSearchPage() || isProfilePage()) {
     (function() {
-        var temp = function() {
-            document.querySelectorAll("*").forEach((x) => x.removeAttribute('onselectstart'))
-            document.querySelectorAll(".unSelectable").forEach((x) => x.className = '')
-        }
-        setTimeout(temp, 250)
+        document.querySelectorAll("*").forEach((x) => x.removeAttribute('onselectstart'))
+        document.querySelectorAll(".unSelectable").forEach((x) => x.className = '')
+
+        document.querySelectorAll("[unselectable]").forEach(el => {
+            el.setAttribute('title', 'AW Civiliser: Double click to select and then copy')
+            el.ondblclick = function() {
+                let sel = window.getSelection();
+                let range = document.createRange();
+                range.selectNodeContents(this);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            };
+
+        })
+
     })();
 
     (function() {
