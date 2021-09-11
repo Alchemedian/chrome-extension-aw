@@ -130,8 +130,8 @@
 
 
     let profileName = document.querySelector('.PageHeading') ? document.querySelector('.PageHeading').innerText : ''
-        // getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'scrape')
-    getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'api')
+    getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'scrape')
+        // getUKPsummary(profileId, document.querySelector('#ku_ukp_summary'), 'api')
     let ukpSearch = ukpSearchButtons(profileId)
     document.querySelector('#ku_ukp_search').append(ukpSearch)
 

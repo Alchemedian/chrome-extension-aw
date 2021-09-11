@@ -72,7 +72,7 @@
 }
 
 #ku_ukp_summary {
-    background-color: #ccccdd;
+    /* background-color: #ccccdd; */
     border-radius: 5px;
     position: relative;
     float: right;
