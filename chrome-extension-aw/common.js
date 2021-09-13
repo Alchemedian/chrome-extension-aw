@@ -414,7 +414,7 @@ function parseProfileData(profileHtml) {
         }
     })
     let name = ""
-    let profileName = document.querySelector('[itemprop="name"]')
+    let profileName = divProfileHTML.querySelector('[itemprop="name"]')
     if (profileName && profileName.innerText) {
         name = profileName.innerText
     }
