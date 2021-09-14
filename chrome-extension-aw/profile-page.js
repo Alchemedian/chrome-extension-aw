@@ -124,7 +124,8 @@
         histNames = histNames.filter(n => n !== nameElement.innerText)
         if (histNames.length !== 0) {
             let ele = document.createElement('div')
-            ele.innerHTML = `Cached previous names: <b>${histNames.join(', ')}</b> (via AW Civiliser)`
+            let gn = histNames.length == 1 ? '' : 's'
+            ele.innerHTML = `Cached previous name${gn}: <b>${histNames.join(', ')}</b> (via AW Civiliser)`
             nameElement.after(ele)
         }
 
