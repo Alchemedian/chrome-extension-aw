@@ -94,8 +94,9 @@
         document.querySelectorAll('[itemprop=telephone]').forEach(ele => {
             telFull = ele.innerText.replace(/^0/, '+44')
         })
+        hist = hist.filter((x) => x != telFull)
 
-        if (hist && hist[0] && telFull != hist[0] &&
+        if (hist && hist[0] &&
             document.querySelectorAll("[name=Contact]") && document.querySelectorAll("[name=Contact]")[0]) {
             let div = document.createElement('div')
             div.className = "_ku_cached_phone"
@@ -111,6 +112,7 @@
                 divLet.querySelector("[name=wa]").append(wrapWhatsappLink(telNumFull))
 
                 div.append(divLet)
+                console.log(divLet)
             })
             if (count > 0) {
                 document.querySelectorAll("[name=Contact]")[0].after(div)
