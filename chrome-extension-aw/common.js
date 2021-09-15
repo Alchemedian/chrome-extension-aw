@@ -403,7 +403,7 @@ function parseProfileData(profileHtml) {
         /Massage/.test(dPref) && profileData.services.push('Massage');
         /Hand Relief/.test(dPref) && profileData.services.push('HR');
         /Strap On/.test(dPref) && profileData.services.push('Strap On');
-        /Watersports \(Giving\)/.test(dPref) && profileData.services.push('WS');
+        /Watersports/.test(dPref) && profileData.services.push('WS');
         (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && profileData.services.push('BB');
     }
 

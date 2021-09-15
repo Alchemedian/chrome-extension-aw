@@ -317,7 +317,7 @@ if (isSearchPage()) {
                     /Massage/.test(dPref) && services.push("<span class='ku_tooltip'>💆‍♂️<span class='ku_tooltiptext'>Massage</span></span>");
                     /Hand Relief/.test(dPref) && services.push("<span class='ku_tooltip'>✊<span class='ku_tooltiptext'>Hand Relief</span></span>");
                     /Strap On/.test(dPref) && services.push("<span class='ku_tooltip'>👺<span class='ku_tooltiptext'>Strap On</span></span>");
-                    /Watersports \(Giving\)/.test(dPref) && services.push("<span class='ku_tooltip'>🏄<span class='ku_tooltiptext'>Water Sports</span></span>");
+                    /Watersports/.test(dPref) && services.push("<span class='ku_tooltip'>🏄<span class='ku_tooltiptext'>Water Sports</span></span>");
                     (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && services.push("<span class='ku_tooltip'>bb<span class='ku_tooltiptext'>Bareback</span></span>");
                     profileDetails.append(makeDiv('',
                         price + '<div class="ku_details_likes">' + services.join(' ') + '</div>', 'ku_details_price_n_likes'));
