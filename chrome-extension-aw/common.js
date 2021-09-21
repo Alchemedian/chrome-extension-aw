@@ -132,6 +132,14 @@ function makeDiv(style, html, className) {
     return div;
 }
 
+function cloneAndReplaceUnSelectableElement(ele) {
+    let eleParent = ele.parentElement
+    let eleNew = document.createElement(ele.nodeName)
+    eleNew.className = "superwanker"
+    eleNew.innerHTML = ele.innerHTML
+    eleParent.removeChild(ele)
+    eleParent.appendChild(eleNew)
+}
 
 function timeAgo(d) {
     const diff = (new Date() - d) / 1000;
@@ -158,21 +166,8 @@ function timeAgo(d) {
 
 if (isSearchPage() || isProfilePage()) {
     (function() {
-        document.querySelectorAll("*").forEach((x) => x.removeAttribute('onselectstart'))
-        document.querySelectorAll(".unSelectable").forEach((x) => x.className = '')
-
-        document.querySelectorAll("[unselectable]").forEach(el => {
-            el.setAttribute('title', 'AW Civiliser: Double click to select and then copy')
-            el.ondblclick = function() {
-                let sel = window.getSelection();
-                let range = document.createRange();
-                range.selectNodeContents(this);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            };
-
-        })
-
+        document.querySelectorAll("[unselectable]")
+            .forEach(cloneAndReplaceUnSelectableElement)
     })();
 
     (function() {

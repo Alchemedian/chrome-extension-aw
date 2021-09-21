@@ -112,7 +112,6 @@
                 divLet.querySelector("[name=wa]").append(wrapWhatsappLink(telNumFull))
 
                 div.append(divLet)
-                console.log(divLet)
             })
             if (count > 0) {
                 document.querySelectorAll("[name=Contact]")[0].after(div)
