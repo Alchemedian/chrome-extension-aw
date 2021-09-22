@@ -135,7 +135,8 @@ function makeDiv(style, html, className) {
 function cloneAndReplaceUnSelectableElement(ele) {
     let eleParent = ele.parentElement
     let eleNew = document.createElement(ele.nodeName)
-    eleNew.className = "superwanker"
+    eleNew.id = ele.id
+    eleNew.className = ele.className.replace(/unSelectable/ig, ' ')
     eleNew.innerHTML = ele.innerHTML
     eleParent.removeChild(ele)
     eleParent.appendChild(eleNew)
@@ -167,6 +168,8 @@ function timeAgo(d) {
 if (isSearchPage() || isProfilePage()) {
     (function() {
         document.querySelectorAll("[unselectable]")
+            .forEach(cloneAndReplaceUnSelectableElement)
+        document.querySelectorAll(".unSelectable")
             .forEach(cloneAndReplaceUnSelectableElement)
     })();
 
