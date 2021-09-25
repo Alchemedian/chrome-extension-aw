@@ -130,7 +130,8 @@ form[name=frmProfile] .Padded {
 }
 
 .ku_prof_number_assoc_a {
-    font-size: 6px;
+    font-size: 8px !important;
+    color: red !important;
 }
 
 .ku_prof_whatsapp img.whatsapp {
