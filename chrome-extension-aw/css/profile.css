@@ -125,6 +125,14 @@ form[name=frmProfile] .Padded {
     text-decoration: none;
 }
 
+.ku_prof_number_assoc {
+    font-size: 8px;
+}
+
+.ku_prof_number_assoc_a {
+    font-size: 6px;
+}
+
 .ku_prof_whatsapp img.whatsapp {
     position: relative;
     top: 4px;

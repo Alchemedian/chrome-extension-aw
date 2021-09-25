@@ -567,6 +567,38 @@ function wrapWhatsappLink(telFull) {
     return wa
 }
 
+function wrapNumberSearch(telFull, profileId) {
+    let search = document.createElement('span')
+    let linkedProfiles = findProfilesByPhoneNumber(telFull)
+    search.className = "ku_prof_number_assoc"
+
+    if (Object.keys(linkedProfiles).length > 1) {
+        let links = []
+        Object.keys(linkedProfiles).filter(r => r != 1 + profileId).forEach(pid => {
+            links.push(`<a class='ku_prof_number_assoc_a' target='_blank' href='/ViewProfile.asp?UserID=${pid}'>${pid}</a>`)
+        })
+        search.innerHTML = " Number also on: " + links.join(', ')
+    }
+    return search
+}
+
+function findProfilesByPhoneNumber(telFull) {
+    if (telFull == '+')
+        return {}
+    let telLookup = {}
+    Object.keys(cachedLocalStorage()).forEach(profId => {
+        cachedLocalStorage()[profId].d.forEach(row => {
+            if (row['tel']) {
+                if (!telLookup[row['tel']]) {
+                    telLookup[row['tel']] = {}
+                }
+                telLookup[row['tel']][profId] = 1
+            }
+        })
+    })
+    return telLookup[telFull]
+}
+
 function getCanonicalPhone(html, countryCode = true) {
     let canonical = false
     let regex = /^(\+44|0)\d{10}$/

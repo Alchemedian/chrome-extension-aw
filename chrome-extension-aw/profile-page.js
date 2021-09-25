@@ -110,6 +110,7 @@
                 divLet.innerHTML = `<div><span name="num"></span><span name="wa"></span></div>`
                 divLet.querySelector("[name=num]").innerHTML = telNumFull
                 divLet.querySelector("[name=wa]").append(wrapWhatsappLink(telNumFull))
+                divLet.querySelector("[name=wa]").append(wrapNumberSearch(telNumFull, profileId))
 
                 div.append(divLet)
             })
@@ -517,6 +518,8 @@
 
             let wa = wrapWhatsappLink(telFull)
             ele.append(wa)
+            let se = wrapNumberSearch(telFull, profileId)
+            ele.append(se)
         })
     }, 300)
 
