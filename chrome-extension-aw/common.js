@@ -574,7 +574,7 @@ function wrapNumberSearch(telFull, profileId) {
 
     if (Object.keys(linkedProfiles).length > 1) {
         let links = []
-        Object.keys(linkedProfiles).filter(r => r != 1 + profileId).forEach(pid => {
+        Object.keys(linkedProfiles).filter(r => r != profileId).forEach(pid => {
             links.push(`<a class='ku_prof_number_assoc_a' target='_blank' href='/ViewProfile.asp?UserID=${pid}'>${pid}</a>`)
         })
         search.innerHTML = " Number also on: " + links.join(', ')
