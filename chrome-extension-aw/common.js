@@ -184,6 +184,20 @@ if (isSearchPage() || isProfilePage()) {
         }
         topBar.innerHTML = loc; // + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
         topBar.id = "ku_top_bar"
+        topBar.addEventListener('dblclick', () => {
+            let telNum = prompt("Search AW Civilizer cache for a phone number")
+            if (telNum) {
+                let telFull = telNum
+                    .replace(/ /g, '')
+                    .replace(/^0/, '+44')
+                let matches = findProfilesByPhoneNumber(telFull)
+                if (matches) {
+                    alert("Found: " + Object.keys(matches).join(", "))
+                } else {
+                    alert("No matches found.")
+                }
+            }
+        })
         topBar.style.border = "1px solid grey";
         topBar.style.backgroundColor = "grey";
         topBar.style.color = "white";
