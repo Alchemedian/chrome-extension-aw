@@ -190,11 +190,13 @@ if (isSearchPage() || isProfilePage()) {
                 let telFull = telNum
                     .replace(/ /g, '')
                     .replace(/^0/, '+44')
+                    .replace(/^/, '+')
+                    .replace(/^\++/, '+')
                 let matches = findProfilesByPhoneNumber(telFull)
                 if (matches) {
-                    alert("Found: " + Object.keys(matches).join(", "))
+                    alert(telFull + " matched: " + Object.keys(matches).join(", "))
                 } else {
-                    alert("No matches found.")
+                    alert(`No matches found for ${telFull}`)
                 }
             }
         })
