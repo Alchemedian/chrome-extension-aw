@@ -5,7 +5,7 @@ function bottomBar() {
     const buttonRestore = "_ku_button_cache_restore"
     const fileInput = "_ku_cache_restore_file"
     bBar.innerHTML = `<div class="ku_bottom_bar">
-AW Civlizer:
+AW Civilizer:
 <button id="${buttonSave}">Save local cache to file</button>
 <button id="${buttonRestore}">Restore local cache from file</button>
 <input style="display:none" type="file" id="${fileInput}"><br>
