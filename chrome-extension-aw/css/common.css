@@ -206,3 +206,9 @@
     padding: 10px;
     width: 100%;
 }
+
+.ku_bottom_bar .ku_spacer_with_vertical_line {
+    border-left: 1px solid white;
+    margin-left: 10px;
+    padding-right: 10px;
+}
