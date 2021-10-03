@@ -1,5 +1,22 @@
 const localStorageKeyName = '_ku_data'
 
+const acronymToServiceRegex = {
+    'OWO': [/Oral without Protection\n/, "😋"],
+    'CIM': [/CIM/, "👄"],
+    'Swallow': [/Swallow/, "💊"],
+    'Anal': [/"A"Levels\n/, "🍩"],
+    'DFK': [/French Kissing\n/, "😘"],
+    'Foot Worship': [/Foot Worship/, "👣"],
+    'Rimming': [/Rimming \(giving\)/, "👅"],
+    'Massage': [/Massage/, "💆‍♂️"],
+    'HR': [/Hand Relief/, "✊"],
+    'Strap On': [/Strap On/, "👺"],
+    'WS': [/Watersports/, "🏄"],
+    'BB': [/(Bareback|Unprotected Sex)/, "🤮"],
+    'DT': [/Deep Throat/, "🧕"],
+    'Tie & Tease': [/Tie & Tease/, "✝️"],
+};
+
 function isSearchPage() {
     return !!location.href.match(/\/Search.asp/)
 }
@@ -407,18 +424,12 @@ function parseProfileData(profileHtml) {
         profileData.services = []
 
         let dPref = divProfileHTML.querySelectorAll('#dPref').length !== 0 ? divProfileHTML.querySelectorAll('#dPref')[0].innerText : '';
-        /Oral without Protection\n/.test(dPref) && profileData.services.push('OWO');
-        /CIM/.test(dPref) && profileData.services.push('CIM');
-        /Swallow/.test(dPref) && profileData.services.push('Swallow');
-        /"A" Levels\n/.test(dPref) && profileData.services.push('Anal');
-        /French Kissing\n/.test(dPref && profileData.services.push('DFK'));
-        /Foot Worship/.test(dPref) && profileData.services.push('Foot Worship');
-        /Rimming \(giving\)/.test(dPref) && profileData.services.push('Rimming');
-        /Massage/.test(dPref) && profileData.services.push('Massage');
-        /Hand Relief/.test(dPref) && profileData.services.push('HR');
-        /Strap On/.test(dPref) && profileData.services.push('Strap On');
-        /Watersports/.test(dPref) && profileData.services.push('WS');
-        (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && profileData.services.push('BB');
+
+        Object.keys(acronymToServiceRegex).forEach(acronym => {
+            let reg = acronymToServiceRegex[acronym][0]
+            if (reg.test(dPref))
+                profileData.services.push(acronym);
+        })
     }
 
     let nationality;

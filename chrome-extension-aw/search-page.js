@@ -306,19 +306,11 @@ if (isSearchPage()) {
                     }
                     let services = [];
 
-                    let dPref = divProfileHTML.querySelectorAll('#dPref').length !== 0 ? divProfileHTML.querySelectorAll('#dPref')[0].innerText : '';
-                    /Oral without Protection\n/.test(dPref) && services.push("<span class='ku_tooltip'>😋<span class='ku_tooltiptext'>OWO</span></span>");
-                    /CIM/.test(dPref) && services.push("<span class='ku_tooltip'>👄<span class='ku_tooltiptext'>CIM</span></span>");
-                    /Swallow/.test(dPref) && services.push("<span class='ku_tooltip'>💊<span class='ku_tooltiptext'>Swallow</span></span>");
-                    /"A" Levels\n/.test(dPref) && services.push("<span class='ku_tooltip'>🍩<span class='ku_tooltiptext'>Anal</span></span>");
-                    /French Kissing\n/.test(dPref) && services.push("<span class='ku_tooltip'>😘<span class='ku_tooltiptext'>French Kissing</span></span>");
-                    /Foot Worship/.test(dPref) && services.push("<span class='ku_tooltip'>👣<span class='ku_tooltiptext'>Foot Worship</span></span>");
-                    /Rimming \(giving\)/.test(dPref) && services.push("<span class='ku_tooltip'>👅<span class='ku_tooltiptext'>Rimming</span></span>");
-                    /Massage/.test(dPref) && services.push("<span class='ku_tooltip'>💆‍♂️<span class='ku_tooltiptext'>Massage</span></span>");
-                    /Hand Relief/.test(dPref) && services.push("<span class='ku_tooltip'>✊<span class='ku_tooltiptext'>Hand Relief</span></span>");
-                    /Strap On/.test(dPref) && services.push("<span class='ku_tooltip'>👺<span class='ku_tooltiptext'>Strap On</span></span>");
-                    /Watersports/.test(dPref) && services.push("<span class='ku_tooltip'>🏄<span class='ku_tooltiptext'>Water Sports</span></span>");
-                    (/Bareback/.test(dPref) || /Unprotected Sex/.test(dPref)) && services.push("<span class='ku_tooltip'>bb<span class='ku_tooltiptext'>Bareback</span></span>");
+                    parseProfileData(profileHtml).services.forEach(acronym => {
+                        services.push(
+                            `<span class='ku_tooltip'>${acronymToServiceRegex[acronym][1]}<span class='ku_tooltiptext'>${acronym}</span></span>`
+                        );
+                    })
                     profileDetails.append(makeDiv('',
                         price + '<div class="ku_details_likes">' + services.join(' ') + '</div>', 'ku_details_price_n_likes'));
                 }
