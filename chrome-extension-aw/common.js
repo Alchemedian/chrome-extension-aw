@@ -469,6 +469,9 @@ function removeRepeatedData(arr) {
         let rowCopy = {...row }
         delete rowCopy.ts
         delete lastElement.ts
+        if (row.name == "" && lastElement.name !== "") {
+            row.name = lastElement.name
+        }
         if (JSON.stringify(lastElement) !== JSON.stringify(rowCopy)) {
             retArr.push(row)
         }
