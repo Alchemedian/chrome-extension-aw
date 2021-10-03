@@ -217,6 +217,22 @@ if (isSearchPage() || isProfilePage()) {
                 }
             }
         })
+
+        topBar.addEventListener('contextmenu', function(ev) {
+            ev.preventDefault();
+            let save = confirm("You right clicked the AW Civlilizer top bar. Did you wish to save your local cache?")
+            if (save) {
+                let aTemp = document.createElement('a');
+                aTemp.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(localStorage[localStorageKeyName])));
+                aTemp.setAttribute('download', "AW-Civlizer-dump-" + (new Date().toDateString().replace(/ /g, '-')));
+                aTemp.click();
+            }
+
+            return false;
+        }, false);
+
+
+
         topBar.style.border = "1px solid grey";
         topBar.style.backgroundColor = "grey";
         topBar.style.color = "white";
