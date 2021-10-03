@@ -100,7 +100,7 @@
             document.querySelectorAll("[name=Contact]") && document.querySelectorAll("[name=Contact]")[0]) {
             let div = document.createElement('div')
             div.className = "_ku_cached_phone"
-            div.innerHTML = " AW Civilizer cached: "
+            div.innerHTML = ` ${APP_NAME} cached: `
             let count = 0
             hist.forEach(telNumFull => {
                 if (telNumFull.length != 13)
@@ -125,7 +125,7 @@
         if (histNames.length !== 0) {
             let ele = document.createElement('div')
             let gn = histNames.length == 1 ? '' : 's'
-            ele.innerHTML = `Cached previous name${gn}: <b>${histNames.join(', ')}</b> (via AW Civiliser)`
+            ele.innerHTML = `Cached previous name${gn}: <b>${histNames.join(', ')}</b> (via ${APP_NAME})`
             nameElement.after(ele)
         }
 
@@ -266,7 +266,7 @@
                     console.log(`Deleted profile image - ${src}`)
                     imgLoad.onload = () => {
                         if (imgLoad.width > 50) {
-                            let htmlAdditional = wrapImg(src, '<span class="_ku_image_deleted">❌ Deleted. Showing from AW Civiliser cache</span>', 'ku_deleted_image', src)
+                            let htmlAdditional = wrapImg(src, `<span class="_ku_image_deleted">❌ Deleted. Showing from ${APP_NAME} cache</span>`, 'ku_deleted_image', src)
                             divGallery2.insertAdjacentHTML('beforeend', htmlAdditional)
                         } else {
                             //TODO: remove from localStorage
@@ -570,7 +570,7 @@
     //if profile's unavailable, show cached data:
     if (document.querySelector('p.Error')) {
         let divHist = document.createElement('div')
-        divHist.innerHTML = '<h1>AW Civliser cached data:</h1>'
+        divHist.innerHTML = `<h1>${APP_NAME} cached data:</h1>`
         let profHist = {...getProfileHistory(profileId) }
         let json = document.createElement('pre')
         profHist.d = profHist.d.map(a => {

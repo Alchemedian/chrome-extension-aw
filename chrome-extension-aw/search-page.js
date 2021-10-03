@@ -308,7 +308,7 @@ if (isSearchPage()) {
 
                     parseProfileData(profileHtml).services.forEach(acronym => {
                         services.push(
-                            `<span class='ku_tooltip'>${acronymToServiceRegex[acronym][1]}<span class='ku_tooltiptext'>${acronym}</span></span>`
+                            `<span class='ku_tooltip'>${ACRONYM_TO_SERVICE_REGEX[acronym][1]}<span class='ku_tooltiptext'>${acronym}</span></span>`
                         );
                     })
                     profileDetails.append(makeDiv('',

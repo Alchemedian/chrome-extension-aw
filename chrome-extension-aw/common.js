@@ -1,22 +1,3 @@
-const localStorageKeyName = '_ku_data'
-
-const acronymToServiceRegex = {
-    'OWO': [/Oral without Protection\n/, "😋"],
-    'CIM': [/CIM/, "👄"],
-    'Swallow': [/Swallow/, "💊"],
-    'Anal': [/"A"Levels\n/, "🍩"],
-    'DFK': [/French Kissing\n/, "😘"],
-    'Foot Worship': [/Foot Worship/, "👣"],
-    'Rimming': [/Rimming \(giving\)/, "👅"],
-    'Massage': [/Massage/, "💆‍♂️"],
-    'HR': [/Hand Relief/, "✊"],
-    'Strap On': [/Strap On/, "👺"],
-    'WS': [/Watersports/, "🏄"],
-    'BB': [/(Bareback|Unprotected Sex)/, "🤮"],
-    'DT': [/Deep Throat/, "🧕"],
-    'Tie & Tease': [/Tie & Tease/, "✝️"],
-};
-
 function isSearchPage() {
     return !!location.href.match(/\/Search.asp/)
 }
@@ -202,7 +183,7 @@ if (isSearchPage() || isProfilePage()) {
         topBar.innerHTML = loc; // + "  &nbsp;&nbsp;" + String(new Date()).split(' ').slice(0, 4).join(' ');
         topBar.id = "ku_top_bar"
         topBar.addEventListener('dblclick', () => {
-            let telNum = prompt("Search AW Civilizer cache for a phone number")
+            let telNum = prompt(`Search ${APP_NAME} cache for a phone number`)
             if (telNum) {
                 let telFull = telNum
                     .replace(/ /g, '')
@@ -426,8 +407,8 @@ function parseProfileData(profileHtml) {
 
         let dPref = divProfileHTML.querySelectorAll('#dPref').length !== 0 ? divProfileHTML.querySelectorAll('#dPref')[0].innerText : '';
 
-        Object.keys(acronymToServiceRegex).forEach(acronym => {
-            let reg = acronymToServiceRegex[acronym][0]
+        Object.keys(ACRONYM_TO_SERVICE_REGEX).forEach(acronym => {
+            let reg = ACRONYM_TO_SERVICE_REGEX[acronym][0]
             if (reg.test(dPref))
                 profileData.services.push(acronym);
         })
@@ -452,8 +433,8 @@ function parseProfileData(profileHtml) {
 
 function cachedLocalStorage(dataSave = false) {
     if (!cachedLocalStorage.cache) {
-        if (localStorage[localStorageKeyName]) {
-            cachedLocalStorage.cache = JSON.parse(LZString.decompress(localStorage[localStorageKeyName]))
+        if (localStorage[LOCAL_STORAGE_KEY_NAME]) {
+            cachedLocalStorage.cache = JSON.parse(LZString.decompress(localStorage[LOCAL_STORAGE_KEY_NAME]))
         } else {
             cachedLocalStorage.cache = {}
         }
@@ -467,7 +448,7 @@ function cachedLocalStorage(dataSave = false) {
             //clean up duplicate data:
             Object.keys(dataSave).forEach(id => { dataSave[id].d = removeRepeatedData(dataSave[id].d) })
             cachedLocalStorage.setTimeout = false;
-            localStorage[localStorageKeyName] = LZString.compress(JSON.stringify(dataSave))
+            localStorage[LOCAL_STORAGE_KEY_NAME] = LZString.compress(JSON.stringify(dataSave))
         }, 100)
     }
 

@@ -17,6 +17,7 @@
             "css/search.css"
         ],
         "js": [
+            "constants.js",
             "common.js",
             "lib/lz-string.js",
             "icon-base64.js",
