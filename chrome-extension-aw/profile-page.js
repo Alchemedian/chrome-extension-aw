@@ -281,7 +281,7 @@
         imgIcon.src = iconBase64
 
         function fileSavePrefix() {
-            return `aw_civilizer_${profileId}_${profileName.replace(/\W/g, '-')}`
+            return `${APP_NAME.replace(/ /g,'_').toLowerCase()}_${profileId}_${profileName.replace(/\W/g, '-')}`
         }
 
         function downloadImage(src, nameSuffix = '') {
