@@ -38,7 +38,7 @@ ${APP_NAME}:
     document.getElementById(buttonSave).addEventListener('click', () => {
         let aTemp = document.createElement('a');
         aTemp.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(localStorage[LOCAL_STORAGE_KEY_NAME])));
-        aTemp.setAttribute('download', "AW-Civlizer-dump-" + (new Date().toDateString().replace(/ /g, '-')));
+        aTemp.setAttribute('download', "AW-Civlizer-dump-" + (new Date().toDateString().replace(/ /g, '-') + ".civilizer"));
         aTemp.click();
     })
 
