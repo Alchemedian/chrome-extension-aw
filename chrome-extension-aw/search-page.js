@@ -305,10 +305,15 @@ if (isSearchPage()) {
                         }
                     }
                     let services = [];
+                    let parsedProfile = parseProfileData(profileHtml)
 
-                    parseProfileData(profileHtml).services.forEach(acronym => {
+                    parsedProfile.services.forEach(acronym => {
+                        let pushHtml = `<span class='ku_tooltip'>${ACRONYM_TO_SERVICE_REGEX[acronym][1]}<span class='ku_tooltiptext'>${acronym}</span></span>`
+                        if (parsedProfile.misc[acronym]) {
+                            pushHtml = `<span class='ku_tooltip'>${ACRONYM_TO_SERVICE_REGEX[acronym][1]}<span class='ku_tooltiptext '>${acronym}: <span class='ku_tooltiptext_small_font'>${parsedProfile.misc[acronym]}</span></span></span>`
+                        }
                         services.push(
-                            `<span class='ku_tooltip'>${ACRONYM_TO_SERVICE_REGEX[acronym][1]}<span class='ku_tooltiptext'>${acronym}</span></span>`
+                            pushHtml
                         );
                     })
                     profileDetails.append(makeDiv('',

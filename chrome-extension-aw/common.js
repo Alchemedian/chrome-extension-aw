@@ -404,13 +404,31 @@ function parseProfileData(profileHtml) {
         }
 
         profileData.services = []
-
-        let dPref = divProfileHTML.querySelectorAll('#dPref').length !== 0 ? divProfileHTML.querySelectorAll('#dPref')[0].innerText : '';
+        profileData.misc = {}
 
         Object.keys(ACRONYM_TO_SERVICE_REGEX).forEach(acronym => {
-            let reg = ACRONYM_TO_SERVICE_REGEX[acronym][0]
-            if (reg.test(dPref))
-                profileData.services.push(acronym);
+            let regArray = ACRONYM_TO_SERVICE_REGEX[acronym][0]
+            let qSelector = ACRONYM_TO_SERVICE_REGEX[acronym][2]
+            let eleSelected = divProfileHTML.querySelector(qSelector)
+            let eleText = eleSelected ? eleSelected.innerText : '';
+            if (!Array.isArray(regArray))
+                regArray = [regArray]
+            for (let i = 0; i < regArray.length; i++) {
+                let matchType = Object.prototype.toString.call(regArray[i])
+                if (matchType == '[object RegExp]') {
+                    if (regArray[i].test(eleText)) {
+                        profileData.services.push(acronym)
+                        break
+                    }
+                } else if (matchType == '[object Function]') {
+                    let txt = regArray[i](eleText)
+                    if (txt) {
+                        profileData.services.push(acronym)
+                        profileData.misc[acronym] = txt
+                        break
+                    }
+                }
+            }
         })
     }
 

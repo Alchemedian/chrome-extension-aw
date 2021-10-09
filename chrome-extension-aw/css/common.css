@@ -161,6 +161,10 @@
     opacity: 0;
 }
 
+.ku_tooltiptext_small_font {
+    font-size: 10px;
+}
+
 .ku_tooltip .ku_tooltiptext_left {
     margin-left: -90px;
 }

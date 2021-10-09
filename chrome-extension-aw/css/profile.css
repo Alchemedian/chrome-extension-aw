@@ -1,5 +1,6 @@
 form[name=frmProfile] {
     word-break: break-all;
+    overflow-wrap: anywhere;
 }
 
 form[name=frmProfile] .Padded {

@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "AW Civilizer",
-    "version": "0.134",
+    "version": "0.135",
     "icons": {
         "16": "icon-16.png",
         "48": "icon-48.png",
@@ -17,6 +17,7 @@
             "css/search.css"
         ],
         "js": [
+            "nba-detection.js",
             "constants.js",
             "common.js",
             "lib/lz-string.js",
