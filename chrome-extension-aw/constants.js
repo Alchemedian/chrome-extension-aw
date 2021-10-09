@@ -6,7 +6,7 @@ const ACRONYM_TO_SERVICE_REGEX = {
     'OWO': [/Oral without Protection\n/, "😋"],
     'CIM': [/CIM/, "👄"],
     'Swallow': [/Swallow/, "💊"],
-    'Anal': [/"A"Levels\n/, "🍩"],
+    'Anal': [/"A" Levels/, "🍩"],
     'DFK': [/French Kissing\n/, "😘"],
     'Foot Worship': [/Foot Worship/, "👣"],
     'Rimming': [/Rimming \(giving\)/, "👅"],
