@@ -1,4 +1,6 @@
 function isNba(text) {
+    const searchNeighbourCharacterThreshold = 100
+
     let textUnits = [text]
     for (let i = 0; i < textUnits.length; i++) {
         let txt = textUnits[i].toLowerCase()
@@ -16,8 +18,8 @@ function isNba(text) {
 
     function matchTextUnit(txt) {
         const wordHierarchy = [
-            [/\bblack\b/],
-            [/\bm(e|a)n\b/, /\bpeople\b/, /\bguys?\b/, /\bclients?\b/, /experience/, /\bgentlem(e|a)n\b/, ],
+            [/\bblacks?\b/],
+            [/\bm(e|a)ns?\b/, 'blacks', /\bpeople\b/, /\bguys?\b/, /\bclients?\b/, /\bexperiences?\b/, /\bgentlem(e|a)n\b/, ],
             ['no', /don.?t/, "not"],
         ]
         let matchedPositions = []
@@ -65,11 +67,11 @@ function isNba(text) {
 
 
     function strContains(haystack, needle, near) {
-        const searchThreshold = 200
+
         let haystackTrimmed, start = 0
         if (near) {
-            start = Math.max(near - searchThreshold, 0)
-            let end = Math.min(near + searchThreshold, haystack.length)
+            start = Math.max(near - searchNeighbourCharacterThreshold, 0)
+            let end = Math.min(near + searchNeighbourCharacterThreshold, haystack.length)
             haystackTrimmed = haystack.slice(start, end)
         } else {
             haystackTrimmed = haystack
