@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "AW Civilizer",
-    "version": "0.136",
+    "version": "0.137",
     "icons": {
         "16": "icon-16.png",
         "48": "icon-48.png",
@@ -26,7 +26,8 @@
             "search-page.js",
             "bottom-bar.js",
             "lib/html2canvas.min.js",
-            "lib/flags.js"
+            "lib/flags.js",
+            "search-private-pics.js"
         ]
     }]
 }
