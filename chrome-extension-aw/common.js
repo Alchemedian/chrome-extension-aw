@@ -523,8 +523,8 @@ function saveProfileData(uid, data, onProfilePage = false, gallery = {}) {
             return JSON.stringify({...a, ts: 1 }) !== JSON.stringify({...b, ts: 1 })
         }
 
-        //limit to 50 records
-        store[uid].d.slice(-50)
+        //limit to 100 records
+        store[uid].d.slice(-100)
 
         store[uid].c++;
         if (onProfilePage) {

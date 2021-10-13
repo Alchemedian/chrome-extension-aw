@@ -263,10 +263,15 @@
                 if (!shownDict[src]) {
                     let imgLoad = new Image()
                     imgLoad.src = src
-                    console.log(`Deleted profile image - ${src}`)
+                    let legend = `<span class="_ku_image_deleted">❌ Deleted. Showing from ${APP_NAME} cache</span>`
+                    if (galleryHistorical[src] == 'pg') {
+                        legend = `<span class="_ku_image_deleted">Private gallery image. Showing from ${APP_NAME} cache</span>`
+                    }
+                    console.log(`Deleted/PG profile image - ${src}`)
+
                     imgLoad.onload = () => {
                         if (imgLoad.width > 50) {
-                            let htmlAdditional = wrapImg(src, `<span class="_ku_image_deleted">❌ Deleted. Showing from ${APP_NAME} cache</span>`, 'ku_deleted_image', src)
+                            let htmlAdditional = wrapImg(src, legend, 'ku_deleted_image', src)
                             divGallery2.insertAdjacentHTML('beforeend', htmlAdditional)
                         } else {
                             //TODO: remove from localStorage
