@@ -25,9 +25,9 @@
             "profile-page.js",
             "search-page.js",
             "bottom-bar.js",
+            "search-private-pics.js",
             "lib/html2canvas.min.js",
-            "lib/flags.js",
-            "search-private-pics.js"
+            "lib/flags.js"
         ]
     }]
 }
