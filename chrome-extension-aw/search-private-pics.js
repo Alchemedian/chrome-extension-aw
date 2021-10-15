@@ -89,8 +89,10 @@ function revealPGImages() {
                         cLocStor[profId].g = {}
                     }
                     cLocStor[profId].g[url] = 'pg'
+                    console.log("saving", profId, url)
                 })
             }
+            delete pgCache[profId]
         })
         cachedLocalStorage(cLocStor) //commit to local store
     }
