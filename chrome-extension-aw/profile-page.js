@@ -587,4 +587,46 @@
         document.querySelector('p.Error').parentNode.append(divHist)
     }
 
+    function searchPrivateGallery(keywords) {
+        let frm = document.createElement("form")
+        frm.action = "https://www.adultwork.com/SearchPictures.asp"
+        frm.method = "POST"
+        frm.target = "_blank"
+
+        let inpKeywords = document.createElement("input")
+        inpKeywords.name = "strKeywords"
+        inpKeywords.value = keywords
+        frm.append(inpKeywords)
+
+        "cboMinimumDimension=0&cboGalleryPrice=0&cboGalleryQuantity=0&cboMaxPicsPerUser=0&cboGenderID=0&cboAge=%28all%29&cboQuestionID_7=%28all%29&cboQuestionID_12=%28all%29&cboQuestionID_67=%28all%29&rdoOrderBy=4&rdoOrderByDirection=1&btnSearch=Search&CommandID=2&PageNo=1&QuestionIDs=".split("&").forEach(item => {
+            let inp = document.createElement("input")
+            inp.name = item.split("=")[0]
+            inp.value = decodeURIComponent(item.split("=")[1])
+            frm.append(inp)
+        })
+
+        let div = document.createElement('div')
+        div.style.display = "none"
+        div.appendChild(frm)
+        document.querySelector('div').append(div)
+        frm.submit()
+        div.parentElement.removeChild(div)
+        return frm
+    }
+
+    document.querySelectorAll("#tblVPics .WrapAny").forEach(ele => {
+        if (ele.innerText) {
+            let btn = document.createElement("button")
+            btn.className = "_ku_pg_search"
+            let keywords = ele.innerText
+            btn.innerText = APP_NAME + " Search"
+            btn.onclick = () => {
+                searchPrivateGallery(keywords)
+                return false
+            }
+            ele.appendChild(btn)
+        }
+    })
+
+
 })();

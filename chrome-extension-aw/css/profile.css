@@ -171,3 +171,7 @@ form[name=frmProfile] .Padded {
     padding: 2px;
     border-radius: 3px;
 }
+
+._ku_pg_search {
+    font-size: 10px;
+}

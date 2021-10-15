@@ -9,8 +9,10 @@ if (isPicSearchPage()) {
 function revealPGImages() {
     //make profile links open in new tab
     document.querySelectorAll("a.Label").forEach(a => {
-        a.href = `https://www.adultwork.com/ViewProfile.asp?UserID=${a.href.replace(/[^0-9]/g,'')}`;
+        let profId = a.href.replace(/[^0-9]/g, '')
+        a.href = `https://www.adultwork.com/ViewProfile.asp?UserID=${profId}`;
         a.target = "_blank"
+        a.setAttribute('profId', profId)
     })
 
     let pgCache = {}
@@ -53,16 +55,15 @@ function revealPGImages() {
             if (image.naturalWidth < 2) {
                 image.remove();
             }
-        }
-        if (image.naturalWidth > 25) {
-            let aTag = ele.parentElement.parentElement.parentElement.querySelector('a.Label')
-            if (aTag && aTag.href) {
-
-                let profId = parseInt(aTag.href.replace(/[^0-9]/g, ''))
-                if (!pgCache[profId]) {
-                    pgCache[profId] = {}
+            if (image.naturalWidth > 25) {
+                let aTag = ele.parentElement.parentElement.parentElement.querySelector('a.Label')
+                if (aTag && aTag.href) {
+                    let profId = parseInt(aTag.href.replace(/[^0-9]/g, ''))
+                    if (!pgCache[profId]) {
+                        pgCache[profId] = {}
+                    }
+                    pgCache[profId][url] = "pg"
                 }
-                pgCache[profId][url] = "pg"
             }
         }
 
@@ -73,20 +74,24 @@ function revealPGImages() {
         ele.parentElement.parentElement.before(image);
     }
 
-    setTimeout(() => {
+    setInterval(updateLocalStore, 700)
+
+    function updateLocalStore() {
+        if (JSON.stringify(pgCache) === updateLocalStore.pgCacheString) {
+            return
+        }
+        updateLocalStore.pgCacheString = JSON.stringify(pgCache)
         let cLocStor = cachedLocalStorage()
-            // console.log(pgCache)
         Object.keys(pgCache).forEach(profId => {
             if (cLocStor[profId]) {
                 Object.keys(pgCache[profId]).forEach(url => {
-                        if (!cLocStor[profId].g) {
-                            cLocStor[profId].g = {}
-                        }
-                        cLocStor[profId].g[url] = 'pg'
-                    })
-                    // console.log(cLocStor[profId].g)
+                    if (!cLocStor[profId].g) {
+                        cLocStor[profId].g = {}
+                    }
+                    cLocStor[profId].g[url] = 'pg'
+                })
             }
         })
         cachedLocalStorage(cLocStor) //commit to local store
-    }, 2200)
+    }
 }
