@@ -621,6 +621,7 @@
             let keywords = ele.innerText
             btn.innerText = APP_NAME + " Search"
             btn.onclick = () => {
+                btn.classList.add("_ku_pg_search_button_clicked")
                 searchPrivateGallery(keywords)
                 return false
             }

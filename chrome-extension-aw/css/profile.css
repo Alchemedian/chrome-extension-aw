@@ -175,3 +175,8 @@ form[name=frmProfile] .Padded {
 ._ku_pg_search {
     font-size: 10px;
 }
+
+._ku_pg_search_button_clicked {
+    background: darkgray;
+    color: white;
+}
