@@ -265,7 +265,7 @@
                     imgLoad.src = src
                     let legend = `<span class="_ku_image_deleted">❌ Deleted. Showing from ${APP_NAME} cache</span>`
                     if (galleryHistorical[src] == 'pg') {
-                        legend = `<span class="_ku_image_deleted">Private gallery image. Showing from ${APP_NAME} cache</span>`
+                        legend = `<span class="_ku_image_deleted" title="This was saved when you visited https://www.adultwork.com/SearchPictures.asp">🔒 Private gallery. Showing from ${APP_NAME} cache</span>`
                     }
                     console.log(`Deleted/PG profile image - ${src}`)
 
