@@ -598,7 +598,7 @@
         inpKeywords.value = keywords
         frm.append(inpKeywords)
 
-        "cboMinimumDimension=0&cboGalleryPrice=0&cboGalleryQuantity=0&cboMaxPicsPerUser=0&cboGenderID=0&cboAge=%28all%29&cboQuestionID_7=%28all%29&cboQuestionID_12=%28all%29&cboQuestionID_67=%28all%29&rdoOrderBy=4&rdoOrderByDirection=1&btnSearch=Search&CommandID=2&PageNo=1&QuestionIDs=".split("&").forEach(item => {
+        "cboMinimumDimension=0&cboGalleryPrice=0&cboGalleryQuantity=0&cboMaxPicsPerUser=0&cboGenderID=0&cbxSelIsEscort=ON&cboAge=%28all%29&cboQuestionID_7=%28all%29&cboQuestionID_12=%28all%29&cboQuestionID_67=%28all%29&rdoOrderBy=4&rdoOrderByDirection=1&btnSearch=Search&CommandID=2&PageNo=1&QuestionIDs=".split("&").forEach(item => {
             let inp = document.createElement("input")
             inp.name = item.split("=")[0]
             inp.value = decodeURIComponent(item.split("=")[1])
