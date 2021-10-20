@@ -81,7 +81,7 @@ function revealPGImages() {
             return
         }
         updateLocalStore.pgCacheString = JSON.stringify(pgCache)
-        let cLocStor = cachedLocalStorage()
+        let cLocStor = cachedLocalStorage(false, true)
         Object.keys(pgCache).forEach(profId => {
             if (cLocStor[profId]) {
                 Object.keys(pgCache[profId]).forEach(url => {
@@ -90,6 +90,7 @@ function revealPGImages() {
                     }
                     cLocStor[profId].g[url] = 'pg'
                     console.log("saving", profId, url)
+                    console.log(cLocStor[profId])
                 })
             }
             delete pgCache[profId]

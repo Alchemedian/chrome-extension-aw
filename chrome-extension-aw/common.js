@@ -449,8 +449,8 @@ function parseProfileData(profileHtml) {
     return profileData
 }
 
-function cachedLocalStorage(dataSave = false) {
-    if (!cachedLocalStorage.cache) {
+function cachedLocalStorage(dataSave = false, getFresh = false) {
+    if (!cachedLocalStorage.cache || getFresh) {
         if (localStorage[LOCAL_STORAGE_KEY_NAME]) {
             cachedLocalStorage.cache = JSON.parse(LZString.decompress(localStorage[LOCAL_STORAGE_KEY_NAME]))
         } else {
