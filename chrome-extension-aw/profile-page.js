@@ -264,8 +264,11 @@
                     let imgLoad = new Image()
                     imgLoad.src = src
                     let legend = `<span class="_ku_image_deleted">❌ Deleted. Showing from ${APP_NAME} cache</span>`
-                    if (galleryHistorical[src] == 'pg') {
-                        legend = `<span class="_ku_image_deleted" title="This was saved when you visited https://www.adultwork.com/SearchPictures.asp">🔒 Private gallery. Showing from ${APP_NAME} cache</span>`
+                    if (/^pg/.test(galleryHistorical[src])) {
+                        let keywords = galleryHistorical[src].replace(/^pg\|?/, '')
+                        keywords = keywords ? `(${keywords})\n` : ''
+                        keywords = keywords.replace(/\'/g, '');
+                        legend = `<span class="_ku_image_deleted" title="${keywords}This was saved when you visited\nhttps://www.adultwork.com/SearchPictures.asp">🔒 Private gallery. Showing from ${APP_NAME} cache</span>`
                     }
                     console.log(`Deleted/PG profile image - ${src}`)
 

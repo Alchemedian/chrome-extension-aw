@@ -77,7 +77,9 @@ function revealPGImages() {
     setInterval(updateLocalStore, 700)
 
     function updateLocalStore() {
-        if (JSON.stringify(pgCache) === updateLocalStore.pgCacheString) {
+        let nothingToUpdate = JSON.stringify(pgCache) === updateLocalStore.pgCacheString
+        nothingToUpdate = nothingToUpdate || Object.keys(pgCache).length === 0
+        if (nothingToUpdate) {
             return
         }
         updateLocalStore.pgCacheString = JSON.stringify(pgCache)
@@ -88,9 +90,9 @@ function revealPGImages() {
                     if (!cLocStor[profId].g) {
                         cLocStor[profId].g = {}
                     }
-                    cLocStor[profId].g[url] = 'pg'
+                    cLocStor[profId].g[url] = `pg|${document.querySelector("input[name=strKeywords]").value}`
                     console.log("saving", profId, url)
-                    console.log(cLocStor[profId])
+                        // console.log(cLocStor[profId])
                 })
             }
             delete pgCache[profId]
