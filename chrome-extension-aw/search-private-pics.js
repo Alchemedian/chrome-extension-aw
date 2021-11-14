@@ -92,7 +92,6 @@ function revealPGImages() {
                     }
                     cLocStor[profId].g[url] = `pg|${document.querySelector("input[name=strKeywords]").value}`
                     console.log("saving", profId, url)
-                        // console.log(cLocStor[profId])
                 })
             }
             delete pgCache[profId]

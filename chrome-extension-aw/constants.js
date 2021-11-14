@@ -17,8 +17,8 @@ const ACRONYM_TO_SERVICE_REGEX = {
     'HR': [/Hand Relief/, "✊", "#dPref"],
     'Strap On': [/Strap On/, "👺", "#dPref"],
     'Watersports': [/Watersports/, "🏄", "#dPref"],
-    'Bareback': [/(Bareback|Unprotected Sex)/, "🤮", "#dPref"],
     'Deep Throat': [/Deep Throat/, "🧕", "#dPref"],
     'Tie & Tease': [/Tie & Tease/, "✝️", "#dPref"],
-    'Prostate Massage': [/Prostate Massage/, "👆", "#dPref"],
+    'Prostate Massage': [/Prostate Massage/, "👉", "#dPref"],
+    'Bareback': [/(Bareback|Unprotected Sex)/, "BB", "#dPref"],
 }
