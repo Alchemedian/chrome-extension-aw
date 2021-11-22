@@ -1,4 +1,4 @@
-function isNba(text) {
+function textPatternMatch(text, wordHierarchy) {
     const searchNeighbourCharacterThreshold = 100
 
     let textUnits = [text]
@@ -17,11 +17,6 @@ function isNba(text) {
     return false
 
     function matchTextUnit(txt) {
-        const wordHierarchy = [
-            [/\bblacks?\b/],
-            [/\bm(e|a)ns?\b/, 'blacks', /\bpeople\b/, /\bguys?\b/, /\bclients?\b/, /\bexperiences?\b/, /\bgentlem(e|a)n\b/, ],
-            ['no', /don.?t/, "not"],
-        ]
         let matchedPositions = []
         wordHierarchy.forEach(x => matchedPositions.push([])) //initate with blanks
 
@@ -86,4 +81,20 @@ function isNba(text) {
         }
         return [false, -1]
     }
+}
+
+
+function isNba(text) {
+    return textPatternMatch(text, [
+        [/\bblacks?\b/],
+        [/\bm(e|a)ns?\b/, 'blacks', /\bpeople\b/, /\bguys?\b/, /\bclients?\b/, /\bexperiences?\b/, /\bgentlem(e|a)n\b/, ],
+        ['no', /don.?t/, "not"],
+    ])
+}
+
+function extrasBby(text) {
+    return textPatternMatch(text, [
+        [/\bextra?\b/],
+    ])
+
 }

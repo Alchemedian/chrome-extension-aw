@@ -20,5 +20,6 @@ const ACRONYM_TO_SERVICE_REGEX = {
     'Deep Throat': [/Deep Throat/, "🧕", "#dPref"],
     'Tie & Tease': [/Tie & Tease/, "✝️", "#dPref"],
     'Prostate Massage': [/Prostate Massage/, "👉", "#dPref"],
+    'Extra bby': [extrasBby, "💰", "form[name=frmProfile]"],
     'Bareback': [/(Bareback|Unprotected Sex)/, "BB", "#dPref"],
 }
