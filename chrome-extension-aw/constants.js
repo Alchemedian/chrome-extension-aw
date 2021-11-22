@@ -6,6 +6,7 @@ const LOCAL_STORAGE_KEY_NAME = '_ku_data'
 // acronym: [regex or function, emoji representaion, querySelector to search]
 const ACRONYM_TO_SERVICE_REGEX = {
     'NBA': [isNba, "🙅🏾‍♂️", "form[name=frmProfile]"],
+    'Extra bby': [extrasBby, "💰", "form[name=frmProfile]"],
     'OWO': [/Oral without Protection\n/, "😋", "#dPref"],
     'CIM': [/CIM/, "👄", "#dPref"],
     'Swallow': [/Swallow/, "💊", "#dPref"],
@@ -20,6 +21,5 @@ const ACRONYM_TO_SERVICE_REGEX = {
     'Deep Throat': [/Deep Throat/, "🧕", "#dPref"],
     'Tie & Tease': [/Tie & Tease/, "✝️", "#dPref"],
     'Prostate Massage': [/Prostate Massage/, "👉", "#dPref"],
-    'Extra bby': [extrasBby, "💰", "form[name=frmProfile]"],
     'Bareback': [/(Bareback|Unprotected Sex)/, "BB", "#dPref"],
 }
