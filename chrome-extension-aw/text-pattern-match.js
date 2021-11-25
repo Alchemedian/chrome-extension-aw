@@ -86,7 +86,7 @@ function textPatternMatch(text, wordHierarchy) {
 
 function isNba(text) {
     return textPatternMatch(text, [
-        [/\bblacks?\b/],
+        [/\bblacks?\b/, /\bafrican?\b/, /\bcaribean\b/],
         [/\bm(e|a)ns?\b/, 'blacks', /\bpeople\b/, /\bguys?\b/, /\bclients?\b/, /\bexperiences?\b/, /\bgentlem(e|a)n\b/, ],
         ['no', /don.?t/, "not"],
     ])
