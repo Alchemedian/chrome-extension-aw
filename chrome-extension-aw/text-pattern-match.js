@@ -95,7 +95,7 @@ function isNba(text) {
 function extrasBby(text) {
     return textPatternMatch(text, [
         [/\bextras?\b/],
-        ['£'],
+        ['[0-9]+'],
     ])
 
 }
