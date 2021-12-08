@@ -635,9 +635,14 @@ function getCanonicalPhone(html, countryCode = true) {
     if (html.match(regex)) {
         canonical = html.match(regex)[0].replace(/^0/, '+44')
     }
-    let tel = html.match(/"telephone".+/g)
-    if (tel && tel[0]) {
-        let tels = tel[0].match(/"telephone".+/g)[0].match(/[0-9+]+/g)
+    // let tel = html.match(/"telephone".+/g)
+    let tempDiv = document.createElement('div')
+    tempDiv.innerHTML = html
+    let telElement = tempDiv.querySelector('[itemprop="telephone"]')
+    let tel = telElement ? telElement.innerText : ''
+
+    if (tel && tel.match(/[0-9+]+/g)) {
+        let tels = tel.match(/[0-9+]+/g)
         if (tels.length == 2 && tels[1].substr(-10) == tels[0].substr(-10)) {
             tels.pop()
         }
