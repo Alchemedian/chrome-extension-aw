@@ -240,3 +240,9 @@ div.ku_get_live_review_counts:hover {
     background-color: #eee;
     color: black;
 }
+
+.ku_phone_shown {
+    float: right;
+    font-size: 13px;
+    margin-top: 3px;
+}
