@@ -248,8 +248,11 @@ if (isSearchPage()) {
                 let historicPhone = ""
 
                 if (!telFull) {
-                    telFull = getLastHistoricPhone(userId)
-                    historicPhone = "<div class='ku_cached_phone'>AW Civilizer cached</div>"
+                    let telHist = getLastHistoricPhone(userId)
+                    if (telHist) {
+                        telFull = telHist[0]
+                        historicPhone = `<div class='ku_cached_phone' title="Saved: ${telHist[1]}">AW Civilizer cached</div>`
+                    }
                 }
                 if (telFull) {
                     let telShort = getShortPhone(telFull)
@@ -465,8 +468,8 @@ if (isSearchPage()) {
 
 
     //on scroll, load UKP review data
-    window.addEventListener('scroll', updateUKPReviewCountsIfVisible)
-    window.addEventListener('resize', updateUKPReviewCountsIfVisible)
+    window.addEventListener('scroll', updateUKPReviewCountsIfVisible);
+    window.addEventListener('resize', updateUKPReviewCountsIfVisible);
 
     function updateUKPReviewCountsIfVisible() {
         document.querySelectorAll('.ku_review_details_to_fetch').forEach(ele => {

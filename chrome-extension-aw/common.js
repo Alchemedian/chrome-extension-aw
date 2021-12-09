@@ -593,7 +593,7 @@ function getLastHistoricPhone(id) {
     if (history.d) {
         for (let i = 0; i < history.d.length; i++) {
             if (history.d[i].tel) {
-                return history.d[i].tel
+                return [history.d[i].tel, String(new Date(history.d[i].ts).toLocaleString())]
             }
         }
     }
