@@ -251,7 +251,7 @@ if (isSearchPage()) {
                     let telHist = getLastHistoricPhone(userId)
                     if (telHist) {
                         telFull = telHist[0]
-                        historicPhone = `<div class='ku_cached_phone' title="Saved: ${telHist[1]}">AW Civilizer cached <a style='color:black' href='https://my.adultwork.com/${userId}/' target='_blank'>my.aw site</a></div>`
+                        historicPhone = `<div class='ku_cached_phone' title="Saved: ${telHist[1]}">AW Civilizer cached</div>`
                     }
                 }
                 if (telFull) {
@@ -270,6 +270,7 @@ if (isSearchPage()) {
                         `<div class='nophone'></div>`
                     ))
                 }
+                profileDetails.append(makeDiv('', `<a style='color:black' href='https://my.adultwork.com/${userId}/' target='_blank'>my.aw site</a>`))
                 if (profileHtml && profileHtml[0]) {
                     let hourly = divProfileHTML.querySelector('#tdRI1')
                     if (hourly) {
