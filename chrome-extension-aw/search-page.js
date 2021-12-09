@@ -245,8 +245,14 @@ if (isSearchPage()) {
                 let profileDetails = document.createElement('div')
                 profileDetails.className = "ku_details"
                 let telFull = getCanonicalPhone(profileHtml)
+                let historicPhone = ""
+
+                if (!telFull) {
+                    telFull = getLastHistoricPhone(userId)
+                    historicPhone = "<div class='ku_cached_phone'>AW Civilizer cached</div>"
+                }
                 if (telFull) {
-                    let telShort = getCanonicalPhone(profileHtml, false)
+                    let telShort = getShortPhone(telFull)
                     let telSearch = googlePhoneQueryExpansion(telFull)
                     let qrLink = `http://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(telFull)}&size=150x150&color=4C006F`
                     profileDetails.append(makeDiv('',
@@ -254,7 +260,7 @@ if (isSearchPage()) {
                         onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">☎️</span> ${telShort}
                         <a href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
                         <a href="https://wa.me/${telFull}" target="_blank">Whatsapp</a>
-                        </div>`, 'ku_details_telephone'
+                        </div>${historicPhone}`, 'ku_details_telephone'
                     ))
                 } else {
                     profileDetails.append(makeDiv(`visibility:hidden`,

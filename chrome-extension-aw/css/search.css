@@ -234,3 +234,9 @@ div.ku_get_live_review_counts:hover {
 .ku_price_change_search {
     font-weight: bold;
 }
+
+.ku_cached_phone {
+    text-align: center;
+    background-color: #eee;
+    color: black;
+}

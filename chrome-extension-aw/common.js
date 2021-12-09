@@ -588,6 +588,18 @@ function getPriceHistory(id, band = 'hourly') {
     return prices
 }
 
+function getLastHistoricPhone(id) {
+    let history = getProfileHistory(id)
+    if (history.d) {
+        for (let i = 0; i < history.d.length; i++) {
+            if (history.d[i].tel) {
+                return history.d[i].tel
+            }
+        }
+    }
+    return ""
+}
+
 function wrapWhatsappLink(telFull) {
     let wa = document.createElement('a')
     wa.setAttribute('target', '_blank')
@@ -656,10 +668,14 @@ function getCanonicalPhone(html, countryCode = true) {
         if (countryCode) {
             return canonical
         } else {
-            return canonical.replace(/^\+44/, '0')
+            return getShortPhone(canonical)
         }
     }
     return ""
+}
+
+function getShortPhone(longPhone) {
+    return String(longPhone).replace(/^\+44/, '0')
 }
 
 function googlePhoneQueryExpansion(phone) {
