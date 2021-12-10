@@ -209,7 +209,7 @@ if (isSearchPage() || isProfilePage()) {
             `            
         <span id='ku_hide'>
         <input id="ku_check_phone" type="checkbox" ${JSON.parse(window.localStorage.hideNoPhone) ? 'checked' : ''}/>
-        <label for="ku_check_phone">Only show results with a phone. <span id="ku_phone_hidden_count"></span></label></span>
+        <label for="ku_check_phone">Only show results displaying a phone today. <span id="ku_phone_hidden_count"></span></label></span>
         ` : '';
 
         topBar.innerHTML += `${hidePhoneButton}
