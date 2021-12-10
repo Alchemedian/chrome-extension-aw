@@ -591,9 +591,10 @@ function getPriceHistory(id, band = 'hourly') {
 function getLastHistoricPhone(id) {
     let history = getProfileHistory(id)
     if (history.d) {
-        for (let i = 0; i < history.d.length; i++) {
-            if (history.d[i].tel) {
-                return [history.d[i].tel, String(new Date(history.d[i].ts).toLocaleString())]
+        let reversed = history.d.reverse()
+        for (let i = 0; i < reversed.length; i++) {
+            if (reversed[i].tel) {
+                return [reversed[i].tel, String(new Date(reversed[i].ts).toLocaleString())]
             }
         }
     }
