@@ -254,7 +254,7 @@ if (isSearchPage()) {
                     let telHist = getLastHistoricPhone(userId)
                     if (telHist) {
                         telFull = telHist[0]
-                        historicPhone = `<div class='ku_cached_phone' title="Saved: ${telHist[1]}">AW Civilizer cached</div>`
+                        historicPhone = `<div class='ku_cached_phone' title="Saved: ${telHist[1]}">${APP_NAME} cached</div>`
                     }
                 }
                 if (telFull) {

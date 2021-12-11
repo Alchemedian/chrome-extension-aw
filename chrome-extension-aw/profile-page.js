@@ -88,26 +88,35 @@
 
     //add historical phone numbers
     setTimeout(() => {
-        let hist = getProfileHistoryByKey(profileId, 'tel')
+        let histDateAndTs = getProfileHistoryByKey(profileId, 'tel')
+        let histTel = histDateAndTs[0]
+        let histDate = histDateAndTs[1]
 
         let telFull = ""
         document.querySelectorAll('[itemprop=telephone]').forEach(ele => {
             telFull = ele.innerText.replace(/^0/, '+44')
         })
-        hist = hist.filter((x) => x != telFull)
+        histTel = histTel.filter((x) => x != telFull)
 
-        if (hist && hist[0] &&
+        if (histTel && histTel[0] &&
             document.querySelectorAll("[name=Contact]") && document.querySelectorAll("[name=Contact]")[0]) {
             let div = document.createElement('div')
             div.className = "_ku_cached_phone"
             div.innerHTML = ` ${APP_NAME} cached: `
             let count = 0
-            hist.forEach(telNumFull => {
+            histTel.forEach((telNumFull, index) => {
                 if (telNumFull.length != 13)
                     return
                 count++
                 let divLet = document.createElement('div')
-                divLet.innerHTML = `<div><span name="num"></span><span name="wa"></span></div>`
+                let qrLink = `http://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(telNumFull)}&size=150x150&color=4C006F`
+                let dt = (new Date(histDate[index])).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                divLet.innerHTML = `<div>
+                <span name="num"></span>
+                <span name="qr" onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">QR</span>
+                <span name="wa"></span>                
+                <span name="dt">${dt}</span>
+                </div>`
                 divLet.querySelector("[name=num]").innerHTML = telNumFull
                 divLet.querySelector("[name=wa]").append(wrapWhatsappLink(telNumFull))
                 divLet.querySelector("[name=wa]").append(wrapNumberSearch(telNumFull, profileId))
@@ -119,7 +128,7 @@
             }
         }
 
-        let histNames = getProfileHistoryByKey(profileId, 'name')
+        let histNames = getProfileHistoryByKey(profileId, 'name')[0]
         let nameElement = document.querySelector('[itemprop="name"]')
         histNames = histNames.filter(n => n !== nameElement.innerText)
         if (histNames.length !== 0) {

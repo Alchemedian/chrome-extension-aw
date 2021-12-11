@@ -159,6 +159,17 @@ form[name=frmProfile] .Padded {
     padding-left: 10px
 }
 
+._ku_cached_phone span[name=qr] {
+    font-size: 8pt;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+._ku_cached_phone span[name=qr]:hover {
+    text-decoration: none;
+}
+
+._ku_cached_phone span[name=dt],
 ._ku_cached_phone span[name=num] {
     font-size: 8pt;
     padding-left: 10px;

@@ -564,11 +564,11 @@ function getProfileHistoryByKey(id, key = 'tel') {
     if (profileHistory && profileHistory.d) {
         profileHistory.d.forEach(x => {
             if (x[key]) {
-                ret[x[key]] = 1
+                ret[x[key]] = x['ts']
             }
         })
     }
-    return Object.keys(ret)
+    return [Object.keys(ret), Object.values(ret)]
 }
 
 function getPriceHistory(id, band = 'hourly') {
