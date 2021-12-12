@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "AW Civilizer",
-    "version": "0.160",
+    "version": "0.161",
     "icons": {
         "16": "icon-16.png",
         "48": "icon-48.png",

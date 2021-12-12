@@ -111,11 +111,13 @@
                 let divLet = document.createElement('div')
                 let qrLink = `http://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(telNumFull)}&size=150x150&color=4C006F`
                 let dt = (new Date(histDate[index])).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                let telSearch = googlePhoneQueryExpansion(telNumFull)
                 divLet.innerHTML = `<div>
                 <span name="num"></span>
-                <span name="qr" onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">QR</span>
-                <span name="wa"></span>                
-                <span name="dt">${dt}</span>
+                <span name="qr" onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">QR</span>                                
+                <span name="dt">(${dt})</span>
+                <a href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google</a>
+                <span name="wa"></span>
                 </div>`
                 divLet.querySelector("[name=num]").innerHTML = telNumFull
                 divLet.querySelector("[name=wa]").append(wrapWhatsappLink(telNumFull))
