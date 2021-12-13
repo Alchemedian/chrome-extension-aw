@@ -278,7 +278,7 @@ if (isSearchPage()) {
                         `<div class='nophone'></div>`
                     ))
                 }
-                profileDetails.append(makeDiv('', `<a style='color:black' href='https://my.adultwork.com/${userId}/' target='_blank'>my.aw site</a>`))
+                // profileDetails.append(makeDiv('', `<a style='color:black' href='https://my.adultwork.com/${userId}/' target='_blank'>my.aw site</a>`))
                 if (profileHtml && profileHtml[0]) {
                     let hourly = divProfileHTML.querySelector('#tdRI1')
                     if (hourly) {
