@@ -126,6 +126,11 @@ form[name=frmProfile] .Padded {
     text-decoration: none;
 }
 
+.ku_live_phone {
+    font-size: 12px;
+    font-weight: bold;
+}
+
 .ku_prof_number_assoc {
     margin-left: 8px;
     font-size: 8px;

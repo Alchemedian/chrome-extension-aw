@@ -644,4 +644,22 @@
     })
 
 
+    chrome.runtime.sendMessage({ awid_to_phone: profileId }, (response) => {
+        document.querySelectorAll("td i").forEach(ele => {
+            if (ele.innerText.match(/phone number/)) {
+                ele.style.textDecoration = "line-through"
+                ele.nextElementSibling.textDecoration = "line-through"
+                let tempDiv = document.createElement('div')
+                tempDiv.innerHTML = `
+                <span title="This is the current LIVE phone number">${APP_NAME} fetched live phone:</span> <span class='ku_live_phone'>${response.tel}</span> 
+                `
+                tempDiv.append(wrapWhatsappLink(response.tel))
+
+                ele.nextElementSibling.after(tempDiv)
+
+            }
+        })
+
+    });
+
 })();
