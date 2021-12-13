@@ -643,23 +643,26 @@
         }
     })
 
+    let checkPhoneNumber = false
+    document.querySelectorAll("td i").forEach(ele => {
+        checkPhoneNumber = checkPhoneNumber || /phone number/.test(ele.innerText)
+    })
 
-    chrome.runtime.sendMessage({ awid_to_phone: profileId }, (response) => {
-        document.querySelectorAll("td i").forEach(ele => {
-            if (ele.innerText.match(/phone number/)) {
-                ele.style.textDecoration = "line-through"
-                ele.nextElementSibling.textDecoration = "line-through"
-                let tempDiv = document.createElement('div')
-                tempDiv.innerHTML = `
+    if (checkPhoneNumber) {
+        chrome.runtime.sendMessage({ awid_to_phone: profileId }, (response) => {
+            document.querySelectorAll("td i").forEach(ele => {
+                if (ele.innerText.match(/phone number/)) {
+                    ele.style.textDecoration = "line-through"
+                    ele.nextElementSibling.style.textDecoration = "line-through"
+                    let tempDiv = document.createElement('div')
+                    tempDiv.innerHTML = `
                 <span title="This is the current LIVE phone number">${APP_NAME} fetched live phone:</span> <span class='ku_live_phone'>${response.tel}</span> 
                 `
-                tempDiv.append(wrapWhatsappLink(response.tel))
-
-                ele.nextElementSibling.after(tempDiv)
-
-            }
-        })
-
-    });
+                    tempDiv.append(wrapWhatsappLink(response.tel))
+                    ele.nextElementSibling.after(tempDiv)
+                }
+            })
+        });
+    }
 
 })();
