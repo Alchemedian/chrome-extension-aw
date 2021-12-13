@@ -15,19 +15,21 @@
     let profileId = location.href.match(/UserID=([0-9]+)/i)[1]
     let parsedData = parseProfileData(document.body.innerHTML)
     setTimeout(() => {
-        let gallery = {}
-        if (isProfilePage()) {
-            document.querySelectorAll('#ku_gallery_images img')
-                .forEach(gImg => {
-                    let imgs = document.querySelectorAll(`#ku_gallery_images img[data-file-name="${gImg.getAttribute('data-file-name')}"]`)
-                    imgs.forEach(ele => {
-                        let src = ele.src
-                        src = src.replace('/i/', '/f/')
-                        gallery[src] = 1
-                    })
-                })
-
+        if (!parsedData.tel && document.querySelector('.ku_live_phone')) {
+            parsedData.tel = document.querySelector('.ku_live_phone').innerText
         }
+
+        let gallery = {}
+        document.querySelectorAll('#ku_gallery_images img')
+            .forEach(gImg => {
+                let imgs = document.querySelectorAll(`#ku_gallery_images img[data-file-name="${gImg.getAttribute('data-file-name')}"]`)
+                imgs.forEach(ele => {
+                    let src = ele.src
+                    src = src.replace('/i/', '/f/')
+                    gallery[src] = 1
+                })
+            })
+
         saveProfileData(profileId, parsedData, isProfilePage(), gallery)
     }, 2000)
 
@@ -151,7 +153,7 @@
 
     let divCovid = document.createElement('div')
     divCovid.id = 'ku_bar_covid_profile'
-    document.getElementById('ku_top_bar').after(divCovid)
+    document.getElementById('ku_top_bar').after(divCovid);
     let region1 = document.querySelector('[itemprop="addressRegion"]') ? document.querySelector('[itemprop="addressRegion"]').innerText : ''
 
     let postCode = document.head.innerHTML.match(/&PostCode=([^&,']+)/)
