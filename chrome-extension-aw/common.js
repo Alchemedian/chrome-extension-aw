@@ -606,7 +606,7 @@ function wrapWhatsappLink(telFull) {
     wa.setAttribute('target', '_blank')
     wa.setAttribute('href', `https://wa.me/${telFull}`)
     wa.className = "ku_prof_whatsapp"
-    wa.innerHTML = `<img class="whatsapp" alt="WhatsApp" title="WhatsApp" src='https://www.google.com/s2/favicons?domain=web.whatsapp.com' /> WhatsApp`
+    wa.innerHTML = `<img class="whatsapp" alt="WhatsApp" title="WhatsApp" src='https://www.google.com/s2/favicons?domain=whatsapp.com' /> WhatsApp`
     return wa
 }
 

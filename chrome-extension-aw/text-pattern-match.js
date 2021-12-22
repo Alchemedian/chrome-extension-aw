@@ -88,7 +88,7 @@ function isNba(text) {
     return textPatternMatch(text, [
         [/\bblacks?\b/, /\bafrican?\b/, /\bcaribean\b/],
         [/\bm(e|a)ns?\b/, /\bpeople\b/, /\bguys?\b/, /\bclients?\b/, /\bexperiences?\b/, /\bgentlem(e|a)n\b/, ],
-        ['no', /don.?t/, "not"],
+        ['no', /don.?t/, "not", "only"],
     ])
 }
 
