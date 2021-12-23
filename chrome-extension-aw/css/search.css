@@ -172,6 +172,12 @@ div.ku_get_live_review_counts:hover {
     cursor: pointer;
 }
 
+.ku_tel_not_shown {
+    text-decoration: line-through;
+    text-decoration-color: #f00;
+    text-decoration-thickness: 2px;
+}
+
 .Padded[colspan="4"] {
     font-size: 8px !important;
 }

@@ -266,7 +266,7 @@ if (isSearchPage()) {
                         `<div class='ku_telephone_number'>
                         <span class='ku_qr_code' 
                         onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">☎️</span>                        
-                        ${telShort}
+                        <span class='${phoneDisplayed?'':'ku_tel_not_shown'}' tile='${phoneDisplayed?'':'SW ot displaying phone today'}'>${telShort}</span>
                         ${phoneShown}
                         <a href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
                         <a href="https://wa.me/${telFull}" target="_blank">Whatsapp</a>                        

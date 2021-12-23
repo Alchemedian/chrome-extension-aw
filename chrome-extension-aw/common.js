@@ -303,7 +303,9 @@ function covidData(county, destinationDiv, countySecondary) {
         Cases: <span class="ku_tooltip">${Number(formatted.casesTotal).toLocaleString()}
         </span>
          ${pipe} 
-        <span style='${redSign}'>${sign}${formatted.casesNewThisWeekComparedToLast}</span> from last week
+        <span style='${redSign}'>
+        ${sign}${Number(formatted.casesNewThisWeekComparedToLast).toLocaleString()}</span>
+         from last week
         ${pipe}
         Updated ${formatted.casesToDate}
         `
