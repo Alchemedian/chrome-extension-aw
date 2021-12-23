@@ -262,11 +262,12 @@ if (isSearchPage()) {
                     let telSearch = googlePhoneQueryExpansion(telFull)
                     let phoneShown = phoneDisplayed ? '<span class="ku_phone_shown" title="SW is displaying phone today">🟢</span>' : '<span class="ku_phone_shown" title="SW not displaying phone today">🔴</span>'
                     let qrLink = `http://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(telFull)}&size=150x150&color=4C006F`
-                    profileDetails.append(makeDiv('',
+                    profileDetails.append(makeDiv(
+                        phoneDisplayed ? '' : 'opacity: .5;background-color: gray;',
                         `<div class='ku_telephone_number'>
                         <span class='ku_qr_code' 
                         onclick="window.open('${qrLink}','ku_qr_code', 'height=200px,width=200px')">☎️</span>                        
-                        <span class='${phoneDisplayed?'':'ku_tel_not_shown'}' title='${phoneDisplayed?'':'SW ot displaying phone today'}'>${telShort}</span>
+                        <span class='${phoneDisplayed?'':'ku_tel_not_shown'}' title='${phoneDisplayed?'':'SW not displaying phone today'}'>${telShort}</span>
                         ${phoneShown}
                         <a href="https://www.google.co.uk/search?q=${encodeURIComponent(telSearch)}" target="_blank">Google It</a>
                         <a href="https://wa.me/${telFull}" target="_blank">Whatsapp</a>                        
