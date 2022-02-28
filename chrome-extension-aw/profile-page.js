@@ -603,7 +603,7 @@
         document.querySelector('p.Error').parentNode.append(divHist)
     }
 
-    function searchPrivateGallery(keywords) {
+    function searchPrivateGallery(keywords, options) {
         let frm = document.createElement("form")
         frm.action = "https://www.adultwork.com/SearchPictures.asp"
         frm.method = "POST"
@@ -614,10 +614,32 @@
         inpKeywords.value = keywords
         frm.append(inpKeywords)
 
-        "cboMinimumDimension=0&cboGalleryPrice=0&cboGalleryQuantity=0&cboMaxPicsPerUser=0&cboGenderID=0&cbxSelIsEscort=ON&cboAge=%28all%29&cboQuestionID_7=%28all%29&cboQuestionID_12=%28all%29&cboQuestionID_67=%28all%29&rdoOrderBy=4&rdoOrderByDirection=1&btnSearch=Search&CommandID=2&PageNo=1&QuestionIDs=".split("&").forEach(item => {
-            let inp = document.createElement("input")
-            inp.name = item.split("=")[0]
-            inp.value = decodeURIComponent(item.split("=")[1])
+        let formInputs = {
+            "cboMinimumDimension": "0",
+            "cboGalleryPrice": "0",
+            "cboGalleryQuantity": "0",
+            "cboMaxPicsPerUser": "0",
+            "cboGenderID": "0",
+            "cbxSelIsEscort": "ON",
+            "cboAge": "(all)",
+            "cboQuestionID_7": "(all)",
+            "cboQuestionID_12": "(all)",
+            "cboQuestionID_67": "(all)",
+            "rdoOrderBy": "4",
+            "rdoOrderByDirection": "1",
+            "btnSearch": "Search",
+            "CommandID": "2",
+            "PageNo": "1",
+            "QuestionIDs": ""
+        }
+        if (options) {
+            formInputs = {...formInputs, ...options }
+        }
+
+        Object.keys(formInputs).forEach(key => {
+            let inp = document.createElement("input");
+            inp.name = key;
+            inp.value = formInputs[key];
             frm.append(inp)
         })
 
@@ -630,6 +652,41 @@
         return frm
     }
 
+    function getLabelValueByLabel(label) {
+        let val = false;
+        document.querySelectorAll("td.Label").forEach(ele => {
+            if (ele.innerText == label) {
+                val = ele.nextElementSibling.innerText
+            }
+        })
+        return val
+    }
+
+    function getPgAgeBucket(age) {
+        if (!age)
+            return '(all)'
+        if (age < 25)
+            return '18-24'
+        if (age < 31)
+            return '25-30'
+        if (age < 36)
+            return '31-35'
+        if (age < 41)
+            return '36-40'
+        if (age < 46)
+            return '41-45'
+        if (age < 56)
+            return '46-55'
+        return '56+'
+    }
+
+    let pgOptions = {
+        cboAge: getPgAgeBucket(getLabelValueByLabel('Age:')),
+    }
+    if (getLabelValueByLabel('Gender:') == 'Female') {
+        pgOptions.cboGenderID = 2
+    }
+
     document.querySelectorAll("#tblVPics .WrapAny").forEach(ele => {
         if (ele.innerText) {
             let btn = document.createElement("button")
@@ -638,7 +695,7 @@
             btn.innerText = APP_NAME + " Search"
             btn.onclick = () => {
                 btn.classList.add("_ku_pg_search_button_clicked")
-                searchPrivateGallery(keywords)
+                searchPrivateGallery(keywords, pgOptions)
                 return false
             }
             ele.appendChild(btn)
